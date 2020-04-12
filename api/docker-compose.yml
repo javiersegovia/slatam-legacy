@@ -1,0 +1,37 @@
+version: '2.4'
+
+services:
+  api:
+    build:
+      context: .
+      target: dev
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/slatam/api
+      - /slatam/api/node_modules
+    env_file: .env
+    # command: bash -c "keystone dev --entry=server.js"
+    command: bash -c "nodemon server.js"
+    working_dir: /slatam/api
+    environment:
+      - NODE_ENV=development
+      - DISABLE_LOGGING=true
+      - PORT=4000
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:12.2
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: pg_isready -h 127.0.0.1
+volumes:
+  db-data:

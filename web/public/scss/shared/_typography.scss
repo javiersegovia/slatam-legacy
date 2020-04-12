@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Regular-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Medium.woff2') format('woff2'),
+    url('/fonts/Geomanist-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Bold.woff2') format('woff2'),
+    url('/fonts/Geomanist-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BentonSans';
+  src: url('/fonts/BentonSans-Book.otf') format('opentype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'BentonSans';
+  src: url('/fonts/BentonSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BentonSans';
+  src: url('/fonts/BentonSans-Medium.otf') format('opentype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'BentonSans';
+  src: url('/fonts/BentonSans-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'BentonSans';
+  src: url('/fonts/BentonSans-Black.otf') format('opentype');
+  font-weight: 800;
+}
+$font-primary: 'Geomanist';
+$font-secondary: 'BentonSans';
+
+a {
+  text-decoration: none;
+  line-height: normal;
+  color: inherit;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 0.875rem;
+  letter-spacing: 0.6px;
+}

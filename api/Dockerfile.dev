@@ -1,0 +1,25 @@
+ARG NODE_VERSION=13.10.1
+
+# Base container
+FROM node:${NODE_VERSION} AS build
+WORKDIR /usr/src/dev
+
+COPY package.json ./
+RUN ls -al
+RUN npm -v
+RUN node -v
+
+RUN npm install
+RUN ls node_modules
+ADD . .
+
+# Runtime container
+FROM node:${NODE_VERSION}
+WORKDIR /usr/src/dev
+
+ENV PORT=8080
+EXPOSE $PORT
+
+COPY --from=build /usr/src/dev /usr/src/dev
+
+# TODO: Test NPM or Kubernetes for App Deployment
