@@ -5,8 +5,9 @@ services:
     build:
       context: ./web
       target: dev
-    # ports:
-    #   - 3000:3000
+    networks:
+      - proxy
+      - client
     volumes:
       - ./web:/slatam/web
       - /slatam/web/node_modules
@@ -20,15 +21,15 @@ services:
     # healtcheck:
     #   test:
     labels:
-      traefik.http.routers.web.rule: Host(`localhost`)
+      traefik.enable: true
+      traefik.docker.network: proxy
+      traefik.http.routers.web.rule: Host(`vcap.me`)
       # this will open service to :80, 'web' here is the entrypoint, not the service name
       traefik.http.routers.web.entryPoints: web
       traefik.http.routers.web.service: web
       traefik.http.services.web.loadbalancer.server.port: 3000
-      # traefik.http.services.web.loadbalancer.sticky: true
     depends_on:
       traefik:
-        condition: service_healthy
 
   api:
     build:
@@ -36,9 +37,7 @@ services:
       target: dev
     networks:
       - proxy
-      - api
-    # ports:
-    #   - 4000:4000
+      - server
     volumes:
       - ./api:/slatam/api
       - /slatam/api/node_modules
@@ -49,16 +48,18 @@ services:
       - DISABLE_LOGGING=true
       - PORT=4000
     depends_on:
+      traefik:
       db:
         condition: service_healthy
     labels:
       traefik.enable: true
+      traefik.docker.network: proxy
       traefik.http.routers.api.rule: Host(`api.vcap.me`)
       # this will open service to :80, 'web' here is the entrypoint, not the service name
       traefik.http.routers.api.entryPoints: web
       traefik.http.routers.api.service: api
       traefik.http.services.api.loadbalancer.server.port: 4000
-      # traefik.http.services.api.loadbalancer.sticky: true
+      traefik.http.services.api.loadbalancer.sticky: true
 
   traefik:
     image: traefik:2.2
@@ -68,15 +69,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "80:80"
-      - "8080:8080"
     command:
       # Use your favourite settings here, but add:
       - --providers.docker
       - --providers.docker.network=proxy
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.exposedByDefault=false
-      # - --providers.docker.watch
-      # - --providers.docker.swarmMode=true use with Swarm
       - --api
       - --api.debug=true
       - --api.dashboard=true
@@ -94,15 +92,13 @@ services:
       # - --certificatesResolvers.default.acme.caServer=https://acme-v02.api.letsencrypt.org/directory
     # healthcheck:
     #   test: traefik healthcheck --ping
-    # Dynamic Configuration
     labels:
+      traefik.enable: true
+      traefik.docker.network: proxy
       traefik.http.routers.traefik.rule: Host(`traefik.vcap.me`)
       traefik.http.routers.traefik.entryPoints: web
       traefik.http.routers.traefik.service: api@internal
-      traefik.http.routers.traefik.middlewares: auth
       traefik.http.services.traefik.loadbalancer.server.port: 8080
-      traefik.http.middlewares.auth.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_HASHED_PASSWORD}
-      # traefik.http.middlewares.auth.basicauth.users: mango:$apr1$sODdBVdx$lPzQvbDFMb39lilHNfCx011
 
   db:
     image: postgres:12.2
@@ -117,11 +113,13 @@ services:
     healthcheck:
       test: pg_isready -h 127.0.0.1
     networks:
-      - api
+      - server
 
 volumes:
   db-data:
 
 networks:
+  client:
+  server:
   proxy:
-  api:
+    name: proxy
