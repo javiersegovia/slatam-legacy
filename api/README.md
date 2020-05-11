@@ -1,17 +1,10 @@
-# Slatam API
+# API structure 🏗
 
-<br/>
+<br>
 
-## Development
-
-Start the project in dev mode with `docker-compose run dev`. You will have the app running with hot-reload on `localhost:8080`.
-
-If you want to use the **pgadmin** interface, you can use `docker-compose up dev pgadmin`  
-
-<br/>
-
-## Deployment
-
-**This is a work in progress**
-
-Using `docker-compose up api` you will have the node server running with pm2 on port 8080.
+| File or folder    | Description                                                                                                                                                                                                                 |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data/`           | Migrations and seeds used by Knex to populate the database.                                                                                                                                                                 |
+| `lib/`            | Utility functions used in multiple places across the codebase.                                                                                                                                                              |
+| `models/`         | This is where we define the models used by KeystoneJS. All of them are imported (and exported) on `models/index`                                                                                                            |
+| `server.js`       | This is the main server file that we use to initialize the app.                                                                                                                                                             |
