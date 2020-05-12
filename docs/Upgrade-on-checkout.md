@@ -1,3 +1,5 @@
+# Upgrade on checkout
+
 Brindar a los clientes la oportunidad de afiliarse a un plan una vez tengan la primera oportunidad de negocio, disminuyendo de inmediato la comisión a cancelar (o cancelando la subscripción anual con la comisión directamente, y luego pasando a formar parte de los usuarios premium). 
 
 Supondremos un costo de 1200$ por la membresía premium. Entonces, cuando uno de nuestros vendedores recibe una oferta del cliente, Slatam ofrece alguna de las siguientes opciones:
