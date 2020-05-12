@@ -21,7 +21,7 @@ Partiendo de esta premisa, y añadiendo algunos requerimientos básicos para nue
 - Debemos tener un error handling funcional y robusto, que explique los errores de una manera amigable, pero sin dar muchos detalles al respecto.
 
 
-##Próximas funcionalidades
+## Próximas funcionalidades
 
 - Sistema de referidos, con un dashboard correspondiente.
 - Motor de búsqueda más inteligente, utilizando más criterios para entregar los resultados.
