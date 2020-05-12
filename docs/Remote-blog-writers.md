@@ -1,4 +1,4 @@
-#Remote blog writers 
+# Remote blog writers 
 
 Ofrecer como servicio a nuestros clientes la redacción de artículos dentro de nuestro blog (en Slatam). Este trabajo sería delegado a terceros mediante subcontrataciones en plataformas freelance (donde podría conseguirse redacción en otros idiomas, más costosa) o incluso a través de freelancers venezolanos (mano de obra económica).
 
