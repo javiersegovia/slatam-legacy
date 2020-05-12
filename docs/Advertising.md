@@ -28,6 +28,13 @@ Mostrar los proveedores premium
 https://india.alibaba.com/index.html?spm=a2728.8519359.j1dbtyp1.1.7ed5704bUkAouB
 
 
+## Publicidad n°4 - Contratada
+
+Empresas que quieran colocar un banner/espacio en la página
+
+Venta de publicidad entre red de afiliados.
+
+
 ## Tipos de publicidad:
 
 -Publicidad de la tienda. (Sólo empresas verificadas)
@@ -53,15 +60,3 @@ Palabra Clave
 País donde quieres que se vea el anuncio, estado.
 
 Días y Horas (?)
-
-Primeros 18 productos (Primera página) será de sponsors ordenados de forma aleatoria.
-
-Inicio (Modulo de productos)
-
-Discover top brands
-
-18 productos en slider
-
-Must have XXXXX products
-
-18 productos en slider
