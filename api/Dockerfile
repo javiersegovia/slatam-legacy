@@ -1,4 +1,4 @@
-ARG NODE_VERSION=13.12.0
+ARG NODE_VERSION=14.2.0
 
 ################################################
 
@@ -10,6 +10,8 @@ ARG DUMB_INIT_VERSION=1.2.2
 WORKDIR /slatam
 
 COPY package*.json ./
+
+RUN npm cache clean --force
 
 # We use `npm ci` here so only the package-lock.json file is used
 RUN npm config list \
@@ -77,10 +79,10 @@ COPY --from=dev /slatam/node_modules /slatam/node_modules
 
 # run linters as part of build
 # be sure they are installed with devDependencies
-RUN eslint . 
+RUN eslint . --fix
 
 # run unit tests as part of build
-RUN npm test
+# RUN npm test
 
 # run integration testing with docker-compose later
 # CMD ["npm", "run", "int-test"] 

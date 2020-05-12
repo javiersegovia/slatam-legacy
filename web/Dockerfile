@@ -1,4 +1,4 @@
-ARG NODE_VERSION=13.12.0
+ARG NODE_VERSION=14.2.0
 
 ################################################
 
@@ -74,10 +74,10 @@ COPY --from=dev /slatam/node_modules /slatam/node_modules
 
 # run linters as part of build
 # be sure they are installed with devDependencies
-RUN eslint . 
+RUN eslint . --fix
 
 # run unit tests as part of build
-RUN npm test
+# RUN npm test
 
 # run integration testing with docker-compose later
 # CMD ["npm", "run", "int-test"] 

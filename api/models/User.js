@@ -14,7 +14,6 @@ module.exports = {
     password: {
       type: Password,
       isRequired: true,
-      useCompiledBcrypt: true,
       access: {
         read: userIsAdmin,
         update: userIsAdminOrOwner,

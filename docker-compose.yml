@@ -28,8 +28,8 @@ services:
       traefik.http.routers.web.entryPoints: web
       traefik.http.routers.web.service: web
       traefik.http.services.web.loadbalancer.server.port: 3000
-    depends_on:
-      traefik:
+    # depends_on:
+    #   traefik:
 
   api:
     build:
@@ -48,7 +48,7 @@ services:
       - DISABLE_LOGGING=true
       - PORT=4000
     depends_on:
-      traefik:
+      # traefik:
       db:
         condition: service_healthy
     labels:
@@ -111,7 +111,11 @@ services:
     ports:
       - 5432:5432
     healthcheck:
-      test: pg_isready -h 127.0.0.1
+      test: pg_isready -U ${POSTGRES_USER}
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - server
 
