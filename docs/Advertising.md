@@ -4,7 +4,8 @@
 - Costos únicos 
 - Pay per click
 
-Costos individuales CPC:
+PPC - Pay per click
+Categorias y keyboards, más específicos, más orgánico 
 
 Plan 1 0.29 por click (500) ($145)
 Plan 2  0.26$ (1000) ($260)
