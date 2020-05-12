@@ -6,12 +6,9 @@
 
 Costos individuales CPC:
 
-0.29 por click (500) ($145)
-
-Discount (2nd contract) 0.26$ (1000) ($260)
-
-Discount (3rd contract) 0.23$ (2000) ($460)
-
+Plan 1 0.29 por click (500) ($145)
+Plan 2  0.26$ (1000) ($260)
+Plan 3 0.23$ (2000) ($460)
 
 Tipos de publicidad:
 
