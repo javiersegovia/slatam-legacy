@@ -1,4 +1,4 @@
-# Events, Expos, and business 
+# Events, Expos, and business rounds
 Business recruitment and coordination event
 
 Se invita a los productores nacionales
