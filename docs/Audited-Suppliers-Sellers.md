@@ -1,3 +1,5 @@
+# Audited Suppliers/Sellers
+
 Ofrecer un servicio con el que la compañía (Slatam) o los Especialistas de ACIS comprueban que se ha auditado personalmente la/s fábrica/s de estos proveedores garantizando que son empresas que sí existen.
 
 Nuestra filosofía: De manera independiente, imparcial, objetiva y honesta, nos esforzamos en todo lo que podemos para brindar un servicio inigualable a nuestros clientes en todo el mundo. Aprovechando nuestro conocimiento, experiencia y capacidad específicos de la industria, ayudamos a los clientes a reducir el riesgo de calidad y asegurar su sostenibilidad comercial.
