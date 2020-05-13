@@ -9,7 +9,9 @@ This is the main repository of the Slatam web application.
 
 2. Clone the repository using SSH or HTTPS.
 
-2. Get the `.env` file from a teammate and place it on root.
+3. Run `sudo usermod -a -G docker ${USER}`, so you can use the docker commands without using sudo.
+
+4. Get the `.env` file from a teammate and place it on root.
 
 ### Development
 
