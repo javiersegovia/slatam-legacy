@@ -11,7 +11,9 @@ WORKDIR /slatam
 
 COPY package*.json ./
 
-# We use `npm ci` here so only the package-lock.json file is used
+RUN npm cache clean --force
+
+# We should use `npm ci` here so only the package-lock.json file is used
 RUN npm config list \
   && npm install \
   && npm cache clean --force
@@ -87,7 +89,7 @@ RUN eslint . --fix
 ## Stage 5 (security scanning and audit)
 FROM test as audit
 
-RUN npm audit
+RUN npm audit fix
 
 # aqua microscanner, which needs a token for API access
 # note this isn't super secret, so we'll use an ARG here

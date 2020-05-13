@@ -15,4 +15,3 @@ Find new customers and boost sales with high-quality leads sent to your inbox wh
 Se deberá tener un repositorio de productos / base de datos con el Target segmentado de cada producto específico.
 
 Ej.--Maíz---Países dónde tienen interés potencial por el maíz.-Ciudades - zonas.-Edades específicas interesadas en el maíz.-Intereses de los prospectos interesados por maíz.-Actividades y gustos de los prospectos-Exclusiones de los prospectos interesados en maiz.-Hora y días de dichos prospectos.
-
