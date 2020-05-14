@@ -13,11 +13,15 @@ This is the main repository of the Slatam web application.
 
 4. Get the `.env` file from a teammate and place it on root.
 
+5. Run `sudo apt-get install build-essential` to make sure you can use the `make` command.
+
+6. Run `make install`. This command will download the necessary Docker images and build the custom image for both the React application and the GraphQL api.
+
 ### Development
 
-1. To run **only** the frontend: `make run-web`. This command will download the necessary Docker images and build the custom Dockerfile for the React app. The hot-reload app will start on localhost, you can visit it by going to `vcap.me`.
+1. To run **only** the frontend: `make run-web`. The hot-reload app will start on localhost, you can visit it by going to `vcap.me`.
 
-2. To run **only** the backend: `make run-api`. This command will download the necessary Docker images and build the custom Dockerfile for the Node GraphQL api. The app will start on localhost, you can visit it by going to `api.vcap.me`.
+2. To run **only** the backend: `make run-api`. The app will start on localhost, you can visit it by going to `api.vcap.me`.
 
 3. To run **both** the frontend and the backend: `make run-all`. With this command, you will be able to visit the app on `vcap.me` and `api.vcap.me`.
 
