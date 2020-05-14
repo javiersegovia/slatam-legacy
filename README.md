@@ -49,3 +49,24 @@ Only for testing purposes. **You should NOT deploy this way.**
 2. Download and initialize the Google Cloud SDK: https://cloud.google.com/sdk/docs
 
 3. Run `gcloud auth login` to authenticate your gcloud CLI.
+
+## Recommended editor and extensions
+
+Our preferred editor is **Visual Studio Code**. Here are some useful extensions that you should consider (for your browser and for VSCode). These are **not** required, but strongly recommended.
+
+**For VSCode:**
+
+- Prettier - Code formatter.
+- ESLint.
+- Docker.
+- npm.
+- npm Intellisense.
+- Babel Javascript.
+- vscode-styled-components
+- Intellisense for CSS class names in HTML
+- GitLens - Git supercharged
+
+**For Chrome:**
+
+- React developer tools https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es
+- Apollo client developer tools https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
