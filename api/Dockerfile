@@ -9,14 +9,9 @@ ARG DUMB_INIT_VERSION=1.2.2
 # This creates the folder where we will have the node_modules
 WORKDIR /slatam
 
-COPY package*.json ./
+COPY package*.json yarn.lock* ./
 
-RUN npm cache clean --force
-
-# We should use `npm ci` here so only the package-lock.json file is used
-RUN npm config list \
-  && npm install \
-  && npm cache clean --force
+RUN yarn install --check-files --prod && yarn cache clean
 
 # Dumb-init helps with the Docker signals management
 RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64
@@ -38,9 +33,7 @@ ENV PATH /slatam/node_modules/.bin:$PATH
 
 WORKDIR /slatam
 
-RUN npm config list
-RUN npm install --only=development \
-  && npm cache clean --force
+RUN yarn install --check-files && yarn cache clean
 
 WORKDIR /slatam/api
 
@@ -92,7 +85,7 @@ RUN eslint . --fix
 ## Stage 5 (security scanning and audit)
 FROM test as audit
 
-RUN npm audit fix
+RUN yarn audit
 
 # aqua microscanner, which needs a token for API access
 # note this isn't super secret, so we'll use an ARG here
@@ -112,7 +105,7 @@ RUN npm audit fix
 
 FROM source as prod
 
-RUN npm run build
+RUN yarn run build
 EXPOSE 4000
 
 CMD ["node", "server.js"]

@@ -33,7 +33,6 @@ console.log('hello')
 const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
-  // adapter: new KnexAdapter({ dropDatabase: true }),
 })
 
 /**

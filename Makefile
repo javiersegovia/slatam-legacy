@@ -11,6 +11,14 @@ G_NAME_API         :=${G_LOCATION}/${G_PROJECT_ID}/${NAME_API}:${TAG}# GCR Image
 eco:
 	@echo "Creating docker image... ${G_NAME_WEB} ${G_NAME_API}"
 
+install:
+	@docker-compose build --no-cache web
+	@docker-compose run web yarn install --check-files
+	@echo "Web app and dependencies successfully installed."
+	@docker-compose build --no-cache api
+	@docker-compose run api yarn install --check-files
+	@echo "Api server and dependencies successfully installed."
+
 run-web:
 	@sudo docker-compose up web traefik
 
@@ -45,6 +53,3 @@ push-all:
 	@echo "Pushing docker image to container registry on ${G_LOCATION}/${G_PROJECT_ID}"
 	@docker push ${G_NAME_WEB}
 	@docker push ${G_NAME_API}
-
-login:
-	@gcloud auth login
