@@ -74,3 +74,12 @@ Our preferred editor is **Visual Studio Code**. Here are some useful extensions 
 
 - React developer tools https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es
 - Apollo client developer tools https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+
+## References
+
+Here are some recommended repositories that you should check out for reference.
+
+- [Spectrum](https://github.com/withspectrum/spectrum)
+- [Jira Clone](https://github.com/oldboyxx/jira_clone/tree/master/api)
+- [Next Site](https://github.com/zeit/next-site)
+- [Artsy](https://github.com/artsy/force)
