@@ -2,7 +2,7 @@
 
 ## Rol:
 
-## “Top-to-top” connection. Senior executives in the supplier organization have meaningful professional relationships with the executives at the client, customer, or partner organization.
+ “Top-to-top” connection. Senior executives in the supplier organization have meaningful professional relationships with the executives at the client, customer, or partner organization.
 
 allowing employees at both companies to get closer and establish their own professional relationships.
 
@@ -31,4 +31,3 @@ Of all the available channels marketers can utilize to engage prospective buyers
 To successfully engage with this audience, marketers need to make sure that their social media posts align with every other team in the organization in order to supply a consistent message across all channels.
 
 “Everything that you share via social media should align with everything that is going on internally within your company,”
-
