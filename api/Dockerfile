@@ -73,7 +73,7 @@ COPY --from=dev /slatam/node_modules /slatam/node_modules
 # run linters as part of build
 # be sure they are installed with devDependencies
 RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_api_results.txt .
-# run unit tests as part of build1
+# run unit tests as part of build
 # RUN yarn run test
 
 # run integration testing with docker-compose later
@@ -84,7 +84,7 @@ RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_api_results.txt .
 ## Stage 5 (security scanning and audit)
 FROM test as audit
 
-RUN yarn audit
+# RUN yarn audit
 
 # aqua microscanner, which needs a token for API access
 # note this isn't super secret, so we'll use an ARG here
@@ -104,7 +104,7 @@ RUN yarn audit
 
 FROM source as prod
 
-RUN yarn run build
+RUN /slatam/node_modules/.bin/keystone --entry=server.js build
 EXPOSE 4000
 
 CMD ["node", "server.js"]

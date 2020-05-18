@@ -17,7 +17,7 @@ services:
       - /slatam/web/node_modules
       - /slatam/web/.next
     env_file: .env
-    command: next
+    command: bash -c "../node_modules/.bin/next start"
     environment:
       - NODE_ENV=development
       - PORT=3000
@@ -25,7 +25,7 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        traefik.enable: true
+        traefik.enable: "true"
         traefik.docker.network: proxy
         traefik.http.routers.web.rule: Host(`www.slatam.com`) || Host(`slatam.com`)
         # this will open service to :80, 'web' here is the entrypoint, not the service name
@@ -52,14 +52,14 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        traefik.enable: true
+        traefik.enable: "true"
         traefik.docker.network: proxy
         traefik.http.routers.api.rule: Host(`api.slatam.com`)
         # this will open service to :80, 'web' here is the entrypoint, not the service name
         traefik.http.routers.api.entryPoints: web
         traefik.http.routers.api.service: api
         traefik.http.services.api.loadbalancer.server.port: 4000
-        traefik.http.services.api.loadbalancer.sticky: true
+        traefik.http.services.api.loadbalancer.sticky: "true"
 
   traefik:
     <<: *default-opts
@@ -97,7 +97,7 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        traefik.enable: true
+        traefik.enable: "true"
         traefik.docker.network: proxy
         traefik.http.routers.traefik.rule: Host(`traefik.slatam.com`)
         traefik.http.routers.traefik.entryPoints: web
@@ -134,6 +134,7 @@ services:
       - proxy
     volumes:
       - portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       mode: replicated
       replicas: 1
@@ -141,7 +142,7 @@ services:
         # place on managers when not using agent, place on workers if using agent
         constraints: [node.role == manager]
       labels:
-        traefik.enable: true
+        traefik.enable: "true"
         traefik.docker.network: proxy
         traefik.http.routers.portainer.rule: Host(`portainer.slatam.com`)
         traefik.http.routers.portainer.entryPoints: web

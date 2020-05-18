@@ -82,7 +82,7 @@ RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_web_results.txt .
 ## Stage 5 (security scanning and audit)
 FROM test as audit
 
-RUN yarn audit
+# RUN yarn audit
 
 # aqua microscanner, which needs a token for API access
 # note this isn't super secret, so we'll use an ARG here
@@ -102,7 +102,7 @@ RUN yarn audit
 
 FROM source as prod
 
-RUN yarn run build
+RUN /slatam/node_modules/.bin/next build
 EXPOSE 3000
 
-CMD ["next", "start"]
+CMD ["/slatam/node_modules/.bin/next", "start"]
