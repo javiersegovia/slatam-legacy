@@ -72,7 +72,7 @@ COPY --from=dev /slatam/node_modules /slatam/node_modules
 
 # run linters as part of build
 # be sure they are installed with devDependencies
-RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_api_results.txt .
+# RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_api_results.txt .
 # run unit tests as part of build
 # RUN yarn run test
 
