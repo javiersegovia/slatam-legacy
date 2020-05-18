@@ -7,11 +7,12 @@ Partiendo de esta premisa, y añadiendo algunos requerimientos básicos para nue
 - Se debe poder ver los productos por separado, para así ver información detallada acerca del mismo y de la empresa vendedora. Se podrá ver tanto la puntuación de la empresa como la de los productos.
 - Preguntas y respuestas para los productos.
 - Las personas deben ser capaces de registrarse, loguearse, cambiar la contraseña, verificar la cuenta por correo y crear una empresa.
-- Deben haber distintos tipos de usuarios.
+- Deben haber distintos tipos de usuarios: comprador y vendedor. El vendedor se divide en Manufacturer, Supplier, Distributor, Broker, Reseller, and others.
 - Una vez siendo una empresa, esta deberá poder listar productos para vender. También podrá editar, borrar y actualizar dichos productos.
 - Los usuarios deberán poder comprar productos, siguiendo un proceso de compra determinado. Este proceso se terminará con la puntuación mutua y luego se abre un plazo de unos días para puntuar el producto.
 - Los usuarios deberán poder pagar con transferencias bancarias.
 - Debe existir un sistema de añadir al carrito. Los productos se irán separando por proveedor, para así tener órdenes independientes.
+- Se deben enviar notificaciones por email: registros, confirmaciones de registro, compras/ventas de productos, puntuaciones, actualizaciones en estados de órdenes...
 - Las empresas deberán tener un perfil en la que podrán proporcionar información detallada acerca de su compañía, países a donde exportan, ubicación, permisos, certificados y productos. (Discutir certificados y permisos)
 - Las empresas vendedoras tendrán una página de tienda en la que mostrarán información relevante acerca de ellas. Esta tienda se podrá personalizar con un avatar y un banner.
 - Las empresas deberán tener un dashboard para ver las órdenes activas, añadir, editar y borrar productos, editar su perfil.
