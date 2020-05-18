@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import uuidv4 from 'uuid/v4'
-import { WindowSizeContext } from '@components/Layout/context/WindowSize'
+import { WindowSizeContext } from '@@components/Layout/context/WindowSize'
 import CategoriesContent from './Content'
 import { StyledCategoriesList, DropdownWrapper } from './styled'
 

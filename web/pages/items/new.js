@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateItem from '@components/Items/CreateItem'
+import CreateItem from '@@components/Items/CreateItem'
 
 const Items = () => (
   <>

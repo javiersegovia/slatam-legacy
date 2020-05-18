@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Container from '@components/UI/Container'
+import Container from '@@components/UI/Container'
 import SectionTitle from './SectionTitle'
 
 const SectionWrapper = styled.div`

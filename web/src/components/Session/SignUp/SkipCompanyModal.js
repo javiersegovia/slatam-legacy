@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Dialog from '@material-ui/core/Dialog'
-import Button from '@components/UI/Button'
+import Button from '@@components/UI/Button'
 import { StyledModal } from '../styled'
 
 const HaveCompanyModal = ({ isOpen = false, setIsOpen, handleNext }) => {

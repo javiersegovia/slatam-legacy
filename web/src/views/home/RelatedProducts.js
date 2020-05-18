@@ -1,9 +1,9 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import Container from '@components/UI/Container'
+import Container from '@@components/UI/Container'
 import styled from 'styled-components'
 import faker from 'faker'
-import ProductsGrid from '@components/Products/ProductsGrid'
+import ProductsGrid from '@@components/Products/ProductsGrid'
 import SectionTitle from './SectionTitle'
 
 const SectionWrapper = styled.div`

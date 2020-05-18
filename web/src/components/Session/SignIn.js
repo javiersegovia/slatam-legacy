@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Button from '@components/UI/Button'
-import Input from '@components/Forms/Input'
+import Button from '@@components/UI/Button'
+import Input from '@@components/Forms/Input'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useForm, NOT_EMPTY, VALID_EMAIL, MIN_CHARACTERS } from '@@hooks/useForm'
@@ -101,7 +101,6 @@ const SignIn = () => {
                   </Link>
                 </div>
               }
-              rightLabel="Forgot your password?"
               icon={
                 <button
                   type="button"

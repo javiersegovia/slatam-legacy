@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Container from '@components/UI/Container'
-import Button from '@components/UI/Button'
-import { Text } from '@components/UI/Typography'
+import Container from '@@components/UI/Container'
+import Button from '@@components/UI/Button'
+import { Text } from '@@components/UI/Typography'
 
 const StyledStartSelling = styled.div`
   margin: 120px 0 60px;

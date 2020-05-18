@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import Portal from '@material-ui/core/Portal'
-import TransparentOverlay from '@components/UI/TransparentOverlay'
+import TransparentOverlay from '@@components/UI/TransparentOverlay'
 import { StyledSecondaryLinks } from './styled'
 import CategoriesList from './Dropdowns/Categories'
 

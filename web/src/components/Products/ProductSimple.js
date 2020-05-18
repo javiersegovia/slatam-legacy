@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FlagIcon } from 'react-flag-kit'
-import { AppConfigContext } from '@components/Layout/context/AppConfig'
+import { AppConfigContext } from '@@components/Layout/context/AppConfig'
 import ProductPrice from './ProductPrice'
 
 const StyledProductSimple = styled.div`

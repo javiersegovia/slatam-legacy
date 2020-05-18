@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Title } from '@components/UI/Typography'
+import { Title } from '@@components/UI/Typography'
 import styled from 'styled-components'
 
 const SeeMoreButton = styled.span`

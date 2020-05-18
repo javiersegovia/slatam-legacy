@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-import Container from '@components/UI/Container'
-import Button from '@components/UI/Button'
-import { Text } from '@components/UI/Typography'
+import Container from '@@components/UI/Container'
+import Button from '@@components/UI/Button'
+import { Text } from '@@components/UI/Typography'
 
 const SectionWrapper = styled.div`
   padding: 60px 0;

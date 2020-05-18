@@ -7,8 +7,8 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
 import FavoriteBorderIcon from '@material-ui/icons/Favorite'
 import WhatsAppIcon from '@material-ui/icons/WhatsApp'
 import Rating from '@material-ui/lab/Rating'
-import Button from '@components/UI/Button'
-import ProductPrice from '@components/Products/ProductPrice'
+import Button from '@@components/UI/Button'
+import ProductPrice from '@@components/Products/ProductPrice'
 import UnitsCounter from './UnitsCounter'
 
 const StyledProductDescription = styled.div`

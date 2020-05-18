@@ -3,7 +3,7 @@ import Link from 'next/link'
 import cx from 'classnames'
 import Popper from '@material-ui/core/Popper'
 import Portal from '@material-ui/core/Portal'
-import TransparentOverlay from '@components/UI/TransparentOverlay'
+import TransparentOverlay from '@@components/UI/TransparentOverlay'
 import AccountDropdown from './Dropdowns/Account'
 import { StyledPrimaryLinks } from './styled'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import AppLayout from '@components/Layout'
+import AppLayout from '@@components/Layout'
 import { ApolloProvider } from '@apollo/react-hooks'
 import withApollo from '@@graphql/apollo'
 import '../public/scss/application.scss'

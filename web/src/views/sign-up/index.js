@@ -1,6 +1,6 @@
 import React from 'react'
-import FullScreen from '@components/UI/FullScreen'
-import SignUpCard from '@components/Session/SignUp'
+import FullScreen from '@@components/UI/FullScreen'
+import SignUpCard from '@@components/Session/SignUp'
 import styled from 'styled-components'
 
 const StyledFullScreen = styled(FullScreen)`

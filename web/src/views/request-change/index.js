@@ -1,6 +1,6 @@
 import React from 'react'
-import FullScreen from '@components/UI/FullScreen'
-import RequestChangeCard from '@components/Session/RequestChange'
+import FullScreen from '@@components/UI/FullScreen'
+import RequestChangeCard from '@@components/Session/RequestChange'
 import styled from 'styled-components'
 
 const StyledFullScreen = styled(FullScreen)`

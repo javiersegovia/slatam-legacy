@@ -120,7 +120,7 @@ const Input = ({
 }
 
 Input.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   rounded: PropTypes.bool,
   parentProps: PropTypes.object,
   icon: PropTypes.node,

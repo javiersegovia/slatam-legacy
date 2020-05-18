@@ -5,7 +5,7 @@ import { FlagIcon } from 'react-flag-kit'
 import format from 'date-fns/format'
 import getTime from 'date-fns/getTime'
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
-import { AppConfigContext } from '@components/Layout/context/AppConfig'
+import { AppConfigContext } from '@@components/Layout/context/AppConfig'
 import Rating from '@material-ui/lab/Rating'
 import formatMoney from '@@lib/formatMoney'
 

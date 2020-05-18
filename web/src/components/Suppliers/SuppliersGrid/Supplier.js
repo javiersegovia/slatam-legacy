@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FlagIcon } from 'react-flag-kit'
-import { MD } from '@components/UI/Typography'
+import { MD } from '@@components/UI/Typography'
 import format from 'date-fns/format'
 
 const StyledSupplier = styled.div`
