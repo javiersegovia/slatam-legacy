@@ -7,15 +7,6 @@ import withApollo from '@@graphql/apollo'
 import '../public/scss/application.scss'
 
 class MyApp extends App {
-  // static async getInitialProps({ Component, ctx }) {
-  //   let pageProps = {}
-  //   if (Component.getInitialProps) {
-  //     pageProps = await Component.getInitialProps(ctx)
-  //   }
-  //   pageProps.query = ctx.query
-  //   pageProps.pathname = ctx.pathname
-  //   return { pageProps }
-  // }
 
   componentDidMount() {
     const jssStyles = document.querySelector('#jss-server-side')
