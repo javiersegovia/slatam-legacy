@@ -5,7 +5,7 @@ import { FixedSizeList as List } from 'react-window'
 import Popper from '@material-ui/core/Popper'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import ClearIcon from '@material-ui/icons/Clear'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid'
 import Label from './Label'
 import ErrorMessage from './ErrorMessage'
 

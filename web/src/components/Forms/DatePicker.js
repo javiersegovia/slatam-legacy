@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { DatePicker as MuiDatePicker } from '@material-ui/pickers'
 import format from 'date-fns/format'
 import isValid from 'date-fns/isValid'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid'
 import Label from './Label'
 import { StyledInput } from './Input'
 

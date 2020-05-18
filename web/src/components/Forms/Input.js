@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid'
 import Label from './Label'
 import ErrorMessage from './ErrorMessage'
 
