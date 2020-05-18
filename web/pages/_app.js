@@ -7,15 +7,15 @@ import withApollo from '@@graphql/apollo'
 import '../public/scss/application.scss'
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-    pageProps.query = ctx.query
-    pageProps.pathname = ctx.pathname
-    return { pageProps }
-  }
+  // static async getInitialProps({ Component, ctx }) {
+  //   let pageProps = {}
+  //   if (Component.getInitialProps) {
+  //     pageProps = await Component.getInitialProps(ctx)
+  //   }
+  //   pageProps.query = ctx.query
+  //   pageProps.pathname = ctx.pathname
+  //   return { pageProps }
+  // }
 
   componentDidMount() {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -25,14 +25,14 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, apollo, pageProps } = this.props
+    const { Component, apollo } = this.props
 
     return (
       <>
         <ApolloProvider client={apollo}>
           <AppLayout>
             <CssBaseline />
-            <Component {...pageProps} />
+            <Component />
           </AppLayout>
         </ApolloProvider>
       </>
