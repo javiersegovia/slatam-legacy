@@ -5,9 +5,9 @@ import Input from '@components/Forms/Input'
 import Select from '@components/Forms/Select'
 import SelectPhone from '@components/Forms/SelectPhone'
 import DatePicker from '@components/Forms/DatePicker'
-import countriesData from '@data/countries.json'
+import countriesData from '@@data/countries.json'
 import { FlagIcon } from 'react-flag-kit'
-import { useForm, NOT_EMPTY } from '@hooks/useForm'
+import { useForm, NOT_EMPTY } from '@@hooks/useForm'
 import { StyledWrapper } from '../styled'
 
 const errorValidations = {

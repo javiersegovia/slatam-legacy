@@ -69,13 +69,13 @@ COPY --from=dev /slatam/node_modules /slatam/node_modules
 
 # run linters as part of build
 # be sure they are installed with devDependencies
-RUN eslint . --fix
+RUN eslint --fix -f tmp/eslintTableFormatter.js -o tmp/eslint_web_results.txt .
 
 # run unit tests as part of build
-# RUN npm test
+# RUN yarn run test
 
 # run integration testing with docker-compose later
-# CMD ["npm", "run", "int-test"] 
+# CMD ["yarn", "run", "int-test"] 
 
 ################################################
 

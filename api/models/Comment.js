@@ -1,10 +1,5 @@
 const striptags = require('striptags')
-const {
-  Text,
-  Checkbox,
-  Integer,
-  Relationship,
-} = require('@keystonejs/fields')
+const { Text, Checkbox, Integer, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const { userIsEditorOrOwner, userIsAdmin } = require('../lib/access-control')
 

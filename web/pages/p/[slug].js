@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import NavBar from '@components/Layout/Navbar'
 import Footer from '@components/Layout/Footer'
-import SingleProduct from '@views/p'
+import SingleProduct from '@@views/p'
 
 const SingleProductPage = () => {
   const router = useRouter()

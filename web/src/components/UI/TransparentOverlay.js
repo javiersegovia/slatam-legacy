@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import useLockBodyScroll from '@hooks/useLockBodyScroll'
+import useLockBodyScroll from '@@hooks/useLockBodyScroll'
 
 const StyledTransparentOverlay = styled.div`
   position: absolute;

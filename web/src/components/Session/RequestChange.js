@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Button from '@components/UI/Button'
 import Input from '@components/Forms/Input'
-import { useForm, NOT_EMPTY, VALID_EMAIL } from '@hooks/useForm'
-import LogoSVG from '@public/images/slatam-logo.svg'
+import { useForm, NOT_EMPTY, VALID_EMAIL } from '@@hooks/useForm'
+import LogoSVG from '@@public/images/slatam-logo.svg'
 import { StyledWrapper, StyledCard } from './styled'
 
 const errorValidations = {

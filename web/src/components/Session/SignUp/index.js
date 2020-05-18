@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import LogoSVG from '@public/images/slatam-logo.svg'
+import LogoSVG from '@@public/images/slatam-logo.svg'
 import Account from './Account'
 import AboutUser from './AboutUser'
 import Company from './Company'

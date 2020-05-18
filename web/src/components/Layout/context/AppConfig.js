@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import AppConstants from '@constants'
+import AppConstants from '@@constants'
 
 export const AppConfigContext = createContext()
 

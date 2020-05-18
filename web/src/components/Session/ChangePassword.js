@@ -8,7 +8,7 @@ import {
   NOT_EMPTY,
   MIN_CHARACTERS,
   SHOULD_MATCH_VALUE,
-} from '@hooks/useForm'
+} from '@@hooks/useForm'
 import { StyledWrapper, StyledCard } from './styled'
 
 const ChangePassword = () => {

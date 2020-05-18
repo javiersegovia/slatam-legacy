@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import formatMoney from '@lib/formatMoney'
+import formatMoney from '@@lib/formatMoney'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
 
 const StyledProductPrice = styled.div`

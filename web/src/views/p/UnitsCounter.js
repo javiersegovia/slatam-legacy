@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import useLongPress from '@hooks/useLongPress'
+import useLongPress from '@@hooks/useLongPress'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import cx from 'classnames'

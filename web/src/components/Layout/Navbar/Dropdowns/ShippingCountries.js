@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import countriesData from '@data/countries.json'
+import countriesData from '@@data/countries.json'
 import ShippingCountriesList from './ShippingCountriesList'
 import StyledDropdownWrapper from './styled'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import SignUp from '@views/sign-up'
+import SignUp from '@@views/sign-up'
 
 const SignUpPage = () => (
   <>

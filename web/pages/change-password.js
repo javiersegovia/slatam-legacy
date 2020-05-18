@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import ChangePassword from '@views/change-password'
+import ChangePassword from '@@views/change-password'
 
 const ChangePasswordPage = () => (
   <>

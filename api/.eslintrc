@@ -14,7 +14,6 @@
     "ecmaVersion": 2020
   },
   "rules": {
-    // "node/exports-style": ["error", "module.exports"],
     "node/file-extension-in-import": ["error", "always"],
     "import/newline-after-import": "error",
     "import/imports-first": ["error", "absolute-first"],

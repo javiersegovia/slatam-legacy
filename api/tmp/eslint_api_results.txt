@@ -1,0 +1,66 @@
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ 1 Error                                                                                                        ║
+╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢
+║ 18 Warnings                                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+/slatam/api/data/migrations/20191009143036_example_migration.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 12       │ 37       │ warning  │ 't' is defined but never used.                         │ no-unused-vars       ║
+║ 20       │ 37       │ warning  │ 't' is defined but never used.                         │ no-unused-vars       ║
+
+/slatam/api/data/seeds/initial_data.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 6        │ 9        │ warning  │ 'GraphQLApp' is assigned a value but never used.       │ no-unused-vars       ║
+║ 12       │ 3        │ warning  │ Unexpected console statement.                          │ no-console           ║
+║ 21       │ 5        │ warning  │ Unexpected console statement.                          │ no-console           ║
+║ 56       │ 5        │ warning  │ Unexpected console statement.                          │ no-console           ║
+║ 57       │ 5        │ warning  │ Unexpected console statement.                          │ no-console           ║
+
+/slatam/api/models/Post.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 4        │ 3        │ warning  │ 'userIsAdminOrOwner' is assigned a value but never     │ no-unused-vars       ║
+║          │          │          │ used.                                                  │                      ║
+║ 6        │ 3        │ warning  │ 'userIsAdmin' is assigned a value but never used.      │ no-unused-vars       ║
+
+/slatam/api/models/ProductImage.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 1        │ 9        │ warning  │ 'CloudinaryImage' is assigned a value but never        │ no-unused-vars       ║
+║          │          │          │ used.                                                  │                      ║
+
+/slatam/api/models/index.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 5        │ 7        │ warning  │ 'Product' is assigned a value but never used.          │ no-unused-vars       ║
+║ 6        │ 7        │ warning  │ 'ProductPriceRange' is assigned a value but never      │ no-unused-vars       ║
+║          │          │          │ used.                                                  │                      ║
+║ 7        │ 7        │ warning  │ 'ProductImage' is assigned a value but never used.     │ no-unused-vars       ║
+║ 8        │ 7        │ warning  │ 'ProductReview' is assigned a value but never          │ no-unused-vars       ║
+║          │          │          │ used.                                                  │                      ║
+║ 9        │ 7        │ warning  │ 'ProductRating' is assigned a value but never          │ no-unused-vars       ║
+║          │          │          │ used.                                                  │                      ║
+
+/slatam/api/server.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 15       │ 9        │ warning  │ 'userIsAdmin' is assigned a value but never used.      │ no-unused-vars       ║
+║ 27       │ 5        │ warning  │ 'dbConnected' is assigned a value but never used.      │ no-unused-vars       ║
+║ 53       │ 7        │ warning  │ 'authStrategy' is assigned a value but never used.     │ no-unused-vars       ║
+
+/slatam/api/tmp/eslintTableFormatter.js
+
+║ Line     │ Column   │ Type     │ Message                                                │ Rule ID              ║
+╟──────────┼──────────┼──────────┼────────────────────────────────────────────────────────┼──────────────────────╢
+║ 6        │ 27       │ error    │ "table" is not published.                              │ node/no-unpublished- ║
+║          │          │          │                                                        │ require              ║
