@@ -33,7 +33,7 @@ const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
-  onConnect: async (keystone) => {
+  onConnect: async (k) => {
     await keystone.createItems(seeds)
   },
 })
