@@ -28,11 +28,10 @@ let dbConnected = false
 let server
 let httpTerminator
 
-console.log('hello')
-
 const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
+  cookieSecret: process.env.API_COOKIE_SECRET || 'default',
 })
 
 /**

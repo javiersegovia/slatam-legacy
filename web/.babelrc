@@ -1,18 +1,27 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    "next/babel"
+  ],
   "plugins": [
-    ["inline-react-svg"],
-    ["@babel/plugin-proposal-class-properties"],
+    [
+      "inline-react-svg"
+    ],
+    [
+      "@babel/plugin-proposal-class-properties"
+    ],
     [
       "styled-components",
       {
-        "ssr": true
+        "ssr": true,
+        "displayName": true
       }
     ],
     [
       "module-resolver",
       {
-        "root": ["./"],
+        "root": [
+          "./"
+        ],
         "alias": {
           "@@data": "./data",
           "@@constants": "./constants",
