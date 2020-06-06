@@ -2,9 +2,9 @@ const { Text, Slug, Integer, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsAdminOrOwner,
-  userIsEditorOrOwner,
+  userIsModOrOwner,
   userIsAdmin,
-  userIsEditor,
+  userIsMod,
 } = require('../lib/access-control')
 
 module.exports = {
@@ -37,9 +37,9 @@ module.exports = {
   },
   access: {
     read: true,
-    create: userIsEditor,
-    update: userIsEditorOrOwner,
-    delete: userIsEditorOrOwner,
+    create: userIsMod,
+    update: userIsModOrOwner,
+    delete: userIsModOrOwner,
   },
   plugins: [atTracking(), byTracking()],
 }

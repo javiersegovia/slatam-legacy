@@ -1,7 +1,7 @@
 const striptags = require('striptags')
 const { Integer, Markdown, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsEditorOrOwner, userIsEditor } = require('../lib/access-control')
+const { userIsModOrOwner, userIsMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -26,8 +26,8 @@ module.exports = {
   access: {
     create: true, // TODO: Check that only a verified customer can leave a review
     read: true,
-    update: userIsEditorOrOwner,
-    delete: userIsEditor,
+    update: userIsModOrOwner,
+    delete: userIsMod,
   },
   hooks: {
     resolveInput: ({ resolvedData }) => {

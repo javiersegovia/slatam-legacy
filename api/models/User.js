@@ -1,37 +1,99 @@
-const { Text, Select, Password } = require('@keystonejs/fields')
+const { Text, Select, Password, Relationship } = require('@keystonejs/fields')
 const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdminOrOwner, userIsAdmin } = require('../lib/access-control')
+const {
+  userIsAdminOrBelongsTo,
+  userIsAdmin,
+  userIsAdminOrMod,
+  userIsAdminOrCanEditHimself,
+} = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    firstName: { type: Text },
-    lastName: { type: Text },
+    firstName: {
+      schemaDoc: 'The firstname of the user',
+      type: Text,
+      access: {
+        update: userIsAdminOrCanEditHimself,
+      },
+    },
+    lastName: {
+      schemaDoc: 'The lastname of the user',
+      type: Text,
+      access: {
+        update: userIsAdminOrCanEditHimself,
+      },
+    },
     email: {
+      schemaDoc: 'The email of the user',
       type: Text,
       isUnique: true,
     },
     password: {
+      schemaDoc: 'The password of the user',
       type: Password,
       isRequired: true,
       access: {
         read: userIsAdmin,
-        update: userIsAdminOrOwner,
+        update: userIsAdminOrBelongsTo,
       },
     },
     permission: {
+      schemaDoc: 'The level of permission the user has',
       type: Select,
       defaultValue: 'USER',
-      options: ['ADMIN', 'EDITOR', 'USER'],
+      // [TODO]
+      // 1. defaultValue doesnt work
+      options: ['ADMIN', 'MOD', 'USER'],
+      isRequired: true,
+      access: {
+        read: userIsAdmin,
+        update: userIsAdmin,
+      },
     },
-    resetToken: { type: Text, unique: true },
-    resetTokenExpiry: { type: DateTimeUtc, unique: true },
+    company: {
+      schemaDoc: 'The company of the user',
+      type: Relationship,
+      ref: 'Company.belongsTo',
+    },
+    member: {
+      // [TODO]
+      // 1. put his company as a default member
+      schemaDoc: 'The user is member of this company',
+      type: Relationship,
+      ref: 'Company.members',
+    },
+    // role: {
+    //   type: Select,
+    //   defaultValue: 'BUYER',
+    //   options: ['BUYER', 'SELLER', 'BOTH'],
+    // },
+    // rating: {
+    //   type: Relationship,
+    //   ref: 'UserRating'
+    // },
+    // lastSeen: {
+    //   type: DateTimeUtc
+    // },
+    // status: {
+    //   type: Select,
+    //   defaultValue: 'VISIBLE',
+    //   options: ['VISIBLE', 'HIDDEN']
+    // },
+    // info: {
+    //   type: Relationship,
+    //   ref: 'UserInfo',
+    //   isRequired: true
+    // },
+    // verification: {
+    //   type: Relationship,
+    //   ref: 'UserVerification',
+    //   isRequired: true
+    // },
   },
   access: {
-    // create: true,
-    // read: userIsAdminOrOwner,
-    // update: userIsAdminOrOwner,
-    // delete: userIsAdmin,
+    create: true,
+    // delete: userIsAdminOrMod,
     auth: true,
   },
   plugins: [atTracking(), byTracking()],

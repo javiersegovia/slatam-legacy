@@ -1,7 +1,7 @@
 const striptags = require('striptags')
 const { Text, Checkbox, Integer, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsEditorOrOwner, userIsAdmin } = require('../lib/access-control')
+const { userIsModOrOwner, userIsAdmin } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -52,8 +52,8 @@ module.exports = {
       }
     },
     create: true,
-    update: userIsEditorOrOwner,
-    delete: userIsEditorOrOwner,
+    update: userIsModOrOwner,
+    delete: userIsModOrOwner,
   },
   hooks: {
     resolveInput: ({ resolvedData }) => {

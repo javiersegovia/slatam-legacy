@@ -1,6 +1,7 @@
 const User = require('./User')
 const Post = require('./Post')
 const Comment = require('./Comment')
+const Company = require('./Company')
 
 const Product = require('./Product')
 const ProductPriceRange = require('./ProductPriceRange')
@@ -10,9 +11,10 @@ const ProductRating = require('./ProductRating')
 
 module.exports = [
   ['User', User],
+  ['Company', Company],
   ['Post', Post],
   ['Comment', Comment],
-  // ['Product', Product],
+  ['Product', Product],
   // ['ProductPriceRange', ProductPriceRange],
   // ['ProductImage', ProductImage],
   // ['ProductReview', ProductReview],

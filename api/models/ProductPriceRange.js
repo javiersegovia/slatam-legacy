@@ -1,5 +1,5 @@
 const { Integer, Relationship } = require('@keystonejs/fields')
-const { userIsEditorOrOwner } = require('../lib/access-control')
+const { userIsModOrOwner } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -20,7 +20,7 @@ module.exports = {
   access: {
     create: true, // TODO: Check that only product owner or manager can create/edit the product price
     read: true,
-    update: userIsEditorOrOwner,
-    delete: userIsEditorOrOwner, // validate that it is not the last item
+    update: userIsModOrOwner,
+    delete: userIsModOrOwner, // validate that it is not the last item
   },
 }

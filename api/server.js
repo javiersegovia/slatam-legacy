@@ -12,6 +12,7 @@ const { AdminUIApp } = require('@keystonejs/app-admin-ui')
 const { KnexAdapter } = require('@keystonejs/adapter-knex')
 
 const models = require('./models')
+const seeds = require('./data/seeds/seeds')
 const { userIsAdmin } = require('./lib/access-control')
 
 function normalizePort(val) {
@@ -32,6 +33,8 @@ const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
+  onConnect: async keystone => {
+    await keystone.createItems(seeds)}
 })
 
 /**
@@ -44,10 +47,11 @@ if (models && models.length) {
   })
 }
 
-// TODO: ADD auth system and sessions to express
-// TODO: ADD logger
-// TODO: ADD healthchecks
-// TODO: ADD simple seeding for the first admin user
+// [TODO] 
+// 1. add auth system and sessions to express
+// 2. add logger
+// 3. healthchecks
+// 4. add simple seeding for the first admin user
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
@@ -60,7 +64,7 @@ keystone
       new GraphQLApp(),
       new AdminUIApp({
         enableDefaultRoute: true,
-        // authStrategy,
+        authStrategy,
         // Only allow admin to access the UI:
         // isAccessAllowed: userIsAdmin,
       }),
@@ -83,7 +87,7 @@ keystone
       const address = server.address()
       const bind =
         typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`
-      console.log(`Keystone custom app listening on ${bind}!`)
+      console.log(`Slatam API listening on ${bind}`)
     })
 
     httpTerminator = createHttpTerminator({
