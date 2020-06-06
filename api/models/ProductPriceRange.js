@@ -1,12 +1,12 @@
 const { Integer, Relationship, Float } = require('@keystonejs/fields')
 const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
+const {
   userIsProductOwner,
   userIsAdminOrMod,
   userIsCompanyMember,
 } = require('../lib/access-control')
-const {
-  throwAccessDenied,
-} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
