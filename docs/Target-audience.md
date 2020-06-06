@@ -1,6 +1,20 @@
 # Target and Audience
 
-## Rol:
+## First clients
+It is vital to identify who will be our first clients and look for numerical answers. We must always consider three questions:
+- How much does this problem that we are solving cost them? - ROI, savings.
+- How frequent is the problem? - Frequency of use.
+- How big is the budget to solve this problem? 
+
+I see two main problems that we are solving with Slatam:
+
+- Presence and attract potential clients for our clients. That includes that we seek to create a B2B network.
+
+- Help / protect the operations in two ways: as know-how / a flow and financially.
+
+##
+
+## Role:
 
  “Top-to-top” connection. Senior executives in the supplier organization have meaningful professional relationships with the executives at the client, customer, or partner organization.
 
@@ -8,11 +22,11 @@ allowing employees at both companies to get closer and establish their own profe
 
 This results in a greater number of connections between the two organizations, which means that both sides have a more intimate understanding of the goals and objectives of the other party. In the best cases, it’s like one, big unofficial merger
 
-## Industria:
+## Industry:
 
-## Tamaño de la compañía:
+## Company size:
 
-## Generación:
+## Generation:
 
 Millennial Buyers Expect Speed, Simplicity
 
