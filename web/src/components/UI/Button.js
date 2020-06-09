@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledButton = styled.button`
   padding: 12px 16px 13px;
   outline: none;
   border: none;
-  background: ${props => props.theme.gradients.primary.main};
-  box-shadow: ${props => props.theme.bShadows.button};
   color: white;
   cursor: pointer;
   letter-spacing: 0.8px;
@@ -15,42 +13,44 @@ const StyledButton = styled.button`
   font-weight: 500;
   display: inline-flex;
   justify-content: center;
+  background: ${props => props.theme.gradients.primary.main};
+  box-shadow: ${props => props.theme.bShadows.button};
 
   ${props =>
     props.secondary &&
-    `
-    background: white;
-    color: ${props.theme.palette.primary.light};
-  `}
+    css`
+      background: white;
+      color: ${props.theme.palette.primary.light};
+    `}
 
   ${props =>
     props.outlined &&
-    `
-    background: white;
-    color: ${props.theme.palette.primary.light};
-    border: 2px solid ${props.theme.palette.primary.light};
-  `}
+    css`
+      background: white;
+      color: ${props.theme.palette.primary.light};
+      border: 2px solid ${props.theme.palette.primary.light};
+    `}
 
   ${props =>
     props.size === 'lg' &&
-    `
-    padding: 16px 22px 17px;
-    font-size: 1.125rem;
-  `}
+    css`
+      padding: 16px 22px 17px;
+      font-size: 1.125rem;
+    `}
 
   ${props =>
     props.color === 'default' &&
-    `
-    background: ${props.theme.gradients.snow.main};
-    color: ${props.theme.palette.black.main};
-  `}
+    css`
+      background: ${props.theme.gradients.snow.main};
+      color: ${props.theme.palette.black.main};
+    `}
 
 
   ${props =>
     props.rounded &&
-    `
-    border-radius: 35px;
-  `}
+    css`
+      border-radius: 35px;
+    `}
 `
 
 const Button = ({ children, ...otherProps }) => {

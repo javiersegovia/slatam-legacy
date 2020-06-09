@@ -5,7 +5,12 @@ import Button from '@@components/UI/Button'
 import Input from '@@components/Forms/Input'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { useForm, NOT_EMPTY, VALID_EMAIL, MIN_CHARACTERS } from '@@hooks/useForm'
+import {
+  useForm,
+  NOT_EMPTY,
+  VALID_EMAIL,
+  MIN_CHARACTERS,
+} from '@@hooks/useForm'
 import LogoSVG from '@@public/images/slatam-logo.svg'
 import { StyledWrapper, StyledCard } from './styled'
 
