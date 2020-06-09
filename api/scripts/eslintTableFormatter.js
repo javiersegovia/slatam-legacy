@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unpublished-require */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable func-names */
 /* eslint-disable no-console */
@@ -18,7 +19,7 @@ function drawTable(messages) {
 
   rows.push(['Line', 'Column', 'Type', 'Message', 'Rule ID'])
 
-  messages.forEach(message => {
+  messages.forEach((message) => {
     let messageType
 
     if (message.fatal || message.severity === 2) {
@@ -69,7 +70,7 @@ function drawTable(messages) {
 function drawReport(results) {
   let files
 
-  files = results.map(result => {
+  files = results.map((result) => {
     if (!result.messages.length) {
       return ''
     }
@@ -77,7 +78,7 @@ function drawReport(results) {
     return `\n${result.filePath}\n\n${drawTable(result.messages)}`
   })
 
-  files = files.filter(content => content.trim())
+  files = files.filter((content) => content.trim())
 
   return files.join('')
 }
@@ -91,7 +92,7 @@ module.exports = function(report) {
   errorCount = 0
   warningCount = 0
 
-  report.forEach(fileReport => {
+  report.forEach((fileReport) => {
     errorCount += fileReport.errorCount
     warningCount += fileReport.warningCount
   })
@@ -119,7 +120,10 @@ module.exports = function(report) {
   )}`
 
   console.log(`${output} \n
-  See the complete report at ${path.join(__dirname, 'eslint_web_results.txt')}
+  See the complete report at ${path.join(
+    __dirname,
+    'tmp/eslint_api_results.txt'
+  )}
   `)
 
   output += result

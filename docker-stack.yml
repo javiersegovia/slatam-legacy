@@ -149,6 +149,26 @@ services:
         traefik.http.routers.portainer.service: portainer
         traefik.http.services.portainer.loadbalancer.server.port: 9000
 
+#   plugin-rexray:
+#     <<: *default-opts
+#     image: mavenugo/swarm-exec:17.03.0-ce
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#     secrets:
+#       - rexray_do_token
+#     environment:
+#       - REXRAY_DO_TOKEN_FILE=/run/secrets/rexray_do_token
+#     command: sh -c "docker plugin install --grant-all-permissions rexray/dobs DOBS_REGION=nyc3 DOBS_TOKEN=$$(cat $$REXRAY_DO_TOKEN_FILE) DOBS_CONVERTUNDERSCORES=true"
+#     deploy:
+#       mode: global
+#       restart_policy:
+#         condition: none
+
+# secrets:
+#   rexray_do_token:
+#     external: true
+#     name: rexray_do_token
+
 volumes:
   db-data:
   portainer:

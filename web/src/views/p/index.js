@@ -156,6 +156,11 @@ const product = {
   ],
   priceRanges: [
     {
+      range: [1, null],
+      description: null,
+      value: 30000,
+    },
+    {
       range: [1, 9],
       description: '1-9',
       value: 25600,
