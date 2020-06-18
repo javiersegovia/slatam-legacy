@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const BlogPage = props => {
   return (
     <>
-      <h2>Blog</h2>
+      <BlogNavbar />
     </>
   )
 }
