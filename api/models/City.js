@@ -5,21 +5,28 @@ const { userIsAdmin } = require('../lib/access-control')
 module.exports = {
   fields: {
     name: {
-      schemaDoc: 'The name of the region',
+      schemaDocs: 'The name of the city',
       type: Text,
-      isUnique: true,
       isRequired: true,
+      access: {
+        read: true,
+        update: userIsAdmin,
+        delete: userIsAdmin,
+      },
     },
-    subregions: {
-      schemaDoc: 'The subregions that the region has',
+    state: {
+      schemaDocs: 'The name of the state that the city belongs',
       type: Relationship,
-      ref: 'Subregion.region',
+      ref: 'State.cities',
       isRequired: true,
-      many: true,
+      access: {
+        read: true,
+        update: userIsAdmin,
+        delete: userIsAdmin,
+      },
     },
   },
   access: {
-    create: userIsAdmin,
     read: true,
     update: userIsAdmin,
     delete: userIsAdmin,

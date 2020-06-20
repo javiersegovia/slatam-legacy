@@ -2,10 +2,9 @@ const { Text, Select, Password, Relationship } = require('@keystonejs/fields')
 const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
-  userIsAdminOrBelongsTo,
   userIsAdmin,
-  userIsAdminOrMod,
-  userIsAdminOrCanEditHimself,
+  userIsMod,
+  userCanUpdateHimself,
 } = require('../lib/access-control')
 
 module.exports = {
@@ -13,21 +12,27 @@ module.exports = {
     firstName: {
       schemaDoc: 'The firstname of the user',
       type: Text,
+      isRequired: true,
       access: {
-        update: userIsAdminOrCanEditHimself,
+        update: userCanUpdateHimself,
       },
     },
-    lastName: {
-      schemaDoc: 'The lastname of the user',
-      type: Text,
-      access: {
-        update: userIsAdminOrCanEditHimself,
-      },
-    },
+    // lastName: {
+    //   schemaDoc: 'The lastname of the user',
+    //   type: Text,
+    //   isRequired: true,
+    //   access: {
+    //     update: userCanUpdateHimself,
+    //   },
+    // },
     email: {
       schemaDoc: 'The email of the user',
       type: Text,
       isUnique: true,
+      isRequired: true,
+      access: {
+        update: userCanUpdateHimself,
+      },
     },
     password: {
       schemaDoc: 'The password of the user',
@@ -35,7 +40,7 @@ module.exports = {
       isRequired: true,
       access: {
         read: userIsAdmin,
-        update: userIsAdminOrBelongsTo,
+        update: userCanUpdateHimself,
       },
     },
     permission: {
@@ -51,23 +56,25 @@ module.exports = {
         update: userIsAdmin,
       },
     },
-    company: {
-      schemaDoc: 'The company of the user',
-      type: Relationship,
-      ref: 'Company.belongsTo',
-    },
-    member: {
+    companyMember: {
       // [TODO]
       // 1. put his company as a default member
       schemaDoc: 'The user is member of this company',
       type: Relationship,
       ref: 'Company.members',
+      access: {
+        update: userCanUpdateHimself,
+      },
     },
-    // role: {
-    //   type: Select,
-    //   defaultValue: 'BUYER',
-    //   options: ['BUYER', 'SELLER', 'BOTH'],
-    // },
+    role: {
+      type: Select,
+      defaultValue: 'BUYER',
+      options: ['BUYER', 'SELLER', 'BOTH'],
+      isRequired: true,
+      access: {
+        update: userCanUpdateHimself,
+      },
+    },
     // rating: {
     //   type: Relationship,
     //   ref: 'UserRating'
@@ -92,8 +99,9 @@ module.exports = {
     // },
   },
   access: {
+    read: true,
     create: true,
-    // delete: userIsAdminOrMod,
+    delete: userIsMod,
     auth: true,
   },
   plugins: [atTracking(), byTracking()],

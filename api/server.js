@@ -33,8 +33,9 @@ const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
-  onConnect: async keystone => {
-    await keystone.createItems(seeds)}
+  onConnect: async (keystone) => {
+    await keystone.createItems(seeds)
+  },
 })
 
 /**
@@ -47,7 +48,7 @@ if (models && models.length) {
   })
 }
 
-// [TODO] 
+// [TODO]
 // 1. add auth system and sessions to express
 // 2. add logger
 // 3. healthchecks

@@ -1,145 +1,206 @@
-const userIsAuthenticated = ({ authentication: { item } }) => !!item
+const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
-const userIsAdmin = ({ authentication: { item: user } }) => {
-  // console.log(user)
-  return Boolean(user && user.permission === 'ADMIN')
+const userIsAuthenticated = ({ authentication: { item: user } }) =>
+  Boolean(user)
+
+const userIsAdmin = (payload) => {
+  const {
+    authentication: { item: user },
+  } = payload
+
+  const isAuth = userIsAuthenticated(payload)
+  const isAdmin = user.permission === 'ADMIN'
+
+  return Boolean(isAuth && isAdmin)
 }
 
+const userIsMod = (payload) => {
+  const {
+    authentication: { item: user },
+  } = payload
 
-const userIsMod = ({ authentication: { item: user } }) =>
-  Boolean(user && ['ADMIN', 'MOD'].includes(user.permission))
+  const isAuth = userIsAuthenticated(payload)
+  const isAdmin = user.permission === 'ADMIN'
+  const isMod = user.permission === 'MOD'
 
-// return either false if there is no user, or a graphql where clause
-// const userIsOwner = ({ authentication: { item: user } }) => {
-//   if (!user) return false
+  return Boolean((isAuth && isMod) || isAdmin)
+}
 
-//   return { owner: { id: user.id } }
-// }
+const userCanUpdateHimself = (payload) => {
+  const {
+    authentication: { item },
+    listKey,
+    existingItem = null,
+  } = payload
 
-// userIsModOrAdminOrBelongsTo is missing
+  if (listKey !== 'User') return false
 
-const userIsAdminOrMod = (payload) => {
-  const { authentication: { item } } = payload
-  if (!item) return false
-
+  const isAuth = userIsAuthenticated(payload)
   const isAdmin = userIsAdmin(payload)
   const isMod = userIsMod(payload)
 
-  return Boolean( isAdmin || isMod )
-}
-
-const userIsAdminOrCanEditHimself = (payload) => {
-  const {
-    authentication: { item },
-    existingItem = null,
-  } = payload
-  if (!item) return false
-
-  const isAdmin = userIsAdmin(payload)
-
   if (existingItem) {
-    const userCanEdit = item.id === existingItem.id
+    const canEditHimself = item.id === existingItem.id
 
-    return Boolean( isAdmin || userCanEdit )
+    return Boolean((canEditHimself && isAuth) || isMod || isAdmin)
   }
 
   return { user: { id: item.id } }
 }
 
-const userIsMemberOrAdmin = (payload) => {
-  console.log(payload)
+const userCanUpdateProducts = (payload) => {
   const {
     authentication: { item },
+    listKey,
+    operation,
     existingItem = null,
   } = payload
-  if (!item) return false
 
-  const isAdmin = userIsAdmin(payload)
+  if (listKey !== 'Product') return false
 
-  if (existingItem) {
-    const isMember = 
-    // when updating a product, a user is member if the company id
-    // in his member field is equal to the company id in product's 
-    // belongs to field
-    item.member.toString() === existingItem.belongsTo.toString() ||
-    // when updating a company, a user is member if the company id 
-    // in his member field is equal to the company id
-    item.member.toString() === existingItem.id.toString()
+  if (operation === 'update') {
+    item.companyMember = item.companyMember ? item.companyMember : ''
 
-    return Boolean( isAdmin || isMember )
+    if (existingItem) {
+      const canUpdateProducts =
+        item.companyMember.toString() === existingItem.belongsTo.toString()
+
+      return Boolean(canUpdateProducts)
+    }
   }
-
-  return { user: { id: item.id } }
 }
 
-const userIsAdminOrBelongsTo = (payload) => {
-  console.log(payload)
+const userCanDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
+  const {
+    authentication: { item, listKey: authedListKey },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Product') return false
+
+  if (operation === 'delete') {
+    item.companyMember = item.companyMember ? item.companyMember : ''
+
+    if (existingItem) {
+      const canDeleteProducts =
+        item.companyMember.toString() === existingItem.belongsTo.toString()
+
+      if (!canDeleteProducts && isAuth && !isMod && !isAdmin) {
+        const context = {
+          authedItem: item,
+          authedListKey,
+        }
+        throwAccessDenied(null, context, existingItem)
+      }
+    }
+  }
+}
+
+const userCanUpdateCompany = (payload) => {
   const {
     authentication: { item },
+    listKey,
+    operation,
     existingItem = null,
   } = payload
-  if (!item) return false
 
-  const isAdmin = userIsAdmin(payload)
+  if (listKey !== 'Company') return false
 
-  if (existingItem) {
-    const belongsToUser =
-      item.id === existingItem.id ||
-      (existingItem && existingItem.belongsTo && item.id === existingItem.belongsTo)
+  if (operation === 'update') {
+    item.companyMember = item.companyMember ? item.companyMember : ''
 
-    return Boolean(isAdmin || belongsToUser)
+    if (existingItem) {
+      const canUpdateCompany =
+        item.companyMember.toString() === existingItem.id.toString()
+      return Boolean(canUpdateCompany)
+    }
   }
-
-  // TODO: test function composition so we can compose a proper graphql with
-  // the correct "belongs_to" relationship field (e.g: 'user', 'company', 'owner')
-  return { belongsTo: { id: item.id } }
 }
 
-const userIsModOrOwner = (payload) => {
+const userCanDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
   const {
-    authentication: { item },
+    authentication: { item, listKey: authedListKey },
+    listKey,
+    operation,
     existingItem = null,
   } = payload
-  if (!item) return false
 
-  const isMod = userIsMod(payload)
+  if (listKey !== 'Company') return false
 
-  if (existingItem) {
-    const userIsOwner =
-      item.id === existingItem.id ||
-      (existingItem && existingItem.owner && item.id === existingItem.owner)
+  if (operation === 'delete') {
+    item.companyMember = item.companyMember ? item.companyMember : ''
 
-    return Boolean(isMod || userIsOwner)
+    if (existingItem) {
+      const canDeleteCompany =
+        item.companyMember.toString() === existingItem.id.toString()
+
+      if (!canDeleteCompany && isAuth && !isMod && !isAdmin) {
+        const context = {
+          authedItem: item,
+          authedListKey,
+        }
+        throwAccessDenied(null, context, existingItem)
+      }
+    }
   }
-  // TODO: test function composition so we can compose a proper graphql with
-  // the correct "belongs_to" relationship field (e.g: 'user', 'company', 'owner')
-  return { owner: { id: item.id } }
 }
 
-// return either false if there is no user, or a graphql where clause
-const userIsUser = ({ authentication: { item: user } }) => {
-  return user && { id: user.id }
+const userCanUpdateOrDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
+  const canUpdateCompany = userCanUpdateCompany(payload)
+  const canDeleteCompany = userCanDeleteCompany(payload, isAuth, isMod, isAdmin)
+
+  return Boolean(canUpdateCompany)
 }
 
-const userCanUpdateItem = (payload) => {
-  const isOwner = userIsUser(payload)
-  const isCool = ['ADMIN', 'MOD'].includes(
-    payload.authentication.item.permissions
+const userCanUpdateOrDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
+  const canUpdateProducts = userCanUpdateProducts(payload)
+  const canDeleteProducts = userCanDeleteProducts(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
   )
 
-  return isCool || isOwner || userIsAdminOrOwner(payload)
+  return Boolean(canUpdateProducts)
+}
+
+const userIsCompanyMember = (payload) => {
+  const isAuth = userIsAuthenticated(payload)
+  const isAdmin = userIsAdmin(payload)
+  const isMod = userIsMod(payload)
+
+  const canUpdateOrDeleteProducts = userCanUpdateOrDeleteProducts(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
+  )
+
+  const canUpdateOrDeleteCompany = userCanUpdateOrDeleteCompany(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
+  )
+
+  return Boolean(
+    (isAuth && canUpdateOrDeleteCompany) ||
+      (isAuth && canUpdateOrDeleteProducts) ||
+      isMod ||
+      isAdmin
+  )
 }
 
 module.exports = {
   userIsAuthenticated,
   userIsAdmin,
   userIsMod,
-  userIsAdminOrMod,
-  userIsUser,
-  userIsAdminOrCanEditHimself,
-  userIsMemberOrAdmin,
-  userIsModOrOwner,
-  // userIsAdminOrOwner,
-  userIsAdminOrBelongsTo,
-  userCanUpdateItem,
+  userCanUpdateHimself,
+  userCanUpdateProducts,
+  userCanUpdateCompany,
+  userIsCompanyMember,
 }

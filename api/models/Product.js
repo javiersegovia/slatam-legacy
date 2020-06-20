@@ -1,33 +1,27 @@
 const { Text, Relationship, Select, Checkbox } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
+  userIsCompanyMember,
   userIsAuthenticated,
-  userIsMemberOrAdmin,
-  userIsAdminOrMod
 } = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    belongsTo: { 
-      type: Relationship, 
-      ref: 'Company.products', 
-      isRequired: true,
-    },
-    title: { 
-      type: Text, 
+    title: {
+      type: Text,
       isRequired: true,
       access: {
-        update: userIsMemberOrAdmin
-      }
+        update: userIsCompanyMember,
+      },
     },
     description: {
       type: Text,
-      isRequired: true
+      isRequired: true,
     },
-    // images: { 
-    //   type: Relationship, 
-    //   ref: 'ProductImage', 
-    //   many: true 
+    // images: {
+    //   type: Relationship,
+    //   ref: 'ProductImage',
+    //   many: true
     // },
     // rating: {
     //   type: Relationship,
@@ -39,15 +33,14 @@ module.exports = {
     //   isRequired: true,
     //   many: true,
     // },
-    // logistics: {
-    //   type: Relationship,
-    //   ref: 'ProductLogistics',
-    //   isRequired: true
-    // },
+    logistics: {
+      type: Relationship,
+      ref: 'ProductLogistic.belongsTo',
+    },
     // quickDetails: {
     //   type: Relationship,
     //   ref: 'ProductQuickDetails',
-    //   many: true,      
+    //   many: true,
     // },
     // status: {
     //   type: Select,
@@ -58,24 +51,42 @@ module.exports = {
     // [TODO]
     // 1. add the deleted status
     SKU: {
-      schemaDocs: 
-      'SKU means Stock Keeping unit. Its a field for inventory managment',
-      type: Text
-     },
+      schemaDocs:
+        'SKU means Stock Keeping unit. Its a field for inventory managment',
+      type: Text,
+    },
     GTIN: {
-      schemaDocs: 'GTIN means Grobal Trade Item Number. It is used for identifying item globally',
-      type: Text 
+      schemaDocs:
+        'GTIN means Grobal Trade Item Number. It is used for identifying item globally',
+      type: Text,
     },
     MPN: {
-      schemaDocs: 
-      'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
-      type: Text 
-    }
+      schemaDocs:
+        'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
+      type: Text,
+    },
+    belongsTo: {
+      type: Relationship,
+      ref: 'Company.products',
+      isRequired: true,
+    },
+  },
+  hooks: {
+    beforeDelete: async ({ operation, context, existingItem }) => {
+      const payload = {
+        authentication: {
+          item: context.authedItem,
+        },
+        listKey: 'Product',
+        existingItem,
+        operation,
+      }
+      userIsCompanyMember(payload)
+    },
   },
   access: {
-    create: userIsAuthenticated,
     read: true,
-    delete: userIsAdminOrMod,
+    create: userIsAuthenticated,
   },
   plugins: [atTracking(), byTracking()],
 }
