@@ -17,7 +17,7 @@ export const BlogStyledNavBar = styled.div`
   grid-auto-rows: 62px;
 `
 
-export const CellContainer = css`
+const CellContainer = css`
   ${'' /* border: 1px dashed black; */}
   ${'' /* width: 100%;
   height: 100%; */}
@@ -29,7 +29,7 @@ export const Logo = styled.div`
   color: #fff;
   padding-left: 10px;
 `
-export const PrimaryLinks = styled.div`
+export const StyledPrimaryLinks = styled.div`
   ${CellContainer}
 
   display: grid;
@@ -37,9 +37,22 @@ export const PrimaryLinks = styled.div`
   grid-gap: 20px;
   align-items: center;
   justify-items: center;
+  padding-left: 15px;
+  height: 100%;
+  width: 100%;
 
   & a {
     font-size: 0.9em;
+    height: 100%;
+    width: 100%;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & a:hover {
+    border-bottom: 2px solid #012d78;
   }
 `
 
@@ -47,7 +60,7 @@ export const SearchBar = styled.div`
   ${CellContainer}
 `
 
-export const SecundaryLinks = styled.div`
+export const StyledSecundaryLinks = styled.div`
   ${CellContainer}
   padding-right: 10px;
 
@@ -56,4 +69,5 @@ export const SecundaryLinks = styled.div`
   grid-gap: 20px;
   align-items: center;
   justify-items: center;
+  1.33333px solid #B2B2B2;
 `
