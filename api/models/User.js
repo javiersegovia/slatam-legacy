@@ -4,7 +4,7 @@ const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsAdmin,
   userIsMod,
-  userCanUpdateHimself,
+  userIsTargetUser,
 } = require('../lib/access-control')
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
       type: Text,
       isRequired: true,
       access: {
-        update: userCanUpdateHimself,
+        update: userIsTargetUser,
       },
     },
     // lastName: {
@@ -22,7 +22,7 @@ module.exports = {
     //   type: Text,
     //   isRequired: true,
     //   access: {
-    //     update: userCanUpdateHimself,
+    //     update: userIsTargetUser,
     //   },
     // },
     email: {
@@ -31,7 +31,7 @@ module.exports = {
       isUnique: true,
       isRequired: true,
       access: {
-        update: userCanUpdateHimself,
+        update: userIsTargetUser,
       },
     },
     password: {
@@ -40,7 +40,7 @@ module.exports = {
       isRequired: true,
       access: {
         read: userIsAdmin,
-        update: userCanUpdateHimself,
+        update: userIsTargetUser,
       },
     },
     permission: {
@@ -63,7 +63,7 @@ module.exports = {
       type: Relationship,
       ref: 'Company.members',
       access: {
-        update: userCanUpdateHimself,
+        update: userIsTargetUser,
       },
     },
     role: {
@@ -72,7 +72,7 @@ module.exports = {
       options: ['BUYER', 'SELLER', 'BOTH'],
       isRequired: true,
       access: {
-        update: userCanUpdateHimself,
+        update: userIsTargetUser,
       },
     },
     // rating: {

@@ -22,13 +22,12 @@ const userIsMod = (payload) => {
   } = payload
 
   const isAuth = userIsAuthenticated(payload)
-  const isAdmin = user.permission === 'ADMIN'
   const isMod = user.permission === 'MOD'
 
-  return Boolean((isAuth && isMod) || isAdmin)
+  return Boolean(isAuth && isMod)
 }
 
-const userCanUpdateHimself = (payload) => {
+const userIsTargetUser = (payload) => {
   const {
     authentication: { item },
     listKey,
@@ -38,16 +37,14 @@ const userCanUpdateHimself = (payload) => {
   if (listKey !== 'User') return false
 
   const isAuth = userIsAuthenticated(payload)
-  const isAdmin = userIsAdmin(payload)
-  const isMod = userIsMod(payload)
 
   if (existingItem) {
     const canEditHimself = item.id === existingItem.id
 
-    return Boolean((canEditHimself && isAuth) || isMod || isAdmin)
+    return Boolean(canEditHimself && isAuth)
   }
 
-  return { user: { id: item.id } }
+  return false
 }
 
 const userCanUpdateProducts = (payload) => {
@@ -199,7 +196,7 @@ module.exports = {
   userIsAuthenticated,
   userIsAdmin,
   userIsMod,
-  userCanUpdateHimself,
+  userIsTargetUser,
   userCanUpdateProducts,
   userCanUpdateCompany,
   userIsCompanyMember,

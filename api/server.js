@@ -12,7 +12,7 @@ const { AdminUIApp } = require('@keystonejs/app-admin-ui')
 const { KnexAdapter } = require('@keystonejs/adapter-knex')
 
 const models = require('./models')
-const seeds = require('./data/seeds/seeds')
+const seeds = require('./data/seeds')
 const { userIsAdmin } = require('./lib/access-control')
 
 function normalizePort(val) {
