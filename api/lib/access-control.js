@@ -39,9 +39,9 @@ const userIsTargetUser = (payload) => {
   const isAuth = userIsAuthenticated(payload)
 
   if (existingItem) {
-    const canEditHimself = item.id === existingItem.id
+    const isTargetUser = item.id === existingItem.id
 
-    return Boolean(canEditHimself && isAuth)
+    return Boolean(isTargetUser && isAuth)
   }
 
   return false
@@ -67,6 +67,28 @@ const userCanUpdateProducts = (payload) => {
       return Boolean(canUpdateProducts)
     }
   }
+}
+
+const userIsProductOwner = (payload) => {
+  const {
+    authentication: { item },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Product') return false
+
+  item.companyMember = item.companyMember ? item.companyMember : ''
+
+  if (existingItem) {
+    const isProductOwner =
+      item.companyMember.toString() === existingItem.belongsTo.toString()
+
+    return Boolean(isProductOwner)
+  }
+
+  return false
 }
 
 const userCanDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
@@ -197,6 +219,7 @@ module.exports = {
   userIsAdmin,
   userIsMod,
   userIsTargetUser,
+  userIsProductOwner,
   userCanUpdateProducts,
   userCanUpdateCompany,
   userIsCompanyMember,

@@ -1,9 +1,14 @@
 const { Text, Relationship, Select, Checkbox } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
-  userIsCompanyMember,
+  userIsProductOwner,
+  userIsMod,
+  userIsAdmin,
   userIsAuthenticated,
 } = require('../lib/access-control')
+const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
@@ -11,7 +16,13 @@ module.exports = {
       type: Text,
       isRequired: true,
       access: {
-        update: userIsCompanyMember,
+        update: (payload) => {
+          return (
+            userIsProductOwner(payload) ||
+            userIsMod(payload) ||
+            userIsAdmin(payload)
+          )
+        },
       },
     },
     description: {
@@ -81,7 +92,14 @@ module.exports = {
         existingItem,
         operation,
       }
-      userIsCompanyMember(payload)
+
+      if (
+        !userIsProductOwner(payload) &&
+        !userIsMod(payload) &&
+        !userIsAdmin(payload)
+      ) {
+        throwAccessDenied(null, context, existingItem)
+      }
     },
   },
   access: {
