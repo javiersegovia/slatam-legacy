@@ -1,26 +1,51 @@
 const { Integer, Relationship } = require('@keystonejs/fields')
-const { userIsModOrOwner } = require('../lib/access-control')
+const {
+  userIsProductOwner,
+  userIsAdminOrMod,
+} = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    product: { type: Relationship, ref: 'Product', isRequired: true },
+    product: {
+      type: Relationship,
+      ref: 'Product.priceRanges',
+      isRequired: true,
+      access: {
+        update: (payload) => userIsAdminOrMod(payload),
+      },
+    },
     value: {
       type: Integer,
       isRequired: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     minRange: {
       type: Integer,
       isRequired: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     maxRange: {
       // TODO: add hook to validate max and min range
       type: Integer,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
   },
   access: {
-    create: true, // TODO: Check that only product owner or manager can create/edit the product price
+    create: (payload) => {
+      console.log(payload)
+      return true
+    },
+    // userIsProductOwner(payload) || userIsAdminOrMod(payload),
     read: true,
-    update: userIsModOrOwner,
-    delete: userIsModOrOwner, // validate that it is not the last item
+    // delete: userIsModOrOwner, // validate that it is not the last item
   },
 }

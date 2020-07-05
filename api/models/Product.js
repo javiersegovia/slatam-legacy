@@ -2,8 +2,6 @@ const { Text, Relationship, Select, Checkbox } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsProductOwner,
-  userIsMod,
-  userIsAdmin,
   userIsAdminOrMod,
   userIsAuthenticated,
 } = require('../lib/access-control')
@@ -38,12 +36,16 @@ module.exports = {
     //   type: Relationship,
     //   ref: 'ProductRating',
     // },
-    // priceRanges: {
-    //   type: Relationship,
-    //   ref: 'ProductPriceRange',
-    //   isRequired: true,
-    //   many: true,
-    // },
+    priceRanges: {
+      type: Relationship,
+      ref: 'ProductPriceRange.product',
+      isRequired: true,
+      many: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
+    },
     logistics: {
       type: Relationship,
       ref: 'ProductLogistic.belongsTo',
@@ -80,6 +82,9 @@ module.exports = {
       type: Relationship,
       ref: 'Company.products',
       isRequired: true,
+      access: {
+        update: (payload) => userIsAdminOrMod(payload),
+      },
     },
   },
   hooks: {
@@ -93,11 +98,7 @@ module.exports = {
         operation,
       }
 
-      if (
-        !userIsProductOwner(payload) &&
-        !userIsMod(payload) &&
-        !userIsAdmin(payload)
-      ) {
+      if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
         throwAccessDenied(null, context, existingItem)
       }
     },

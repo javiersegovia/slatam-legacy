@@ -22,6 +22,7 @@ module.exports = {
       password: '12345678',
       permission: 'USER',
       role: 'BUYER',
+      companyMember: { where: { name: 'Foro Indie' } },
     },
   ],
 }

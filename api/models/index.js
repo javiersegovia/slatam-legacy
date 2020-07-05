@@ -31,7 +31,7 @@ module.exports = [
 
   // ['Post', Post],
   // ['Comment', Comment],
-  // ['ProductPriceRange', ProductPriceRange],
+  ['ProductPriceRange', ProductPriceRange],
   // ['ProductImage', ProductImage],
   // ['ProductReview', ProductReview],
   // ['ProductRating', ProductRating],
