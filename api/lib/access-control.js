@@ -27,6 +27,9 @@ const userIsMod = (payload) => {
   return Boolean(isAuth && isMod)
 }
 
+const userIsAdminOrMod = (payload) =>
+  Boolean(userIsAdmin(payload) || userIsMod(payload))
+
 const userIsTargetUser = (payload) => {
   const {
     authentication: { item },
@@ -78,8 +81,8 @@ const userIsProductOwner = (payload) => {
   } = payload
 
   if (listKey !== 'Product') return false
-
-  item.companyMember = item.companyMember ? item.companyMember : ''
+  if (item.companyMember === null) return false
+  // item.companyMember = item.companyMember ? item.companyMember : ''
 
   if (existingItem) {
     const isProductOwner =
@@ -218,6 +221,7 @@ module.exports = {
   userIsAuthenticated,
   userIsAdmin,
   userIsMod,
+  userIsAdminOrMod,
   userIsTargetUser,
   userIsProductOwner,
   userCanUpdateProducts,

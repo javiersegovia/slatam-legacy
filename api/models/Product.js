@@ -4,6 +4,7 @@ const {
   userIsProductOwner,
   userIsMod,
   userIsAdmin,
+  userIsAdminOrMod,
   userIsAuthenticated,
 } = require('../lib/access-control')
 const {
@@ -16,18 +17,17 @@ module.exports = {
       type: Text,
       isRequired: true,
       access: {
-        update: (payload) => {
-          return (
-            userIsProductOwner(payload) ||
-            userIsMod(payload) ||
-            userIsAdmin(payload)
-          )
-        },
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
       },
     },
     description: {
       type: Text,
       isRequired: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     // images: {
     //   type: Relationship,
