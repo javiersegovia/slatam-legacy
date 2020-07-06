@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import BlogNavbar from '@@components/Layout/Navbars/BlogNavbar'
-import styled from 'styled-components'
+import BlogHome from '../../src/views/blog/BlogHome/index'
+import BlogFooter from '../../src/components/Layout/Footers/BlogFooter/index'
 
-const BlogPage = props => {
+const BlogPage = () => {
   return (
     <>
       <BlogNavbar />
+      <BlogHome />
+      <BlogFooter />
     </>
   )
 }

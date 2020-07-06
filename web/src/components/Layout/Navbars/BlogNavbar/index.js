@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import NavPrimaryLinks from './NavPrimaryLinks'
 import NavSecundaryLinks from './NavSecundaryLinks'
-import BlogFooter from '../../Footers/BlogFooter/index'
-import Home from '../../BlogHome/index'
+
 import { BlogStyledNavBar, Logo, SearchBar } from './styled'
 
 const data = 'slatam.com'
@@ -14,17 +14,16 @@ const BlogNavbar = ({ children }) => {
     <>
       <BlogStyledNavBar>
         <Logo>
-          <a>
-            <img src="/images/slatam-logo.svg" alt="Slatam Logo" />
-          </a>
+          <Link href="/">
+            <a>
+              <img src="/images/slatam-logo.svg" alt="Slatam Logo" />
+            </a>
+          </Link>
         </Logo>
         <NavPrimaryLinks />
         <SearchBar>Search Bar</SearchBar>
         <NavSecundaryLinks />
       </BlogStyledNavBar>
-      <Home />
-      <br />
-      <BlogFooter />
     </>
   )
 }
