@@ -3,6 +3,9 @@ const {
   userIsProductOwner,
   userIsAdminOrMod,
 } = require('../lib/access-control')
+const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
@@ -40,11 +43,7 @@ module.exports = {
     },
   },
   access: {
-    create: (payload) => {
-      console.log(payload)
-      return true
-    },
-    // userIsProductOwner(payload) || userIsAdminOrMod(payload),
+    // only create if the person is product owner
     read: true,
     // delete: userIsModOrOwner, // validate that it is not the last item
   },

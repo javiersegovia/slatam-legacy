@@ -15,7 +15,6 @@ const Region = require('./Region')
 const Subregion = require('./Subregion')
 const Country = require('./Country')
 const State = require('./State')
-const City = require('./City')
 
 module.exports = [
   ['User', User],
@@ -27,7 +26,6 @@ module.exports = [
   ['Subregion', Subregion],
   ['Country', Country],
   ['State', State],
-  ['City', City],
 
   // ['Post', Post],
   // ['Comment', Comment],

@@ -14,17 +14,6 @@ module.exports = {
         delete: userIsAdmin,
       },
     },
-    cities: {
-      schemaDocs: 'The cities that belongs to the state',
-      type: Relationship,
-      ref: 'City.state',
-      many: true,
-      access: {
-        read: true,
-        update: userIsAdmin,
-        delete: userIsAdmin,
-      },
-    },
     country: {
       schemaDocs: 'The country that the state belongs',
       type: Relationship,
