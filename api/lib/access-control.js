@@ -6,6 +6,7 @@ const userIsAuthenticated = ({ authentication: { item: user } }) =>
   Boolean(user)
 
 const userIsAdmin = (payload) => {
+  console.log(payload)
   const {
     authentication: { item: user },
   } = payload
