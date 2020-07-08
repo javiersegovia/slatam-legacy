@@ -1,6 +1,6 @@
 const { Text, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdmin } = require('../lib/access-control')
+const { userIsAdminOrMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -8,27 +8,19 @@ module.exports = {
       schemaDocs: 'The name of the state',
       type: Text,
       isRequired: true,
-      access: {
-        read: true,
-        update: userIsAdmin,
-        delete: userIsAdmin,
-      },
     },
     country: {
       schemaDocs: 'The country that the state belongs',
       type: Relationship,
       ref: 'Country.states',
-      access: {
-        read: true,
-        update: userIsAdmin,
-        delete: userIsAdmin,
-      },
+      isRequired: true,
     },
   },
   access: {
     read: true,
-    update: userIsAdmin,
-    delete: userIsAdmin,
+    create: userIsAdminOrMod,
+    update: userIsAdminOrMod,
+    delete: userIsAdminOrMod,
   },
   plugins: [atTracking(), byTracking()],
 }

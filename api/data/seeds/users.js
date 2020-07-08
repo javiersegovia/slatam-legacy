@@ -9,6 +9,14 @@ module.exports = {
       companyMember: { where: { name: 'Slatam Group' } },
     },
     {
+      firstName: 'mod',
+      email: 'mod@slatam.com',
+      password: '12345678',
+      permission: 'MOD',
+      role: 'SELLER',
+      companyMember: { where: { name: 'Slatam Group' } },
+    },
+    {
       firstName: 'user',
       email: 'user@slatam.com',
       password: '12345678',
