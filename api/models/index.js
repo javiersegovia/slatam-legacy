@@ -1,6 +1,4 @@
 const User = require('./User')
-const Post = require('./Post')
-const Comment = require('./Comment')
 const Company = require('./Company')
 
 const Product = require('./Product')
@@ -15,6 +13,10 @@ const Region = require('./Region')
 const Subregion = require('./Subregion')
 const Country = require('./Country')
 const State = require('./State')
+const Language = require('./Language')
+
+const Post = require('./Post')
+const Comment = require('./Comment')
 
 module.exports = [
   ['User', User],
@@ -26,10 +28,10 @@ module.exports = [
   ['Subregion', Subregion],
   ['Country', Country],
   ['State', State],
-
+  ['Language', Language],
+  ['ProductPriceRange', ProductPriceRange],
   // ['Post', Post],
   // ['Comment', Comment],
-  ['ProductPriceRange', ProductPriceRange],
   // ['ProductImage', ProductImage],
   // ['ProductReview', ProductReview],
   // ['ProductRating', ProductRating],
