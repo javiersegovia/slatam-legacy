@@ -6,6 +6,7 @@ const regionSeeds = require('./regions')
 const subregionSeeds = require('./subregions')
 const countrySeeds = require('./countries')
 const stateSeeds = require('./states')
+const languageSeeds = require('./languages')
 
 module.exports = Object.assign(
   userSeeds,
@@ -15,5 +16,6 @@ module.exports = Object.assign(
   stateSeeds,
   countrySeeds,
   subregionSeeds,
-  regionSeeds
+  regionSeeds,
+  languageSeeds
 )
