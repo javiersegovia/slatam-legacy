@@ -52,6 +52,18 @@ module.exports = {
       ref: 'User',
       isRequired: true,
     },
+    categories: {
+      schemaDocs: 'The categories of the company',
+      type: Relationship,
+      ref: 'Category',
+      many: true,
+    },
+    subcategories: {
+      schemaDocs: 'The subcategory of the company',
+      type: Relationship,
+      ref: 'Subcategory',
+      many: true,
+    },
     members: {
       // [TODO]
       // 1. put his company as a default member

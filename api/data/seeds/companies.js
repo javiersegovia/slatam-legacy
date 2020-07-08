@@ -5,6 +5,8 @@ module.exports = {
       role: 'SUPPLIER',
       belongsTo: { where: { firstName: 'admin' } },
       shipsTo: { where: { name: 'Venezuela' } },
+      categories: { where: { name: 'Fabric and Textile Raw Material' } },
+      subcategories: { where: { name: 'Leather' } },
     },
     {
       name: 'Foro Indie',

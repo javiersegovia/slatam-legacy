@@ -5,15 +5,14 @@ const { userIsAdminOrMod } = require('../lib/access-control')
 module.exports = {
   fields: {
     name: {
-      schemaDocs: 'The category name',
+      schemaDocs: 'The subcategory name',
       type: Text,
       isRequired: true,
     },
-    subcategories: {
-      schemaDocs: 'The subcategories that the category have',
+    category: {
+      schemaDocs: 'The category that the subcategory belongs',
       type: Relationship,
-      ref: 'Subcategory',
-      many: true,
+      ref: 'Category',
     },
   },
   access: {
