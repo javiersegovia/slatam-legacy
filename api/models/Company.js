@@ -1,10 +1,6 @@
-const { Text, Slug, Relationship, Select } = require('@keystonejs/fields')
+const { Text, Relationship, Select } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const {
-  userIsCompanyMember,
-  userIsAuthenticated,
-  userIsMod,
-} = require('../lib/access-control')
+const { userIsAuthenticated } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -12,21 +8,11 @@ module.exports = {
       schemaDoc: 'The name of the company',
       type: Text,
       isRequired: true,
-      access: {
-        update: userIsCompanyMember,
-      },
     },
-    // path: {
-    //     schemaDoc: 'Unique path for companies',
-    //     type: Slug,
-    //     from: 'name',
-    // },
     role: {
       schemaDoc: 'The role of the company',
       type: Select,
       defaultValue: 'Supplier',
-      // [TODO]
-      // 1. defaultValue doesnt work
       options: [
         'MANUFACTURER',
         'SUPPLIER',
@@ -38,33 +24,33 @@ module.exports = {
       isRequired: true,
     },
     // rating: {
-    //     schemaDoc: 'The rating of the company',
-    //     type: Relationship,
-    //     ref: 'CompanyRating',
+    //   schemaDoc: 'The rating of the company',
+    //   type: Relationship,
+    //   ref: 'CompanyRating',
     // },
-    // shipsTo: {
-    //     schemaDoc: 'The countries the company can ship',
-    //     type: Relationship,
-    //     ref: 'Country',
-    //     many: true
-    // },
-    belongsTo: {
-      schemaDoc: 'The owner of the company',
+    shipsTo: {
+      schemaDoc: 'The countries the company can ship',
       type: Relationship,
-      ref: 'User',
+      ref: 'Country',
+      many: true,
       isRequired: true,
     },
-    // info: {
-    //     schemaDoc: 'Useful info about the company',
-    //     type: Relationship,
-    //     ref: 'CompanyInfo',
-    //     isRequired: true
-    // },
+    info: {
+      schemaDoc: 'Useful info about the company',
+      type: Relationship,
+      ref: 'CompanyInfo.belongsTo',
+    },
     products: {
       schemaDoc: 'The products of the company',
       type: Relationship,
       ref: 'Product.belongsTo',
       many: true,
+    },
+    belongsTo: {
+      schemaDoc: 'The owner of the company',
+      type: Relationship,
+      ref: 'User',
+      isRequired: true,
     },
     members: {
       // [TODO]
@@ -73,9 +59,6 @@ module.exports = {
       type: Relationship,
       ref: 'User.companyMember',
       many: true,
-      access: {
-        update: userIsCompanyMember,
-      },
     },
   },
   hooks: {

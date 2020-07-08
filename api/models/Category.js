@@ -1,6 +1,6 @@
 const { Text, Checkbox, Integer, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsModOrOwner, userIsAdmin } = require('../lib/access-control')
+const { userIsAdminOrMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {

@@ -1,5 +1,6 @@
 const User = require('./User')
 const Company = require('./Company')
+const CompanyInfo = require('./CompanyInfo')
 
 const Product = require('./Product')
 const ProductLogistic = require('./ProductLogistic')
@@ -21,6 +22,7 @@ const Comment = require('./Comment')
 module.exports = [
   ['User', User],
   ['Company', Company],
+  ['CompanyInfo', CompanyInfo],
   ['Product', Product],
   ['ProductLogistic', ProductLogistic],
   ['ProductLocation', ProductLocation],
