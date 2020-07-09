@@ -6,7 +6,7 @@ module.exports = {
       password: '12345678',
       permission: 'ADMIN',
       role: 'SELLER',
-      companyMember: { where: { name: 'Slatam Group' } },
+      company: { where: { name: 'Slatam Group' } },
     },
     {
       firstName: 'mod',
@@ -14,7 +14,7 @@ module.exports = {
       password: '12345678',
       permission: 'MOD',
       role: 'SELLER',
-      companyMember: { where: { name: 'Slatam Group' } },
+      company: { where: { name: 'Slatam Group' } },
     },
     {
       firstName: 'user',
@@ -22,7 +22,7 @@ module.exports = {
       password: '12345678',
       permission: 'USER',
       role: 'SELLER',
-      companyMember: { where: { name: 'Slatam Group' } },
+      company: { where: { name: 'Slatam Group' } },
     },
     {
       firstName: 'user2',
@@ -30,7 +30,7 @@ module.exports = {
       password: '12345678',
       permission: 'USER',
       role: 'BUYER',
-      companyMember: { where: { name: 'Foro Indie' } },
+      company: { where: { name: 'Foro Indie' } },
     },
   ],
 }

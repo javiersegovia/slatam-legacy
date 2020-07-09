@@ -56,7 +56,7 @@ module.exports = {
         update: userIsAdmin,
       },
     },
-    companyMember: {
+    company: {
       // [TODO]
       // 1. put his company as a default member
       schemaDoc: 'The user is member of this company',

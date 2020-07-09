@@ -69,7 +69,7 @@ module.exports = {
       // 1. put his company as a default member
       schemaDoc: 'The people who represent the company',
       type: Relationship,
-      ref: 'User.companyMember',
+      ref: 'User.company',
       many: true,
     },
   },

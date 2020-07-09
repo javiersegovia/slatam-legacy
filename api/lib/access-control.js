@@ -6,7 +6,6 @@ const userIsAuthenticated = ({ authentication: { item: user } }) =>
   Boolean(user)
 
 const userIsAdmin = (payload) => {
-  console.log(payload)
   const {
     authentication: { item: user },
   } = payload
@@ -62,11 +61,11 @@ const userCanUpdateProducts = (payload) => {
   if (listKey !== 'Product') return false
 
   if (operation === 'update') {
-    item.companyMember = item.companyMember ? item.companyMember : ''
+    item.company = item.company ? item.company : ''
 
     if (existingItem) {
       const canUpdateProducts =
-        item.companyMember.toString() === existingItem.belongsTo.toString()
+        item.company.toString() === existingItem.belongsTo.toString()
 
       return Boolean(canUpdateProducts)
     }
@@ -82,12 +81,12 @@ const userIsProductOwner = (payload) => {
   } = payload
 
   if (listKey !== 'Product') return false
-  if (item.companyMember === null) return false
-  // item.companyMember = item.companyMember ? item.companyMember : ''
+  if (item.company === null) return false
+  // item.company = item.company ? item.company : ''
 
   if (existingItem) {
     const isProductOwner =
-      item.companyMember.toString() === existingItem.belongsTo.toString()
+      item.company.toString() === existingItem.belongsTo.toString()
 
     return Boolean(isProductOwner)
   }
@@ -106,11 +105,11 @@ const userCanDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
   if (listKey !== 'Product') return false
 
   if (operation === 'delete') {
-    item.companyMember = item.companyMember ? item.companyMember : ''
+    item.company = item.company ? item.company : ''
 
     if (existingItem) {
       const canDeleteProducts =
-        item.companyMember.toString() === existingItem.belongsTo.toString()
+        item.company.toString() === existingItem.belongsTo.toString()
 
       if (!canDeleteProducts && isAuth && !isMod && !isAdmin) {
         const context = {
@@ -134,11 +133,11 @@ const userCanUpdateCompany = (payload) => {
   if (listKey !== 'Company') return false
 
   if (operation === 'update') {
-    item.companyMember = item.companyMember ? item.companyMember : ''
+    item.company = item.company ? item.company : ''
 
     if (existingItem) {
       const canUpdateCompany =
-        item.companyMember.toString() === existingItem.id.toString()
+        item.company.toString() === existingItem.id.toString()
       return Boolean(canUpdateCompany)
     }
   }
@@ -155,11 +154,11 @@ const userCanDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
   if (listKey !== 'Company') return false
 
   if (operation === 'delete') {
-    item.companyMember = item.companyMember ? item.companyMember : ''
+    item.company = item.company ? item.company : ''
 
     if (existingItem) {
       const canDeleteCompany =
-        item.companyMember.toString() === existingItem.id.toString()
+        item.company.toString() === existingItem.id.toString()
 
       if (!canDeleteCompany && isAuth && !isMod && !isAdmin) {
         const context = {
