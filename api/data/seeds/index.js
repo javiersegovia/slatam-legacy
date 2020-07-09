@@ -1,10 +1,11 @@
+const userSeeds = require('./users')
 const companySeeds = require('./companies')
 const companyInfoSeeds = require('./companiesInfo')
 const categorySeeds = require('./categories')
 const subcategorySeeds = require('./subcategories')
-const userSeeds = require('./users')
 const productSeeds = require('./products')
 const priceRangeSeeds = require('./priceRanges')
+const quickDetailsSeeds = require('./quickDetails')
 const regionSeeds = require('./regions')
 const subregionSeeds = require('./subregions')
 const countrySeeds = require('./countries')
@@ -19,9 +20,10 @@ module.exports = Object.assign(
   subcategorySeeds,
   productSeeds,
   priceRangeSeeds,
-  stateSeeds,
-  countrySeeds,
-  subregionSeeds,
+  quickDetailsSeeds,
   regionSeeds,
+  subregionSeeds,
+  countrySeeds,
+  stateSeeds,
   languageSeeds
 )

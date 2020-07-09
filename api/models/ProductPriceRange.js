@@ -9,14 +9,6 @@ const {
 
 module.exports = {
   fields: {
-    product: {
-      type: Relationship,
-      ref: 'Product.priceRanges',
-      isRequired: true,
-      access: {
-        update: (payload) => userIsAdminOrMod(payload),
-      },
-    },
     value: {
       type: Integer,
       isRequired: true,
@@ -39,6 +31,14 @@ module.exports = {
       access: {
         update: (payload) =>
           userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
+    },
+    belongsTo: {
+      type: Relationship,
+      ref: 'Product.priceRanges',
+      isRequired: true,
+      access: {
+        update: (payload) => userIsAdminOrMod(payload),
       },
     },
   },

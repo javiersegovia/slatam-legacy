@@ -12,6 +12,7 @@ const {
 module.exports = {
   fields: {
     title: {
+      schemaDocs: 'The title of the product',
       type: Text,
       isRequired: true,
       access: {
@@ -20,6 +21,7 @@ module.exports = {
       },
     },
     description: {
+      schemaDocs: 'The description of the product',
       type: Text,
       isRequired: true,
       access: {
@@ -28,17 +30,20 @@ module.exports = {
       },
     },
     // images: {
+    //   schemaDocs: 'The images of the product',
     //   type: Relationship,
     //   ref: 'ProductImage',
-    //   many: true
+    //   many: true,
     // },
     // rating: {
+    //   schemaDocs: 'The rating of the product',
     //   type: Relationship,
     //   ref: 'ProductRating',
     // },
     priceRanges: {
+      schemaDocs: 'The price ranges of the product',
       type: Relationship,
-      ref: 'ProductPriceRange.product',
+      ref: 'ProductPriceRange.belongsTo',
       isRequired: true,
       many: true,
       access: {
@@ -47,22 +52,23 @@ module.exports = {
       },
     },
     logistics: {
+      schemaDocs: 'The logistics of the product',
       type: Relationship,
       ref: 'ProductLogistic.belongsTo',
     },
-    // quickDetails: {
-    //   type: Relationship,
-    //   ref: 'ProductQuickDetails',
-    //   many: true,
-    // },
-    // status: {
-    //   type: Select,
-    //   defaultValue: 'VISIBLE',
-    //   options: ['VISIBLE', 'HIDDEN'],
-    //   isRequired: true
-    // },
-    // [TODO]
-    // 1. add the deleted status
+    quickDetails: {
+      schemaDocs: 'The quick details of the product',
+      type: Relationship,
+      ref: 'ProductQuickDetail.belongsTo',
+      many: true,
+    },
+    status: {
+      schemaDocs: 'The status of the product',
+      type: Select,
+      defaultValue: 'VISIBLE',
+      options: ['VISIBLE', 'HIDDEN'],
+      isRequired: true,
+    },
     SKU: {
       schemaDocs:
         'SKU means Stock Keeping unit. Its a field for inventory managment',
@@ -79,6 +85,7 @@ module.exports = {
       type: Text,
     },
     belongsTo: {
+      schemaDocs: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company.products',
       isRequired: true,

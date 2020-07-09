@@ -8,6 +8,7 @@ const Product = require('./Product')
 const ProductLogistic = require('./ProductLogistic')
 const ProductLocation = require('./ProductLocation')
 const ProductPriceRange = require('./ProductPriceRange')
+const ProductQuickDetail = require('./ProductQuickDetail')
 const ProductImage = require('./ProductImage')
 const ProductReview = require('./ProductReview')
 const ProductRating = require('./ProductRating')
@@ -30,12 +31,13 @@ module.exports = [
   ['Product', Product],
   ['ProductLogistic', ProductLogistic],
   ['ProductLocation', ProductLocation],
+  ['ProductPriceRange', ProductPriceRange],
+  ['ProductQuickDetail', ProductQuickDetail],
   ['Region', Region],
   ['Subregion', Subregion],
   ['Country', Country],
   ['State', State],
   ['Language', Language],
-  ['ProductPriceRange', ProductPriceRange],
   // ['Post', Post],
   // ['Comment', Comment],
   // ['ProductImage', ProductImage],

@@ -1,11 +1,6 @@
 const { Text, Slug, Integer, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const {
-  userIsAdminOrOwner,
-  userIsModOrOwner,
-  userIsAdmin,
-  userIsMod,
-} = require('../lib/access-control')
+const { userIsAdmin, userIsMod } = require('../lib/access-control')
 
 module.exports = {
   schemaDoc: 'Post data',
@@ -38,8 +33,6 @@ module.exports = {
   access: {
     read: true,
     create: userIsMod,
-    update: userIsModOrOwner,
-    delete: userIsModOrOwner,
   },
   plugins: [atTracking(), byTracking()],
 }
