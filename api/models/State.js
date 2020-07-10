@@ -5,12 +5,12 @@ const { userIsAdminOrMod } = require('../lib/access-control')
 module.exports = {
   fields: {
     name: {
-      schemaDocs: 'The name of the state',
+      schemaDoc: 'The name of the state',
       type: Text,
       isRequired: true,
     },
     country: {
-      schemaDocs: 'The country that the state belongs',
+      schemaDoc: 'The country that the state belongs',
       type: Relationship,
       ref: 'Country.states',
       isRequired: true,

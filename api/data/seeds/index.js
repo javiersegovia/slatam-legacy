@@ -4,8 +4,11 @@ const companyInfoSeeds = require('./companiesInfo')
 const categorySeeds = require('./categories')
 const subcategorySeeds = require('./subcategories')
 const productSeeds = require('./products')
-const priceRangeSeeds = require('./priceRanges')
-const quickDetailsSeeds = require('./quickDetails')
+const productPriceRangeSeeds = require('./productPriceRanges')
+const productQuickDetailsSeeds = require('./productQuickDetails')
+const productLogisticsSeeds = require('./productLogistics')
+const productLeadTimeSeeds = require('./productLeadTime')
+const productLocationSeeds = require('./productLocation')
 const regionSeeds = require('./regions')
 const subregionSeeds = require('./subregions')
 const countrySeeds = require('./countries')
@@ -19,8 +22,11 @@ module.exports = Object.assign(
   categorySeeds,
   subcategorySeeds,
   productSeeds,
-  priceRangeSeeds,
-  quickDetailsSeeds,
+  productPriceRangeSeeds,
+  productQuickDetailsSeeds,
+  productLogisticsSeeds,
+  productLeadTimeSeeds,
+  productLocationSeeds,
   regionSeeds,
   subregionSeeds,
   countrySeeds,

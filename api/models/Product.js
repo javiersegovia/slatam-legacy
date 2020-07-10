@@ -12,7 +12,7 @@ const {
 module.exports = {
   fields: {
     title: {
-      schemaDocs: 'The title of the product',
+      schemaDoc: 'The title of the product',
       type: Text,
       isRequired: true,
       access: {
@@ -21,7 +21,7 @@ module.exports = {
       },
     },
     description: {
-      schemaDocs: 'The description of the product',
+      schemaDoc: 'The description of the product',
       type: Text,
       isRequired: true,
       access: {
@@ -30,18 +30,18 @@ module.exports = {
       },
     },
     // images: {
-    //   schemaDocs: 'The images of the product',
+    //   schemaDoc: 'The images of the product',
     //   type: Relationship,
     //   ref: 'ProductImage',
     //   many: true,
     // },
     // rating: {
-    //   schemaDocs: 'The rating of the product',
+    //   schemaDoc: 'The rating of the product',
     //   type: Relationship,
     //   ref: 'ProductRating',
     // },
     priceRanges: {
-      schemaDocs: 'The price ranges of the product',
+      schemaDoc: 'The price ranges of the product',
       type: Relationship,
       ref: 'ProductPriceRange.belongsTo',
       isRequired: true,
@@ -52,40 +52,40 @@ module.exports = {
       },
     },
     logistics: {
-      schemaDocs: 'The logistics of the product',
+      schemaDoc: 'The logistics of the product',
       type: Relationship,
       ref: 'ProductLogistic.belongsTo',
     },
     quickDetails: {
-      schemaDocs: 'The quick details of the product',
+      schemaDoc: 'The quick details of the product',
       type: Relationship,
       ref: 'ProductQuickDetail.belongsTo',
       many: true,
     },
     status: {
-      schemaDocs: 'The status of the product',
+      schemaDoc: 'The status of the product',
       type: Select,
       defaultValue: 'VISIBLE',
       options: ['VISIBLE', 'HIDDEN'],
       isRequired: true,
     },
     SKU: {
-      schemaDocs:
+      schemaDoc:
         'SKU means Stock Keeping unit. Its a field for inventory managment',
       type: Text,
     },
     GTIN: {
-      schemaDocs:
+      schemaDoc:
         'GTIN means Grobal Trade Item Number. It is used for identifying item globally',
       type: Text,
     },
     MPN: {
-      schemaDocs:
+      schemaDoc:
         'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
       type: Text,
     },
     belongsTo: {
-      schemaDocs: 'The company who belongs this product',
+      schemaDoc: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company.products',
       isRequired: true,
