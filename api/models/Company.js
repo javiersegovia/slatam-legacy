@@ -23,11 +23,11 @@ module.exports = {
       ],
       isRequired: true,
     },
-    // rating: {
-    //   schemaDoc: 'The rating of the company',
-    //   type: Relationship,
-    //   ref: 'CompanyRating',
-    // },
+    rating: {
+      schemaDoc: 'The rating of the company',
+      type: Relationship,
+      ref: 'CompanyRating.belongsTo',
+    },
     shipsTo: {
       schemaDoc: 'The countries the company can ship',
       type: Relationship,
