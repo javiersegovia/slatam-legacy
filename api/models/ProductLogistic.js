@@ -1,4 +1,4 @@
-const { Text, Relationship, Integer } = require('@keystonejs/fields')
+const { Text, Relationship, Integer, Select } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const { userIsAuthenticated } = require('../lib/access-control')
 
@@ -51,12 +51,19 @@ module.exports = {
       many: true,
       isRequired: true,
     },
-    // shippingMethod: {
-    //     schemaDoc: 'The method which the product can be shipped',
-    //     type: Relationship,
-    //     ref: 'ShippingMethod',
-    //     isRequired: true
-    // },
+    modeOfTransport: {
+      schemaDoc: 'The method which the product can be shipped',
+      type: Select,
+      options: ['LAND', 'WATER', 'AIR'],
+      isRequired: true,
+    },
+    incoTerms: {
+      schemaDoc: 'The responsabilities of both parties regarding shipping',
+      type: Relationship,
+      ref: 'ProductIncoTerm',
+      many: true,
+      isRequired: true,
+    },
     dimension: {
       schemaDoc: 'The dimension of the product',
       type: Text,

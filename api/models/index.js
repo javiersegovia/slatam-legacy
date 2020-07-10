@@ -6,6 +6,7 @@ const Subcategory = require('./Subcategory')
 
 const Product = require('./Product')
 const ProductLogistic = require('./ProductLogistic')
+const ProductIncoTerm = require('./ProductIncoTerm')
 const ProductLeadTime = require('./ProductLeadTime')
 const ProductLocation = require('./ProductLocation')
 const ProductPriceRange = require('./ProductPriceRange')
@@ -31,6 +32,7 @@ module.exports = [
   ['Subcategory', Subcategory],
   ['Product', Product],
   ['ProductLogistic', ProductLogistic],
+  ['ProductIncoTerm', ProductIncoTerm],
   ['ProductLeadTime', ProductLeadTime],
   ['ProductLocation', ProductLocation],
   ['ProductPriceRange', ProductPriceRange],

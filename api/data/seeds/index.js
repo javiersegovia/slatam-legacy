@@ -7,6 +7,7 @@ const productSeeds = require('./products')
 const productPriceRangeSeeds = require('./productPriceRanges')
 const productQuickDetailsSeeds = require('./productQuickDetails')
 const productLogisticsSeeds = require('./productLogistics')
+const productIncoTermSeeds = require('./productIncoTerms')
 const productLeadTimeSeeds = require('./productLeadTime')
 const productLocationSeeds = require('./productLocation')
 const regionSeeds = require('./regions')
@@ -25,6 +26,7 @@ module.exports = Object.assign(
   productPriceRangeSeeds,
   productQuickDetailsSeeds,
   productLogisticsSeeds,
+  productIncoTermSeeds,
   productLeadTimeSeeds,
   productLocationSeeds,
   regionSeeds,
