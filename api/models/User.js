@@ -73,6 +73,11 @@ module.exports = {
         update: userIsTargetUser,
       },
     },
+    shoppingCart: {
+      schemaDoc: 'The shopping cart of the user',
+      type: Relationship,
+      ref: 'ShoppingCart.belongsTo',
+    },
     rating: {
       schemaDoc: 'The buyer rating of the user',
       type: Relationship,

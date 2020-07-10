@@ -18,6 +18,8 @@ const ProductQuickDetail = require('./ProductQuickDetail')
 const ProductUnitType = require('./ProductUnitType')
 const ProductReview = require('./ProductReview')
 const ProductRating = require('./ProductRating')
+const ShoppingCart = require('./ShoppingCart')
+const ShoppingCartProduct = require('./ShoppingCartProduct')
 const ProductImage = require('./ProductImage')
 
 const Region = require('./Region')
@@ -40,8 +42,6 @@ module.exports = [
   ['SellerReview', SellerReview],
   ['BuyerReview', BuyerReview],
   ['Product', Product],
-  ['ProductRating', ProductRating],
-  ['ProductReview', ProductReview],
   ['ProductLogistic', ProductLogistic],
   ['ProductIncoTerm', ProductIncoTerm],
   ['ProductLeadTime', ProductLeadTime],
@@ -49,6 +49,10 @@ module.exports = [
   ['ProductPriceRange', ProductPriceRange],
   ['ProductQuickDetail', ProductQuickDetail],
   ['ProductUnitType', ProductUnitType],
+  ['ProductReview', ProductReview],
+  ['ProductRating', ProductRating],
+  ['ShoppingCart', ShoppingCart],
+  ['ShoppingCartProduct', ShoppingCartProduct],
   ['Region', Region],
   ['Subregion', Subregion],
   ['Country', Country],
