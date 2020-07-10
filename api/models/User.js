@@ -47,8 +47,6 @@ module.exports = {
       schemaDoc: 'The level of permission the user has',
       type: Select,
       defaultValue: 'USER',
-      // [TODO]
-      // 1. defaultValue doesnt work
       options: ['ADMIN', 'MOD', 'USER'],
       isRequired: true,
       access: {
@@ -75,10 +73,12 @@ module.exports = {
         update: userIsTargetUser,
       },
     },
-    // rating: {
-    //   type: Relationship,
-    //   ref: 'UserRating'
-    // },
+    rating: {
+      schemaDoc: 'The buyer rating of the user',
+      type: Relationship,
+      ref: 'UserRating.belongsTo',
+      isRequired: true,
+    },
     // lastSeen: {
     //   type: DateTimeUtc
     // },

@@ -1,4 +1,5 @@
 const userSeeds = require('./users')
+const userRatingSeeds = require('./userRatings')
 const companySeeds = require('./companies')
 const companyInfoSeeds = require('./companiesInfo')
 const categorySeeds = require('./categories')
@@ -21,6 +22,7 @@ const languageSeeds = require('./languages')
 
 module.exports = Object.assign(
   userSeeds,
+  userRatingSeeds,
   companySeeds,
   companyInfoSeeds,
   categorySeeds,

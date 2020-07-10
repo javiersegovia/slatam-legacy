@@ -1,4 +1,5 @@
 const User = require('./User')
+const UserRating = require('./UserRating')
 const Company = require('./Company')
 const CompanyInfo = require('./CompanyInfo')
 const Category = require('./Category')
@@ -27,6 +28,7 @@ const Comment = require('./Comment')
 
 module.exports = [
   ['User', User],
+  ['UserRating', UserRating],
   ['Company', Company],
   ['CompanyInfo', CompanyInfo],
   ['Category', Category],
