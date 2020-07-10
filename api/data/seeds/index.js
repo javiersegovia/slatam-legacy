@@ -5,6 +5,9 @@ const companyRatingSeeds = require('./companyRatings')
 const companyInfoSeeds = require('./companiesInfo')
 const categorySeeds = require('./categories')
 const subcategorySeeds = require('./subcategories')
+const SellerReviewSeeds = require('./sellerReviews')
+const BuyerReviewSeeds = require('./buyerReviews')
+
 const productSeeds = require('./products')
 const productRatingSeeds = require('./productRatings')
 const productReviewSeeds = require('./productReviews')
@@ -15,6 +18,7 @@ const productLogisticsSeeds = require('./productLogistics')
 const productIncoTermSeeds = require('./productIncoTerms')
 const productLeadTimeSeeds = require('./productLeadTime')
 const productLocationSeeds = require('./productLocation')
+
 const regionSeeds = require('./regions')
 const subregionSeeds = require('./subregions')
 const countrySeeds = require('./countries')
@@ -29,6 +33,8 @@ module.exports = Object.assign(
   companyInfoSeeds,
   categorySeeds,
   subcategorySeeds,
+  SellerReviewSeeds,
+  BuyerReviewSeeds,
   productSeeds,
   productRatingSeeds,
   productReviewSeeds,

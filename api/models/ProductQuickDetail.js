@@ -21,9 +21,5 @@ module.exports = {
       isRequired: true,
     },
   },
-  access: {
-    read: true,
-    // create: userIsMod,
-  },
   plugins: [atTracking(), byTracking()],
 }

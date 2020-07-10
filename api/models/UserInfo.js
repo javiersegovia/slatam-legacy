@@ -34,12 +34,5 @@ module.exports = {
       ref: 'User',
     },
   },
-  access: {
-    // create: true,
-    // read: userIsAdminOrOwner,
-    // update: userIsAdminOrOwner,
-    // delete: userIsAdmin,
-    auth: true,
-  },
   plugins: [atTracking(), byTracking()],
 }

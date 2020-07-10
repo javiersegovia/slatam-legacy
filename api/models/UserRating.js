@@ -1,4 +1,4 @@
-const { Float, Relationship } = require('@keystonejs/fields')
+const { Float, Relationship, Integer } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 
 module.exports = {
@@ -7,6 +7,18 @@ module.exports = {
       schemaDoc: 'The buyer rating of the user',
       type: Float,
       isRequired: true,
+    },
+    buyerReviewsCount: {
+      schemaDoc: 'The buyer review count',
+      type: Integer,
+      defaultValue: 0,
+      isRequired: true,
+    },
+    buyerReviews: {
+      schemaDoc: 'The buyer reviews of the user',
+      type: Relationship,
+      ref: 'BuyerReview.belongsToUser',
+      many: true,
     },
     belongsTo: {
       schemaDoc: 'The user who belongs this info',

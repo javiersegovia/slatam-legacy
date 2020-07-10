@@ -1,6 +1,5 @@
 const { Text, Relationship, Integer, Select } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAuthenticated } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -88,10 +87,6 @@ module.exports = {
       ref: 'Product.logistics',
       isRequired: true,
     },
-  },
-  access: {
-    create: userIsAuthenticated,
-    read: true,
   },
   plugins: [atTracking(), byTracking()],
 }

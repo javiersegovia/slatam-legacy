@@ -1,6 +1,5 @@
 const { Text, Relationship } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsCompanyMember } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -30,10 +29,5 @@ module.exports = {
       ref: 'ProductLogistic.location',
     },
   },
-  // access: {
-  //   create: userIsAuthenticated,
-  //   read: true,
-  //   delete: userIsAdminOrMod,
-  // },
   plugins: [atTracking(), byTracking()],
 }

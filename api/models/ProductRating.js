@@ -1,5 +1,4 @@
 const { Integer, Float, Relationship } = require('@keystonejs/fields')
-const { userIsAdminOrMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -28,10 +27,5 @@ module.exports = {
       ref: 'Product.rating',
       isRequired: true,
     },
-  },
-  access: {
-    create: true, // TODO: Check that only product owner or manager can create/edit the product price
-    read: true,
-    delete: userIsAdminOrMod, // validate that it is not the last item
   },
 }

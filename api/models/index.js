@@ -5,6 +5,8 @@ const CompanyRating = require('./CompanyRating')
 const CompanyInfo = require('./CompanyInfo')
 const Category = require('./Category')
 const Subcategory = require('./Subcategory')
+const SellerReview = require('./SellerReview')
+const BuyerReview = require('./BuyerReview')
 
 const Product = require('./Product')
 const ProductLogistic = require('./ProductLogistic')
@@ -35,6 +37,8 @@ module.exports = [
   ['CompanyInfo', CompanyInfo],
   ['Category', Category],
   ['Subcategory', Subcategory],
+  ['SellerReview', SellerReview],
+  ['BuyerReview', BuyerReview],
   ['Product', Product],
   ['ProductRating', ProductRating],
   ['ProductReview', ProductReview],
