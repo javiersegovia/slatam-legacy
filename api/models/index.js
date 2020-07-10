@@ -11,9 +11,10 @@ const ProductLeadTime = require('./ProductLeadTime')
 const ProductLocation = require('./ProductLocation')
 const ProductPriceRange = require('./ProductPriceRange')
 const ProductQuickDetail = require('./ProductQuickDetail')
-const ProductImage = require('./ProductImage')
+const ProductUnitType = require('./ProductUnitType')
 const ProductReview = require('./ProductReview')
 const ProductRating = require('./ProductRating')
+const ProductImage = require('./ProductImage')
 
 const Region = require('./Region')
 const Subregion = require('./Subregion')
@@ -31,12 +32,15 @@ module.exports = [
   ['Category', Category],
   ['Subcategory', Subcategory],
   ['Product', Product],
+  ['ProductRating', ProductRating],
+  ['ProductReview', ProductReview],
   ['ProductLogistic', ProductLogistic],
   ['ProductIncoTerm', ProductIncoTerm],
   ['ProductLeadTime', ProductLeadTime],
   ['ProductLocation', ProductLocation],
   ['ProductPriceRange', ProductPriceRange],
   ['ProductQuickDetail', ProductQuickDetail],
+  ['ProductUnitType', ProductUnitType],
   ['Region', Region],
   ['Subregion', Subregion],
   ['Country', Country],

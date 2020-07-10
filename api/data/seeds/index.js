@@ -4,8 +4,11 @@ const companyInfoSeeds = require('./companiesInfo')
 const categorySeeds = require('./categories')
 const subcategorySeeds = require('./subcategories')
 const productSeeds = require('./products')
+const productRatingSeeds = require('./productRatings')
+const productReviewSeeds = require('./productReviews')
 const productPriceRangeSeeds = require('./productPriceRanges')
 const productQuickDetailsSeeds = require('./productQuickDetails')
+const productUnitTypeSeeds = require('./productUnitType')
 const productLogisticsSeeds = require('./productLogistics')
 const productIncoTermSeeds = require('./productIncoTerms')
 const productLeadTimeSeeds = require('./productLeadTime')
@@ -23,8 +26,11 @@ module.exports = Object.assign(
   categorySeeds,
   subcategorySeeds,
   productSeeds,
+  productRatingSeeds,
+  productReviewSeeds,
   productPriceRangeSeeds,
   productQuickDetailsSeeds,
+  productUnitTypeSeeds,
   productLogisticsSeeds,
   productIncoTermSeeds,
   productLeadTimeSeeds,

@@ -4,12 +4,12 @@ const { userIsAuthenticated } = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    // unitType: {
-    //     schemaDoc: 'The type of unit that the product use',
-    //     type: Relationship,
-    //     ref: 'ProductUnitType',
-    //     isRequired: true
-    // },
+    unitType: {
+      schemaDoc: 'The type of unit that the product use',
+      type: Relationship,
+      ref: 'ProductUnitType',
+      isRequired: true,
+    },
     minQuantity: {
       schemaDoc: 'The minimun quantity that can be order',
       type: Integer,

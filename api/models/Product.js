@@ -35,11 +35,12 @@ module.exports = {
     //   ref: 'ProductImage',
     //   many: true,
     // },
-    // rating: {
-    //   schemaDoc: 'The rating of the product',
-    //   type: Relationship,
-    //   ref: 'ProductRating',
-    // },
+    rating: {
+      schemaDoc: 'The rating of the product',
+      type: Relationship,
+      ref: 'ProductRating.belongsTo',
+      isRequired: true,
+    },
     priceRanges: {
       schemaDoc: 'The price ranges of the product',
       type: Relationship,

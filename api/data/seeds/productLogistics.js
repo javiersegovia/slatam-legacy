@@ -1,6 +1,7 @@
 module.exports = {
   ProductLogistic: [
     {
+      unitType: { where: { name: 'Barrel' } },
       minQuantity: 10,
       maxQuantity: 20,
       shippingFrom: { where: { name: 'Barinas' } },
