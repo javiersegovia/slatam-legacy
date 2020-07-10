@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import AppLayout from '@@components/Layout'
 import { ApolloProvider } from '@apollo/react-hooks'
 import withApollo from '@@graphql/apollo'
-import '../public/scss/application.scss'
+import '../../public/scss/application.scss'
 
 class MyApp extends App {
   componentDidMount() {
