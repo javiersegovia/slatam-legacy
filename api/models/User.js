@@ -12,7 +12,6 @@ module.exports = {
     firstName: {
       schemaDoc: 'The firstname of the user',
       type: Text,
-      isRequired: true,
       access: {
         update: userIsTargetUser,
       },
@@ -20,7 +19,6 @@ module.exports = {
     // lastName: {
     //   schemaDoc: 'The lastname of the user',
     //   type: Text,
-    //   isRequired: true,
     //   access: {
     //     update: userIsTargetUser,
     //   },
@@ -67,7 +65,7 @@ module.exports = {
     role: {
       type: Select,
       defaultValue: 'BUYER',
-      options: ['BUYER', 'SELLER', 'BOTH'],
+      options: ['BUYER', 'SELLER', 'MIXED'],
       isRequired: true,
       access: {
         update: userIsTargetUser,

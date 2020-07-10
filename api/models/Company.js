@@ -7,12 +7,13 @@ module.exports = {
     name: {
       schemaDoc: 'The name of the company',
       type: Text,
+      isUnique: true,
       isRequired: true,
     },
     role: {
       schemaDoc: 'The role of the company',
       type: Select,
-      defaultValue: 'Supplier',
+      defaultValue: 'SUPPLIER',
       options: [
         'MANUFACTURER',
         'SUPPLIER',

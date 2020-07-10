@@ -5,17 +5,17 @@ const { userIsAdminOrOwner, userIsAdmin } = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    resetToken: {
+    passwordResetToken: {
       schemaDoc: "The password's reset token",
       type: Text,
       isUnique: true,
     },
-    resetTokenExpiry: {
+    passwordResetTokenExpiryDate: {
       schemaDoc: "The password's reset expiry date",
       type: DateTimeUtc,
       isUnique: true,
     },
-    verifiedEmail: {
+    isVerifiedEmail: {
       schemaDoc: 'The account verification state',
       type: Checkbox,
       isRequired: true,
@@ -24,7 +24,7 @@ module.exports = {
       type: Text,
       isUnique: true,
     },
-    verifiedEmailTokenExpiry: {
+    verifiedEmailTokenExpiryDate: {
       schemaDoc: 'The account verification expiry date',
       type: DateTimeUtc,
       isUnique: true,

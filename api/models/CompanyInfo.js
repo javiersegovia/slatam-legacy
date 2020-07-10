@@ -22,12 +22,12 @@ module.exports = {
       schemaDoc: "The employees's number of the company",
       type: Select,
       options: [
-        'Between 1 and 9',
-        'Between 10 and 19',
-        'Between 20 and 49',
-        'Between 50 and 99',
-        'Between 100 and 199',
-        'More than 200',
+        'BETWEEN 1 AND 9',
+        'BETWEEN 10 AND 19',
+        'BETWEEN 20 AND 49',
+        'BETWEEN 50 AND 99',
+        'BETWEEN 100 AND 199',
+        'MORE THAN 200',
       ],
       dataType: 'string',
     },
@@ -38,6 +38,11 @@ module.exports = {
     postalCode: {
       schemaDoc: 'The postal code of the company',
       type: Text,
+    },
+    state: {
+      schemaDoc: 'The state who belongs the company',
+      type: Relationship,
+      ref: 'State',
     },
     country: {
       schemaDoc: 'The country of the company',
