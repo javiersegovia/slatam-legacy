@@ -1,4 +1,6 @@
 const User = require('./User')
+const UserInfo = require('./UserInfo')
+const UserLocation = require('./UserLocation')
 const UserRating = require('./UserRating')
 const Company = require('./Company')
 const CompanyRating = require('./CompanyRating')
@@ -35,6 +37,8 @@ const Comment = require('./Comment')
 
 module.exports = [
   ['User', User],
+  ['UserInfo', UserInfo],
+  ['UserLocation', UserLocation],
   ['UserRating', UserRating],
   ['Company', Company],
   ['CompanyRating', CompanyRating],

@@ -1,12 +1,17 @@
+const utcDate = new Date(Date.now())
+
 module.exports = {
   User: [
     {
       firstName: 'admin',
+      lastName: 'admin',
       email: 'admin@slatam.com',
       password: '12345678',
       permission: 'ADMIN',
       role: 'SELLER',
       company: { where: { name: 'Slatam Group' } },
+      lastSeen: utcDate,
+      status: 'VISIBLE',
     },
     {
       firstName: 'mod',
@@ -15,6 +20,8 @@ module.exports = {
       permission: 'MOD',
       role: 'SELLER',
       company: { where: { name: 'Slatam Group' } },
+      lastSeen: utcDate,
+      status: 'VISIBLE',
     },
     {
       firstName: 'user',
@@ -23,6 +30,8 @@ module.exports = {
       permission: 'USER',
       role: 'SELLER',
       company: { where: { name: 'Slatam Group' } },
+      lastSeen: utcDate,
+      status: 'VISIBLE',
     },
     {
       firstName: 'user2',
@@ -31,6 +40,8 @@ module.exports = {
       permission: 'USER',
       role: 'BUYER',
       company: { where: { name: 'Foro Indie' } },
+      lastSeen: utcDate,
+      status: 'VISIBLE',
     },
   ],
 }

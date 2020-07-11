@@ -1,14 +1,13 @@
 const { Text, Relationship } = require('@keystonejs/fields')
 const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdminOrOwner, userIsAdmin } = require('../lib/access-control')
 
 module.exports = {
   fields: {
     location: {
       schemaDoc: 'The location of the user',
       type: Relationship,
-      ref: 'UserLocation',
+      ref: 'UserLocation.belongsTo',
       isRequired: true,
     },
     birthDate: {
@@ -26,12 +25,13 @@ module.exports = {
     languages: {
       schemaDoc: 'The languages that the user speak',
       type: Relationship,
-      ref: 'Languages',
+      ref: 'Language',
+      many: true,
     },
     belongsTo: {
       schemaDoc: 'The user that belongs this info',
       type: Relationship,
-      ref: 'User',
+      ref: 'User.info',
     },
   },
   plugins: [atTracking(), byTracking()],

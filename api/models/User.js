@@ -16,13 +16,13 @@ module.exports = {
         update: userIsTargetUser,
       },
     },
-    // lastName: {
-    //   schemaDoc: 'The lastname of the user',
-    //   type: Text,
-    //   access: {
-    //     update: userIsTargetUser,
-    //   },
-    // },
+    lastName: {
+      schemaDoc: 'The lastname of the user',
+      type: Text,
+      access: {
+        update: userIsTargetUser,
+      },
+    },
     email: {
       schemaDoc: 'The email of the user',
       type: Text,
@@ -88,19 +88,21 @@ module.exports = {
       ref: 'UserRating.belongsTo',
       isRequired: true,
     },
-    // lastSeen: {
-    //   type: DateTimeUtc
-    // },
-    // status: {
-    //   type: Select,
-    //   defaultValue: 'VISIBLE',
-    //   options: ['VISIBLE', 'HIDDEN']
-    // },
-    // info: {
-    //   type: Relationship,
-    //   ref: 'UserInfo',
-    //   isRequired: true
-    // },
+    lastSeen: {
+      schemaDoc: 'The last time the user logs in',
+      type: DateTimeUtc,
+    },
+    status: {
+      type: Select,
+      defaultValue: 'VISIBLE',
+      options: ['VISIBLE', 'HIDDEN'],
+      isRequired: true,
+    },
+    info: {
+      type: Relationship,
+      ref: 'UserInfo.belongsTo',
+      isRequired: true,
+    },
     // verification: {
     //   type: Relationship,
     //   ref: 'UserVerification',
