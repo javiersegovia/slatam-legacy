@@ -11,6 +11,7 @@ module.exports = {
     status: {
       schemaDoc: 'The status of the order',
       type: Select,
+      defaultValue: 'WAITING FOR A REQUIREMENT',
       options: ['WAITING FOR A REQUIREMENT', 'CANCELLED', 'COMPLETED'],
       dataType: 'string',
     },

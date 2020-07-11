@@ -37,7 +37,8 @@ module.exports = {
     },
     unitType: {
       schemaDoc: 'The type of unit that the product use',
-      type: Text,
+      type: Relationship,
+      ref: 'ProductUnitType',
       isRequired: true,
     },
     minQuantity: {
@@ -76,7 +77,8 @@ module.exports = {
     },
     shippingFrom: {
       schemaDoc: 'The location which the product will be shipped',
-      type: Text,
+      type: Relationship,
+      ref: 'State',
       isRequired: true,
     },
     supplyQuantity: {
@@ -103,7 +105,9 @@ module.exports = {
     },
     incoTerms: {
       schemaDoc: 'The responsabilities of both parties regarding shipping',
-      type: Text,
+      type: Relationship,
+      ref: 'ProductIncoTerm',
+      many: true,
       isRequired: true,
     },
     dimension: {
@@ -123,12 +127,6 @@ module.exports = {
     shippingWeight: {
       schemaDoc: 'The overall weight of the package with the product inside',
       type: Text,
-    },
-    status: {
-      schemaDoc: 'The status of the product',
-      type: Text,
-      defaultValue: 'VISIBLE',
-      isRequired: true,
     },
     SKU: {
       schemaDoc:
