@@ -39,15 +39,11 @@ module.exports = {
       schemaDoc: 'The postal code of the company',
       type: Text,
     },
-    state: {
-      schemaDoc: 'The state who belongs the company',
+    location: {
+      schemaDoc: 'The location of the company',
       type: Relationship,
-      ref: 'State',
-    },
-    country: {
-      schemaDoc: 'The country of the company',
-      type: Relationship,
-      ref: 'Country',
+      ref: 'CompanyLocation.belongsTo',
+      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The company who belongs this info',

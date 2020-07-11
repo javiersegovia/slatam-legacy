@@ -7,7 +7,6 @@ module.exports = {
       employeesRange: 'Between 1 and 9',
       phone: '+584245191125',
       postalCode: '5201',
-      country: { where: { name: 'Venezuela' } },
       belongsTo: { where: { name: 'Slatam Group' } },
     },
     {
@@ -17,7 +16,6 @@ module.exports = {
       employeesRange: 'Between 1 and 9',
       phone: '+584245191125',
       postalCode: '5201',
-      country: { where: { name: 'Venezuela' } },
       belongsTo: { where: { name: 'Foro Indie' } },
     },
   ],
