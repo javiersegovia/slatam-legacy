@@ -1,7 +1,6 @@
 const { Text, Relationship, Checkbox } = require('@keystonejs/fields')
 const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdminOrOwner, userIsAdmin } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -32,9 +31,9 @@ module.exports = {
     belongsTo: {
       schemaDoc: 'The user who belongs this info',
       type: Relationship,
-      ref: 'User',
+      ref: 'User.verification',
       isRequired: true,
     },
-    plugins: [atTracking(), byTracking()],
   },
+  plugins: [atTracking(), byTracking()],
 }

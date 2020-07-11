@@ -2,6 +2,7 @@ const User = require('./User')
 const UserInfo = require('./UserInfo')
 const UserLocation = require('./UserLocation')
 const UserRating = require('./UserRating')
+const UserVerification = require('./UserVerification')
 const Company = require('./Company')
 const CompanyRating = require('./CompanyRating')
 const CompanyInfo = require('./CompanyInfo')
@@ -21,6 +22,8 @@ const ProductQuickDetail = require('./ProductQuickDetail')
 const ProductUnitType = require('./ProductUnitType')
 const ProductReview = require('./ProductReview')
 const ProductRating = require('./ProductRating')
+const ProductQuestion = require('./ProductQuestion')
+const ProductAnswer = require('./ProductAnswer')
 const ShoppingCart = require('./ShoppingCart')
 const ShoppingCartProduct = require('./ShoppingCartProduct')
 const Order = require('./Order')
@@ -41,6 +44,7 @@ module.exports = [
   ['UserInfo', UserInfo],
   ['UserLocation', UserLocation],
   ['UserRating', UserRating],
+  ['UserVerification', UserVerification],
   ['Company', Company],
   ['CompanyRating', CompanyRating],
   ['CompanyInfo', CompanyInfo],
@@ -59,6 +63,8 @@ module.exports = [
   ['ProductUnitType', ProductUnitType],
   ['ProductReview', ProductReview],
   ['ProductRating', ProductRating],
+  ['ProductQuestion', ProductQuestion],
+  ['ProductAnswer', ProductAnswer],
   ['ShoppingCart', ShoppingCart],
   ['ShoppingCartProduct', ShoppingCartProduct],
   ['Order', Order],

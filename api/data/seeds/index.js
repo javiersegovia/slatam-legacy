@@ -2,6 +2,7 @@ const userSeeds = require('./users')
 const userInfoSeeds = require('./usersInfo')
 const userLocationSeeds = require('./userLocations')
 const userRatingSeeds = require('./userRatings')
+const userVerificationSeeds = require('./userVerifications')
 const companySeeds = require('./companies')
 const companyRatingSeeds = require('./companyRatings')
 const companyInfoSeeds = require('./companiesInfo')
@@ -21,6 +22,8 @@ const productLogisticsSeeds = require('./productLogistics')
 const productIncoTermSeeds = require('./productIncoTerms')
 const productLeadTimeSeeds = require('./productLeadTime')
 const productLocationSeeds = require('./productLocation')
+const productQuestionSeeds = require('./productQuestions')
+const productAnswerSeeds = require('./productAnswers')
 const shoppingCartSeeds = require('./shoppingCarts')
 const shoppingCartProductSeeds = require('./shoppingCartProducts')
 const orderSeeds = require('./order')
@@ -37,6 +40,7 @@ module.exports = Object.assign(
   userInfoSeeds,
   userLocationSeeds,
   userRatingSeeds,
+  userVerificationSeeds,
   companySeeds,
   companyRatingSeeds,
   companyInfoSeeds,
@@ -55,6 +59,8 @@ module.exports = Object.assign(
   productIncoTermSeeds,
   productLeadTimeSeeds,
   productLocationSeeds,
+  productQuestionSeeds,
+  productAnswerSeeds,
   shoppingCartSeeds,
   shoppingCartProductSeeds,
   orderSeeds,

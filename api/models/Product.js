@@ -85,6 +85,12 @@ module.exports = {
         'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
       type: Text,
     },
+    questions: {
+      schemaDoc: 'The questions of the product',
+      type: Relationship,
+      ref: 'ProductQuestion.belongsTo',
+      many: true,
+    },
     belongsTo: {
       schemaDoc: 'The company who belongs this product',
       type: Relationship,

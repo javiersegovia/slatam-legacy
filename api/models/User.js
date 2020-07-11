@@ -63,6 +63,7 @@ module.exports = {
       },
     },
     role: {
+      schemaDoc: 'Which function performs the user',
       type: Select,
       defaultValue: 'BUYER',
       options: ['BUYER', 'SELLER', 'MIXED'],
@@ -93,21 +94,24 @@ module.exports = {
       type: DateTimeUtc,
     },
     status: {
+      schemaDoc: 'Is the user banned or unbanned',
       type: Select,
       defaultValue: 'VISIBLE',
       options: ['VISIBLE', 'HIDDEN'],
       isRequired: true,
     },
     info: {
+      schemaDoc: 'Additional information about the user',
       type: Relationship,
       ref: 'UserInfo.belongsTo',
       isRequired: true,
     },
-    // verification: {
-    //   type: Relationship,
-    //   ref: 'UserVerification',
-    //   isRequired: true
-    // },
+    verification: {
+      schemaDoc: 'The verification related table about the user',
+      type: Relationship,
+      ref: 'UserVerification.belongsTo',
+      isRequired: true,
+    },
   },
   access: {
     read: true,
