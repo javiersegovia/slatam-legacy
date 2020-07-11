@@ -1,16 +1,13 @@
-const { Integer, Relationship } = require('@keystonejs/fields')
+const { Integer, Relationship, Float } = require('@keystonejs/fields')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
 } = require('../lib/access-control')
-const {
-  throwAccessDenied,
-} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
     value: {
-      type: Integer,
+      type: Float,
       isRequired: true,
       access: {
         update: (payload) =>

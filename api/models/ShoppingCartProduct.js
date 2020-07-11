@@ -1,4 +1,4 @@
-const { Relationship, Integer } = require('@keystonejs/fields')
+const { Relationship, Integer, Float } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 
 module.exports = {
@@ -7,6 +7,11 @@ module.exports = {
       schemaDoc: 'The product itself',
       type: Relationship,
       ref: 'Product',
+    },
+    price: {
+      schemaDoc: 'The price of the product',
+      type: Float,
+      isRequired: true,
     },
     quantity: {
       schemaDoc: 'The quantity of the product',

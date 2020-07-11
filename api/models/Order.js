@@ -1,4 +1,4 @@
-const { Relationship, Float } = require('@keystonejs/fields')
+const { Relationship, Float, Select } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 
 module.exports = {
@@ -8,16 +8,22 @@ module.exports = {
       type: Float,
       isRequired: true,
     },
-    products: {
-      schemaDoc: 'The products in the shopping cart',
+    status: {
+      schemaDoc: 'The status of the order',
+      type: Select,
+      options: ['WAITING FOR A REQUIREMENT', 'CANCELLED', 'COMPLETED'],
+      dataType: 'string',
+    },
+    orderProducts: {
+      schemaDoc: 'The products in the order',
       type: Relationship,
-      ref: 'ShoppingCartProduct.belongsTo',
+      ref: 'OrderProduct.belongsTo',
       many: true,
     },
     belongsTo: {
       schemaDoc: 'The user who belongs this shopping cart',
       type: Relationship,
-      ref: 'User.shoppingCart',
+      ref: 'User.orders',
       isRequired: true,
     },
   },

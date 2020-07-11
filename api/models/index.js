@@ -20,6 +20,8 @@ const ProductReview = require('./ProductReview')
 const ProductRating = require('./ProductRating')
 const ShoppingCart = require('./ShoppingCart')
 const ShoppingCartProduct = require('./ShoppingCartProduct')
+const Order = require('./Order')
+const OrderProduct = require('./OrderProduct')
 const ProductImage = require('./ProductImage')
 
 const Region = require('./Region')
@@ -53,6 +55,8 @@ module.exports = [
   ['ProductRating', ProductRating],
   ['ShoppingCart', ShoppingCart],
   ['ShoppingCartProduct', ShoppingCartProduct],
+  ['Order', Order],
+  ['OrderProduct', OrderProduct],
   ['Region', Region],
   ['Subregion', Subregion],
   ['Country', Country],

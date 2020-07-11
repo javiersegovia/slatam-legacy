@@ -76,6 +76,12 @@ module.exports = {
       type: Relationship,
       ref: 'ShoppingCart.belongsTo',
     },
+    orders: {
+      schemaDoc: 'The orders of the user',
+      type: Relationship,
+      ref: 'Order.belongsTo',
+      many: true,
+    },
     rating: {
       schemaDoc: 'The buyer rating of the user',
       type: Relationship,

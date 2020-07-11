@@ -20,6 +20,7 @@ const productLeadTimeSeeds = require('./productLeadTime')
 const productLocationSeeds = require('./productLocation')
 const shoppingCartSeeds = require('./shoppingCarts')
 const shoppingCartProductSeeds = require('./shoppingCartProducts')
+// const orderSeeds = require('./order')
 
 const regionSeeds = require('./regions')
 const subregionSeeds = require('./subregions')
@@ -49,6 +50,7 @@ module.exports = Object.assign(
   productLocationSeeds,
   shoppingCartSeeds,
   shoppingCartProductSeeds,
+  // orderSeeds,
   regionSeeds,
   subregionSeeds,
   countrySeeds,

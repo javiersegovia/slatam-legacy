@@ -1,7 +1,6 @@
 module.exports = {
-  ShoppingCart: [
+  Order: [
     {
-      totalPrice: 10,
       belongsTo: { where: { firstName: 'admin' } },
     },
   ],
