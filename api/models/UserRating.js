@@ -6,6 +6,7 @@ module.exports = {
     buyerRating: {
       schemaDoc: 'The buyer rating of the user',
       type: Float,
+      defaultValue: 0,
       isRequired: true,
     },
     buyerReviewsCount: {
@@ -24,7 +25,6 @@ module.exports = {
       schemaDoc: 'The user who belongs this info',
       type: Relationship,
       ref: 'User.rating',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

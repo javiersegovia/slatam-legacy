@@ -21,7 +21,6 @@ module.exports = {
       schemaDoc: 'To which product logistic belongs this info',
       type: Relationship,
       ref: 'ProductLogistic.leadTime',
-      isRequired: true,
     },
   },
 }

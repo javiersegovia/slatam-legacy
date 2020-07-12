@@ -21,7 +21,6 @@ module.exports = {
       schemaDoc: 'the state where the company is',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The company info table that this info belongs',

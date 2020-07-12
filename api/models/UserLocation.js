@@ -21,7 +21,6 @@ module.exports = {
       schemaDoc: 'the state where the user is',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The user info table that this info belongs',

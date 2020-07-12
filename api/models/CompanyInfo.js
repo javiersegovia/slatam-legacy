@@ -43,13 +43,11 @@ module.exports = {
       schemaDoc: 'The location of the company',
       type: Relationship,
       ref: 'CompanyLocation.belongsTo',
-      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The company who belongs this info',
       type: Relationship,
       ref: 'Company.info',
-      isRequired: true,
     },
   },
   access: {

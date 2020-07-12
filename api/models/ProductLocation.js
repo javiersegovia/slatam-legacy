@@ -21,7 +21,6 @@ module.exports = {
       schemaDoc: 'the state where the product is',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The product logistics that this info belongs',

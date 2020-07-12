@@ -23,7 +23,6 @@ module.exports = {
       schemaDoc: 'The shopping cart who belongs this product',
       type: Relationship,
       ref: 'ShoppingCart.products',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

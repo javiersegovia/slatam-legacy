@@ -33,13 +33,11 @@ module.exports = {
       schemaDoc: 'The rating of the product',
       type: Relationship,
       ref: 'ProductRating',
-      isRequired: true,
     },
     unitType: {
       schemaDoc: 'The type of unit that the product use',
       type: Relationship,
       ref: 'ProductUnitType',
-      isRequired: true,
     },
     minQuantity: {
       schemaDoc: 'The minimun quantity that can be order',
@@ -73,13 +71,11 @@ module.exports = {
       schemaDoc: 'the state where the product is',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     shippingFrom: {
       schemaDoc: 'The location which the product will be shipped',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     supplyQuantity: {
       schemaDoc:
@@ -108,7 +104,6 @@ module.exports = {
       type: Relationship,
       ref: 'ProductIncoTerm',
       many: true,
-      isRequired: true,
     },
     dimension: {
       schemaDoc: 'The dimension of the product',
@@ -147,13 +142,11 @@ module.exports = {
       schemaDoc: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company',
-      isRequired: true,
     },
     belongsTo: {
       schemaDoc: 'The order who belongs this product',
       type: Relationship,
       ref: 'Order.orderProducts',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

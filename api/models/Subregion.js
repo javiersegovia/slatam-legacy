@@ -14,13 +14,11 @@ module.exports = {
       schemaDoc: 'The region who the subregion belongs',
       type: Relationship,
       ref: 'Region.subregions',
-      isRequired: true,
     },
     countries: {
       schemaDoc: 'The countries that has the subregion',
       type: Relationship,
       ref: 'Country.subregion',
-      isRequired: true,
       many: true,
     },
   },

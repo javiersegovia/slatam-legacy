@@ -87,7 +87,6 @@ module.exports = {
       schemaDoc: 'The buyer rating of the user',
       type: Relationship,
       ref: 'UserRating.belongsTo',
-      isRequired: true,
     },
     lastSeen: {
       schemaDoc: 'The last time the user logs in',
@@ -104,13 +103,11 @@ module.exports = {
       schemaDoc: 'Additional information about the user',
       type: Relationship,
       ref: 'UserInfo.belongsTo',
-      isRequired: true,
     },
     verification: {
       schemaDoc: 'The verification related table about the user',
       type: Relationship,
       ref: 'UserVerification.belongsTo',
-      isRequired: true,
     },
   },
   access: {

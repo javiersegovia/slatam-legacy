@@ -25,7 +25,6 @@ module.exports = {
       schemaDoc: 'The user who belongs this shopping cart',
       type: Relationship,
       ref: 'User.orders',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

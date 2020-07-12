@@ -14,7 +14,6 @@ module.exports = {
       schemaDoc: 'The subregions that the region has',
       type: Relationship,
       ref: 'Subregion.region',
-      isRequired: true,
       many: true,
     },
   },

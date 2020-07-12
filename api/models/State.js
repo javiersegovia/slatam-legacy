@@ -13,7 +13,6 @@ module.exports = {
       schemaDoc: 'The country that the state belongs',
       type: Relationship,
       ref: 'Country.states',
-      isRequired: true,
     },
   },
   access: {

@@ -10,7 +10,6 @@ module.exports = {
       schemaDoc: 'The user that wrote the review',
       type: Relationship,
       ref: 'User',
-      isRequired: true,
     },
     rating: {
       schemaDoc: 'The rating of the review',
@@ -27,7 +26,6 @@ module.exports = {
       schemaDoc: 'The product rating average that belongs this info',
       type: Relationship,
       ref: 'ProductRating.reviews',
-      isRequired: true,
     },
   },
   hooks: {

@@ -18,7 +18,6 @@ module.exports = {
       schemaDoc: 'The product that belongs this info',
       type: Relationship,
       ref: 'Product.quickDetails',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

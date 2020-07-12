@@ -8,7 +8,6 @@ module.exports = {
       schemaDoc: 'The location of the user',
       type: Relationship,
       ref: 'UserLocation.belongsTo',
-      isRequired: true,
     },
     birthDate: {
       schemaDoc: 'The birthDate of the user',

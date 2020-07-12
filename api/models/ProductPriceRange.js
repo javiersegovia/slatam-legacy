@@ -33,7 +33,6 @@ module.exports = {
     belongsTo: {
       type: Relationship,
       ref: 'Product.priceRanges',
-      isRequired: true,
       access: {
         update: (payload) => userIsAdminOrMod(payload),
       },

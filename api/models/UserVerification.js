@@ -32,7 +32,6 @@ module.exports = {
       schemaDoc: 'The user who belongs this info',
       type: Relationship,
       ref: 'User.verification',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

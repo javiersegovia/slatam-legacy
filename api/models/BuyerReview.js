@@ -8,7 +8,6 @@ module.exports = {
       schemaDoc: 'The user who wrote the review',
       type: Relationship,
       ref: 'User',
-      isRequired: true,
     },
     authorAssociatedCompany: {
       schemaDoc: 'The company of the user',
@@ -18,7 +17,6 @@ module.exports = {
     rating: {
       schemaDoc: 'The rating of the review',
       type: Float,
-      isRequired: true,
     },
     comment: {
       schemaDoc: 'The review itself',

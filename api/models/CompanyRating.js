@@ -6,16 +6,19 @@ module.exports = {
     sellerRating: {
       schemaDoc: 'The buyer rating of the company',
       type: Float,
+      defaultValue: 0,
       isRequired: true,
     },
     buyerRating: {
       schemaDoc: 'The seller rating of the company',
       type: Float,
+      defaultValue: 0,
       isRequired: true,
     },
     avgRating: {
       schemaDoc: 'The average rating of the company',
       type: Float,
+      defaultValue: 0,
       isRequired: true,
     },
     buyerReviewsCount: {
@@ -46,7 +49,6 @@ module.exports = {
       schemaDoc: 'The company who belongs this info',
       type: Relationship,
       ref: 'Company.rating',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

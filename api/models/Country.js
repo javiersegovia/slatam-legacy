@@ -26,14 +26,12 @@ module.exports = {
       schemaDoc: 'The subregion of the country',
       type: Relationship,
       ref: 'Subregion.countries',
-      isRequired: true,
     },
     states: {
       schemaDoc: 'The states of the country',
       type: Relationship,
       ref: 'State.country',
       many: true,
-      isRequired: true,
     },
     code2: {
       schemaDoc: 'The acronym of the country',

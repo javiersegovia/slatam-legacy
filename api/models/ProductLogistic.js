@@ -7,7 +7,6 @@ module.exports = {
       schemaDoc: 'The type of unit that the product use',
       type: Relationship,
       ref: 'ProductUnitType',
-      isRequired: true,
     },
     minQuantity: {
       schemaDoc: 'The minimun quantity that can be order',
@@ -23,13 +22,11 @@ module.exports = {
       schemaDoc: 'The specific location of the product',
       type: Relationship,
       ref: 'ProductLocation.belongsTo',
-      isRequired: true,
     },
     shippingFrom: {
       schemaDoc: 'The location which the product will be shipped',
       type: Relationship,
       ref: 'State',
-      isRequired: true,
     },
     supplyQuantity: {
       schemaDoc:
@@ -48,7 +45,6 @@ module.exports = {
       type: Relationship,
       ref: 'ProductLeadTime.belongsTo',
       many: true,
-      isRequired: true,
     },
     modeOfTransport: {
       schemaDoc: 'The method which the product can be shipped',
@@ -61,7 +57,6 @@ module.exports = {
       type: Relationship,
       ref: 'ProductIncoTerm',
       many: true,
-      isRequired: true,
     },
     dimension: {
       schemaDoc: 'The dimension of the product',
@@ -85,7 +80,6 @@ module.exports = {
       schemaDoc: 'The product who belongs this info',
       type: Relationship,
       ref: 'Product.logistics',
-      isRequired: true,
     },
   },
   plugins: [atTracking(), byTracking()],

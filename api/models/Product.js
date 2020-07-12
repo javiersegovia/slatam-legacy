@@ -39,13 +39,11 @@ module.exports = {
       schemaDoc: 'The rating of the product',
       type: Relationship,
       ref: 'ProductRating.belongsTo',
-      isRequired: true,
     },
     priceRanges: {
       schemaDoc: 'The price ranges of the product',
       type: Relationship,
       ref: 'ProductPriceRange.belongsTo',
-      isRequired: true,
       many: true,
       access: {
         update: (payload) =>
@@ -95,7 +93,6 @@ module.exports = {
       schemaDoc: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company.products',
-      isRequired: true,
       access: {
         update: (payload) => userIsAdminOrMod(payload),
       },

@@ -34,7 +34,6 @@ module.exports = {
       type: Relationship,
       ref: 'Country',
       many: true,
-      isRequired: true,
     },
     info: {
       schemaDoc: 'Useful info about the company',
@@ -51,7 +50,6 @@ module.exports = {
       schemaDoc: 'The owner of the company',
       type: Relationship,
       ref: 'User',
-      isRequired: true,
     },
     categories: {
       schemaDoc: 'The categories of the company',

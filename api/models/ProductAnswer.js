@@ -8,7 +8,6 @@ module.exports = {
       schemaDoc: 'The user who wrote the answer',
       type: Relationship,
       ref: 'User',
-      isRequired: true,
     },
     authorAssociatedCompany: {
       schemaDoc: 'The company of the user',
