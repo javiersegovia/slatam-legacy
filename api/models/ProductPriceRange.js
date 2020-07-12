@@ -3,10 +3,14 @@ const {
   userIsProductOwner,
   userIsAdminOrMod,
 } = require('../lib/access-control')
+const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
     value: {
+      schemaDoc: 'The price within this range',
       type: Float,
       isRequired: true,
       access: {
@@ -15,6 +19,7 @@ module.exports = {
       },
     },
     minRange: {
+      schemaDoc: 'The minimun range of the price range',
       type: Integer,
       isRequired: true,
       access: {
@@ -24,6 +29,7 @@ module.exports = {
     },
     maxRange: {
       // TODO: add hook to validate max and min range
+      schemaDoc: 'The maximum range of the price range',
       type: Integer,
       access: {
         update: (payload) =>
@@ -31,16 +37,51 @@ module.exports = {
       },
     },
     belongsTo: {
+      schemaDoc: 'The product who belongs the price range',
       type: Relationship,
       ref: 'Product.priceRanges',
       access: {
-        update: (payload) => userIsAdminOrMod(payload),
+        update: userIsAdminOrMod,
       },
+    },
+    owner: {
+      schemaDoc: 'The company that owns the product',
+      type: Relationship,
+      ref: 'Company',
+      access: {
+        update: userIsAdminOrMod,
+      },
+    },
+  },
+  hooks: {
+    resolveInput: ({ resolvedData, operation, context }) => {
+      // When a new product prince range is created, this happens
+      // TODO: query the product to validate that the product owner id is the same to this table owner id and add the product id to belongsTo
+      if (operation === 'create') {
+        // add the user's company id to product princeRange's belongs to
+        resolvedData.owner = context.authedItem.company
+        return resolvedData
+      }
+      return resolvedData
+    },
+    beforeDelete: ({ operation, context, existingItem }) => {
+      // validate that it is not the last item
+      const payload = {
+        authentication: {
+          item: context.authedItem,
+        },
+        listKey: 'ProductPriceRange',
+        existingItem,
+        operation,
+      }
+
+      if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
+        throwAccessDenied(null, context, existingItem)
+      }
     },
   },
   access: {
     // only create if the person is product owner
     read: true,
-    // delete: userIsModOrOwner, // validate that it is not the last item
   },
 }

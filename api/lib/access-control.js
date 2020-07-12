@@ -76,16 +76,18 @@ const userIsProductOwner = (payload) => {
   const {
     authentication: { item },
     listKey,
-    operation,
     existingItem = null,
   } = payload
 
-  if (listKey !== 'Product') return false
-  if (item.company === null) return false
+  console.log(listKey)
+
+  if (listKey !== 'Product' && listKey !== 'ProductPriceRange') return false
+  if (!item.company) return false
+  if (!existingItem.owner) return false
 
   if (existingItem) {
     const isProductOwner =
-      item.company.toString() === existingItem.belongsTo.toString()
+      item.company.toString() === existingItem.owner.toString()
 
     return Boolean(isProductOwner)
   }

@@ -118,7 +118,7 @@ module.exports = {
         update: userIsAdminOrMod,
       },
     },
-    belongsTo: {
+    owner: {
       schemaDoc: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company.products',
@@ -132,7 +132,7 @@ module.exports = {
       // When a new product is created, this happens
       if (operation === 'create') {
         // add the user's company id to product's belongs to
-        resolvedData.belongsTo = context.authedItem.company
+        resolvedData.owner = context.authedItem.company
         return resolvedData
       }
       return resolvedData

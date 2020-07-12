@@ -81,6 +81,11 @@ module.exports = {
       type: Relationship,
       ref: 'Product.logistics',
     },
+    owner: {
+      schemaDoc: 'The company who owns the product',
+      type: Relationship,
+      ref: 'Company',
+    },
   },
   plugins: [atTracking(), byTracking()],
 }

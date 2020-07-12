@@ -43,7 +43,7 @@ module.exports = {
     products: {
       schemaDoc: 'The products of the company',
       type: Relationship,
-      ref: 'Product.belongsTo',
+      ref: 'Product.owner',
       many: true,
     },
     belongsTo: {
