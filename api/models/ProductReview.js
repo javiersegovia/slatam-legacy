@@ -1,33 +1,32 @@
 const striptags = require('striptags')
-const { Integer, Markdown, Relationship } = require('@keystonejs/fields')
+const { Integer, Relationship } = require('@keystonejs/fields')
+const { Markdown } = require('@keystonejs/fields-markdown')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsEditorOrOwner, userIsEditor } = require('../lib/access-control')
+const { userIsMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    productRating: {
+    author: {
+      schemaDoc: 'The user that wrote the review',
       type: Relationship,
-      ref: 'ProductRating',
-      isRequired: true,
+      ref: 'User',
     },
-    user: { type: Relationship, ref: 'User', isRequired: true },
     rating: {
+      schemaDoc: 'The rating of the review',
       type: Integer,
       isRequired: true,
       // TODO check the value is between 1 and 5
     },
-    body: {
-      Type: Markdown,
-      schemaDoc: 'The review',
+    comment: {
+      schemaDoc: 'The review itself',
+      type: Markdown,
       isRequired: true,
     },
-  },
-  plugins: [atTracking(), byTracking()],
-  access: {
-    create: true, // TODO: Check that only a verified customer can leave a review
-    read: true,
-    update: userIsEditorOrOwner,
-    delete: userIsEditor,
+    belongsTo: {
+      schemaDoc: 'The product rating average that belongs this info',
+      type: Relationship,
+      ref: 'ProductRating.reviews',
+    },
   },
   hooks: {
     resolveInput: ({ resolvedData }) => {
@@ -40,4 +39,10 @@ module.exports = {
       return resolvedData
     },
   },
+  access: {
+    create: true, // TODO: Check that only a verified customer can leave a review
+    read: true,
+    delete: userIsMod,
+  },
+  plugins: [atTracking(), byTracking()],
 }

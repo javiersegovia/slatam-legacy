@@ -1,37 +1,119 @@
-const { Text, Select, Password } = require('@keystonejs/fields')
+const { Text, Select, Password, Relationship } = require('@keystonejs/fields')
 const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdminOrOwner, userIsAdmin } = require('../lib/access-control')
+const {
+  userIsAdmin,
+  userIsMod,
+  userIsTargetUser,
+} = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    firstName: { type: Text },
-    lastName: { type: Text },
+    firstName: {
+      schemaDoc: 'The firstname of the user',
+      type: Text,
+      access: {
+        update: userIsTargetUser,
+      },
+    },
+    lastName: {
+      schemaDoc: 'The lastname of the user',
+      type: Text,
+      access: {
+        update: userIsTargetUser,
+      },
+    },
     email: {
+      schemaDoc: 'The email of the user',
       type: Text,
       isUnique: true,
+      isRequired: true,
+      access: {
+        update: userIsTargetUser,
+      },
     },
     password: {
+      schemaDoc: 'The password of the user',
       type: Password,
       isRequired: true,
       access: {
         read: userIsAdmin,
-        update: userIsAdminOrOwner,
+        update: userIsTargetUser,
       },
     },
     permission: {
+      schemaDoc: 'The level of permission the user has',
       type: Select,
       defaultValue: 'USER',
-      options: ['ADMIN', 'EDITOR', 'USER'],
+      options: ['ADMIN', 'MOD', 'USER'],
+      isRequired: true,
+      access: {
+        read: userIsAdmin,
+        update: userIsAdmin,
+      },
     },
-    resetToken: { type: Text, unique: true },
-    resetTokenExpiry: { type: DateTimeUtc, unique: true },
+    company: {
+      // [TODO]
+      // 1. put his company as a default member
+      schemaDoc: 'The user is member of this company',
+      type: Relationship,
+      ref: 'Company.members',
+      access: {
+        update: userIsTargetUser,
+      },
+    },
+    role: {
+      schemaDoc: 'Which function performs the user',
+      type: Select,
+      defaultValue: 'BUYER',
+      options: ['BUYER', 'SELLER', 'MIXED'],
+      isRequired: true,
+      access: {
+        update: userIsTargetUser,
+      },
+    },
+    shoppingCart: {
+      schemaDoc: 'The shopping cart of the user',
+      type: Relationship,
+      ref: 'ShoppingCart.belongsTo',
+    },
+    orders: {
+      schemaDoc: 'The orders of the user',
+      type: Relationship,
+      ref: 'Order.belongsTo',
+      many: true,
+    },
+    rating: {
+      schemaDoc: 'The buyer rating of the user',
+      type: Relationship,
+      ref: 'UserRating.belongsTo',
+    },
+    lastSeen: {
+      schemaDoc: 'The last time the user logs in',
+      type: DateTimeUtc,
+    },
+    status: {
+      schemaDoc: 'Is the user banned or unbanned',
+      type: Select,
+      defaultValue: 'VISIBLE',
+      options: ['VISIBLE', 'HIDDEN'],
+      isRequired: true,
+    },
+    info: {
+      schemaDoc: 'Additional information about the user',
+      type: Relationship,
+      ref: 'UserInfo.belongsTo',
+    },
+    verification: {
+      schemaDoc: 'The verification related table about the user',
+      type: Relationship,
+      ref: 'UserVerification.belongsTo',
+    },
   },
   access: {
-    // create: true,
-    // read: userIsAdminOrOwner,
-    // update: userIsAdminOrOwner,
-    // delete: userIsAdmin,
+    read: true,
+    create: true,
+    delete: userIsMod,
     auth: true,
   },
   plugins: [atTracking(), byTracking()],

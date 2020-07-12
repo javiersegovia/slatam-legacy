@@ -1,81 +1,230 @@
-const userIsAuthenticated = ({ authentication: { item } }) => !!item
+const {
+  throwAccessDenied,
+} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
-const userIsAdmin = ({ authentication: { item: user } }) =>
-  Boolean(user && user.permission === 'ADMIN')
+const userIsAuthenticated = ({ authentication: { item: user } }) =>
+  Boolean(user)
 
-const userIsEditor = ({ authentication: { item: user } }) =>
-  Boolean(user && ['ADMIN', 'EDITOR'].includes(user.permission))
+const userIsAdmin = (payload) => {
+  const {
+    authentication: { item: user },
+  } = payload
 
-// return either false if there is no user, or a graphql where clause
-// const userIsOwner = ({ authentication: { item: user } }) => {
-//   if (!user) return false
+  const isAuth = userIsAuthenticated(payload)
+  const isAdmin = user.permission === 'ADMIN'
 
-//   return { owner: { id: user.id } }
-// }
+  return Boolean(isAuth && isAdmin)
+}
 
-const userIsAdminOrOwner = (payload) => {
+const userIsMod = (payload) => {
+  const {
+    authentication: { item: user },
+  } = payload
+
+  const isAuth = userIsAuthenticated(payload)
+  const isMod = user.permission === 'MOD'
+
+  return Boolean(isAuth && isMod)
+}
+
+const userIsAdminOrMod = (payload) =>
+  Boolean(userIsAdmin(payload) || userIsMod(payload))
+
+const userIsTargetUser = (payload) => {
   const {
     authentication: { item },
+    listKey,
     existingItem = null,
   } = payload
-  if (!item) return false
 
-  const isAdmin = userIsAdmin(payload)
+  if (listKey !== 'User') return false
+
+  const isAuth = userIsAuthenticated(payload)
 
   if (existingItem) {
-    const userIsOwner =
-      item.id === existingItem.id ||
-      (existingItem && existingItem.owner && item.id === existingItem.owner)
+    const isTargetUser = item.id === existingItem.id
 
-    return Boolean(isAdmin || userIsOwner)
+    return Boolean(isTargetUser && isAuth)
   }
 
-  // TODO: test function composition so we can compose a proper graphql with
-  // the correct "belongs_to" relationship field (e.g: 'user', 'company', 'owner')
-  return { owner: { id: item.id } }
+  return false
 }
 
-const userIsEditorOrOwner = (payload) => {
+const userCanUpdateProducts = (payload) => {
   const {
     authentication: { item },
+    listKey,
+    operation,
     existingItem = null,
   } = payload
-  if (!item) return false
 
-  const isEditor = userIsEditor(payload)
+  if (listKey !== 'Product') return false
+
+  if (operation === 'update') {
+    item.company = item.company ? item.company : ''
+
+    if (existingItem) {
+      const canUpdateProducts =
+        item.company.toString() === existingItem.belongsTo.toString()
+
+      return Boolean(canUpdateProducts)
+    }
+  }
+}
+
+const userIsProductOwner = (payload) => {
+  const {
+    authentication: { item },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Product') return false
+  if (item.company === null) return false
+  // item.company = item.company ? item.company : ''
 
   if (existingItem) {
-    const userIsOwner =
-      item.id === existingItem.id ||
-      (existingItem && existingItem.owner && item.id === existingItem.owner)
+    const isProductOwner =
+      item.company.toString() === existingItem.belongsTo.toString()
 
-    return Boolean(isEditor || userIsOwner)
+    return Boolean(isProductOwner)
   }
-  // TODO: test function composition so we can compose a proper graphql with
-  // the correct "belongs_to" relationship field (e.g: 'user', 'company', 'owner')
-  return { owner: { id: item.id } }
+
+  return false
 }
 
-// return either false if there is no user, or a graphql where clause
-const userIsUser = ({ authentication: { item: user } }) => {
-  return user && { id: user.id }
+const userCanDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
+  const {
+    authentication: { item, listKey: authedListKey },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Product') return false
+
+  if (operation === 'delete') {
+    item.company = item.company ? item.company : ''
+
+    if (existingItem) {
+      const canDeleteProducts =
+        item.company.toString() === existingItem.belongsTo.toString()
+
+      if (!canDeleteProducts && isAuth && !isMod && !isAdmin) {
+        const context = {
+          authedItem: item,
+          authedListKey,
+        }
+        throwAccessDenied(null, context, existingItem)
+      }
+    }
+  }
 }
 
-const userCanUpdateItem = (payload) => {
-  const isOwner = userIsUser(payload)
-  const isCool = ['ADMIN', 'EDITOR'].includes(
-    payload.authentication.item.permissions
+const userCanUpdateCompany = (payload) => {
+  const {
+    authentication: { item },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Company') return false
+
+  if (operation === 'update') {
+    item.company = item.company ? item.company : ''
+
+    if (existingItem) {
+      const canUpdateCompany =
+        item.company.toString() === existingItem.id.toString()
+      return Boolean(canUpdateCompany)
+    }
+  }
+}
+
+const userCanDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
+  const {
+    authentication: { item, listKey: authedListKey },
+    listKey,
+    operation,
+    existingItem = null,
+  } = payload
+
+  if (listKey !== 'Company') return false
+
+  if (operation === 'delete') {
+    item.company = item.company ? item.company : ''
+
+    if (existingItem) {
+      const canDeleteCompany =
+        item.company.toString() === existingItem.id.toString()
+
+      if (!canDeleteCompany && isAuth && !isMod && !isAdmin) {
+        const context = {
+          authedItem: item,
+          authedListKey,
+        }
+        throwAccessDenied(null, context, existingItem)
+      }
+    }
+  }
+}
+
+const userCanUpdateOrDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
+  const canUpdateCompany = userCanUpdateCompany(payload)
+  const canDeleteCompany = userCanDeleteCompany(payload, isAuth, isMod, isAdmin)
+
+  return Boolean(canUpdateCompany)
+}
+
+const userCanUpdateOrDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
+  const canUpdateProducts = userCanUpdateProducts(payload)
+  const canDeleteProducts = userCanDeleteProducts(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
   )
 
-  return isCool || isOwner || userIsAdminOrOwner(payload)
+  return Boolean(canUpdateProducts)
+}
+
+const userIsCompanyMember = (payload) => {
+  const isAuth = userIsAuthenticated(payload)
+  const isAdmin = userIsAdmin(payload)
+  const isMod = userIsMod(payload)
+
+  const canUpdateOrDeleteProducts = userCanUpdateOrDeleteProducts(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
+  )
+
+  const canUpdateOrDeleteCompany = userCanUpdateOrDeleteCompany(
+    payload,
+    isAuth,
+    isMod,
+    isAdmin
+  )
+
+  return Boolean(
+    (isAuth && canUpdateOrDeleteCompany) ||
+      (isAuth && canUpdateOrDeleteProducts) ||
+      isMod ||
+      isAdmin
+  )
 }
 
 module.exports = {
   userIsAuthenticated,
   userIsAdmin,
-  userIsEditor,
-  userIsUser,
-  userIsEditorOrOwner,
-  userIsAdminOrOwner,
-  userCanUpdateItem,
+  userIsMod,
+  userIsAdminOrMod,
+  userIsTargetUser,
+  userIsProductOwner,
+  userCanUpdateProducts,
+  userCanUpdateCompany,
+  userIsCompanyMember,
 }

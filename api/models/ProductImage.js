@@ -1,5 +1,5 @@
 const { CloudinaryImage, Relationship } = require('@keystonejs/fields')
-const { userIsEditorOrOwner, userIsAdmin } = require('../lib/access-control')
+const { userIsModOrOwner, userIsAdmin } = require('../lib/access-control')
 // const { cloudinaryAdapter } = require('../lib/adapters')
 
 module.exports = {
@@ -9,8 +9,8 @@ module.exports = {
   },
   access: {
     create: true, // TODO: Check that only product owner or manager can edit the product
-    read: userIsEditorOrOwner,
-    update: userIsEditorOrOwner,
+    read: userIsModOrOwner,
+    update: userIsModOrOwner,
     delete: userIsAdmin,
   },
 }

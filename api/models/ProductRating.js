@@ -1,30 +1,30 @@
 const { Integer, Float, Relationship } = require('@keystonejs/fields')
-const { userIsEditorOrOwner } = require('../lib/access-control')
 
 module.exports = {
   fields: {
-    product: { type: Relationship, ref: 'Product', isRequired: true },
     average: {
+      schemaDoc: 'The average rating of the product',
       type: Float,
-      isRequired: true,
       defaultValue: 0,
+      isRequired: true,
     },
     reviewsCount: {
+      schemaDoc: 'The number of reviews of the product',
       type: Integer,
-      isRequired: true,
       defaultValue: 0,
+      isRequired: true,
     },
     reviews: {
       // TODO: add hook to validate max and min range
+      schemaDoc: 'The reviews that the product has',
       type: Relationship,
-      ref: 'ProductReview',
+      ref: 'ProductReview.belongsTo',
       many: true,
     },
-  },
-  access: {
-    create: true, // TODO: Check that only product owner or manager can create/edit the product price
-    read: true,
-    update: userIsEditorOrOwner,
-    delete: userIsEditorOrOwner, // validate that it is not the last item
+    belongsTo: {
+      schemaDoc: 'The product that belongs this info',
+      type: Relationship,
+      ref: 'Product.rating',
+    },
   },
 }
