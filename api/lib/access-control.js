@@ -82,7 +82,6 @@ const userIsProductOwner = (payload) => {
 
   if (listKey !== 'Product') return false
   if (item.company === null) return false
-  // item.company = item.company ? item.company : ''
 
   if (existingItem) {
     const isProductOwner =
