@@ -6,12 +6,11 @@ const userIsAdmin = (payload) => {
     authentication: { item: user },
   } = payload
 
-  const isAuth = userIsAuthenticated(payload)
-  if (!isAuth) return false
+  if (!userIsAuthenticated(payload)) return false
 
   const isAdmin = user.permission === 'ADMIN'
 
-  return Boolean(isAuth && isAdmin)
+  return Boolean(isAdmin)
 }
 
 const userIsMod = (payload) => {
@@ -19,12 +18,11 @@ const userIsMod = (payload) => {
     authentication: { item: user },
   } = payload
 
-  const isAuth = userIsAuthenticated(payload)
-  if (!isAuth) return false
+  if (!userIsAuthenticated(payload)) return false
 
   const isMod = user.permission === 'MOD'
 
-  return Boolean(isAuth && isMod)
+  return Boolean(isMod)
 }
 
 const userIsAdminOrMod = (payload) =>
@@ -57,8 +55,7 @@ const userIsProductOwner = (payload) => {
     existingItem = null,
   } = payload
 
-  const isAuth = userIsAuthenticated(payload)
-  if (!isAuth) return false
+  if (!userIsAuthenticated(payload)) return false
 
   if (
     listKey !== 'Product' &&
@@ -69,7 +66,8 @@ const userIsProductOwner = (payload) => {
     listKey !== 'ProductQuickDetail'
   )
     return false
-  if (!item.company) return false
+
+  if (!userIsCompanyMember(payload)) return false
   if (!existingItem.owner) return false
 
   if (existingItem) {
@@ -82,8 +80,15 @@ const userIsProductOwner = (payload) => {
   return false
 }
 
-const userIsCompanyMember = ({ authentication: { item: user } }) =>
-  Boolean(user.company)
+const userIsCompanyMember = (payload) => {
+  const {
+    authentication: { item },
+  } = payload
+
+  if (!userIsAuthenticated(payload)) return false
+
+  return Boolean(item.company)
+}
 
 module.exports = {
   userIsAuthenticated,

@@ -3,6 +3,7 @@ const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
+  userIsCompanyMember,
 } = require('../lib/access-control')
 const {
   throwAccessDenied,
@@ -158,6 +159,15 @@ module.exports = {
       // When a new product logistic is created, this happens
       // TODO: query the product to validate that the product owner id is the same to the user company id and add the product id to belongsTo
       if (operation === 'create') {
+        const payload = {
+          authentication: {
+            item: context.authedItem,
+          },
+        }
+        // check if the user has a company or is admin/mod
+        if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
+          throwAccessDenied(null, context)
+        }
         // add the user's company id to product logistic owner field
         resolvedData.owner = context.authedItem.company
 

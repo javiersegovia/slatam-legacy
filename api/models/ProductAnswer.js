@@ -1,7 +1,10 @@
 const { Relationship } = require('@keystonejs/fields')
 const { Markdown } = require('@keystonejs/fields-markdown')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
-const { userIsAdminOrMod } = require('../lib/access-control')
+const {
+  userIsAdminOrMod,
+  userIsCompanyMember,
+} = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -51,6 +54,15 @@ module.exports = {
     // When a new product answer is created, this happens
     // TODO: query the product to validate that the product owner id is the same to the user company id
     if (operation === 'create') {
+      const payload = {
+        authentication: {
+          item: context.authedItem,
+        },
+      }
+      // check if the user has a company or is admin/mod
+      if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
+        throwAccessDenied(null, context)
+      }
       // add the user's company id to product answer owner
       resolvedData.owner = context.authedItem.company
 

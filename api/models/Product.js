@@ -129,13 +129,13 @@ module.exports = {
   },
   hooks: {
     resolveInput: ({ resolvedData, operation, context }) => {
-      const payload = {
-        authentication: {
-          item: context.authedItem,
-        },
-      }
       // When a new product is created, this happens
       if (operation === 'create') {
+        const payload = {
+          authentication: {
+            item: context.authedItem,
+          },
+        }
         // check if the user has a company or is admin/mod
         if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
           throwAccessDenied(null, context)
