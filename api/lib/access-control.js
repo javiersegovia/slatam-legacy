@@ -65,7 +65,8 @@ const userIsProductOwner = (payload) => {
     listKey !== 'ProductPriceRange' &&
     listKey !== 'ProductLogistic' &&
     listKey !== 'ProductLocation' &&
-    listKey !== 'ProductLeadTime'
+    listKey !== 'ProductLeadTime' &&
+    listKey !== 'ProductQuickDetail'
   )
     return false
   if (!item.company) return false
@@ -81,6 +82,9 @@ const userIsProductOwner = (payload) => {
   return false
 }
 
+const userIsCompanyMember = ({ authentication: { item: user } }) =>
+  Boolean(user.company)
+
 module.exports = {
   userIsAuthenticated,
   userIsAdmin,
@@ -88,4 +92,5 @@ module.exports = {
   userIsAdminOrMod,
   userIsTargetUser,
   userIsProductOwner,
+  userIsCompanyMember,
 }

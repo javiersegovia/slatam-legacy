@@ -3,7 +3,7 @@ const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
-  userIsAuthenticated,
+  userIsCompanyMember,
 } = require('../lib/access-control')
 const {
   throwAccessDenied,
@@ -129,8 +129,17 @@ module.exports = {
   },
   hooks: {
     resolveInput: ({ resolvedData, operation, context }) => {
+      const payload = {
+        authentication: {
+          item: context.authedItem,
+        },
+      }
       // When a new product is created, this happens
       if (operation === 'create') {
+        // check if the user has a company or is admin/mod
+        if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
+          throwAccessDenied(null, context)
+        }
         // add the user's company id to product's owner field
         resolvedData.owner = context.authedItem.company
         return resolvedData
@@ -147,7 +156,6 @@ module.exports = {
         existingItem,
         operation,
       }
-
       if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
         throwAccessDenied(null, context, existingItem)
       }
@@ -155,7 +163,6 @@ module.exports = {
   },
   access: {
     read: true,
-    create: userIsAuthenticated,
   },
   plugins: [atTracking(), byTracking()],
 }

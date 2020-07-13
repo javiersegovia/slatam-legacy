@@ -62,7 +62,7 @@ module.exports = {
         authentication: {
           item: context.authedItem,
         },
-        listKey: 'ProductPriceRange',
+        listKey: 'ProductQuickDetail',
         existingItem,
         operation,
       }
