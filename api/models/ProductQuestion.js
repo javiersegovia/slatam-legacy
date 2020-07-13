@@ -1,6 +1,10 @@
 const { Relationship } = require('@keystonejs/fields')
 const { Markdown } = require('@keystonejs/fields-markdown')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
+const {
+  userIsAdminOrMod,
+  userIsAuthenticated,
+} = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -29,6 +33,12 @@ module.exports = {
       type: Relationship,
       ref: 'Product.questions',
     },
+  },
+  access: {
+    read: true,
+    create: userIsAuthenticated,
+    update: userIsAdminOrMod,
+    delete: userIsAdminOrMod,
   },
   plugins: [atTracking(), byTracking()],
 }

@@ -131,10 +131,11 @@ module.exports = {
     resolveInput: ({ resolvedData, operation, context }) => {
       // When a new product is created, this happens
       if (operation === 'create') {
-        // add the user's company id to product's belongs to
+        // add the user's company id to product's owner field
         resolvedData.owner = context.authedItem.company
         return resolvedData
       }
+      // TODO validate if the priceRange and quickDetails to be added corresponds to the product
       return resolvedData
     },
     beforeDelete: ({ operation, context, existingItem }) => {

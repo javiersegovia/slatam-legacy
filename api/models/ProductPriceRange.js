@@ -54,12 +54,13 @@ module.exports = {
     },
   },
   hooks: {
-    resolveInput: ({ resolvedData, operation, context }) => {
+    resolveInput: ({ resolvedData, operation, context, existingItem }) => {
       // When a new product prince range is created, this happens
-      // TODO: query the product to validate that the product owner id is the same to this table owner id and add the product id to belongsTo
+      // TODO: query the product to validate that the product owner id is the same to the user company id and add the product id to belongsTo
       if (operation === 'create') {
-        // add the user's company id to product princeRange's belongs to
+        // add the user's company id to product princeRange's owner
         resolvedData.owner = context.authedItem.company
+
         return resolvedData
       }
       return resolvedData

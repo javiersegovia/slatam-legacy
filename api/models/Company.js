@@ -72,19 +72,6 @@ module.exports = {
       many: true,
     },
   },
-  hooks: {
-    beforeDelete: async ({ operation, context, existingItem }) => {
-      const payload = {
-        authentication: {
-          item: context.authedItem,
-        },
-        listKey: 'Company',
-        existingItem,
-        operation,
-      }
-      userIsCompanyMember(payload)
-    },
-  },
   access: {
     read: true,
     create: userIsAuthenticated,
