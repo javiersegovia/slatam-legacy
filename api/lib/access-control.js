@@ -68,6 +68,7 @@ const userIsProductOwner = (payload) => {
     return false
 
   if (!userIsCompanyMember(payload)) return false
+
   if (!existingItem.owner) return false
 
   if (existingItem) {
