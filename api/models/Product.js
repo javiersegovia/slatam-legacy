@@ -144,7 +144,8 @@ module.exports = {
         resolvedData.owner = context.authedItem.company
         return resolvedData
       }
-      // TODO validate if the priceRange and quickDetails to be added corresponds to the product
+      // TODO validate if the priceRange, quickDetails and logistics to be added corresponds to the product
+      // TODO If has questions, throw error
       return resolvedData
     },
     beforeDelete: ({ operation, context, existingItem }) => {

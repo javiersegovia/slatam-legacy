@@ -50,9 +50,9 @@ const userIsTargetUser = (payload) => {
 
 const userIsProductOwner = (payload) => {
   const {
-    authentication: { item },
+    authentication: { item: user },
     listKey,
-    existingItem = null,
+    existingItem: product = null,
   } = payload
 
   if (!userIsAuthenticated(payload)) return false
@@ -69,11 +69,10 @@ const userIsProductOwner = (payload) => {
 
   if (!userIsCompanyMember(payload)) return false
 
-  if (!existingItem.owner) return false
+  if (!product.owner) return false
 
-  if (existingItem) {
-    const isProductOwner =
-      item.company.toString() === existingItem.owner.toString()
+  if (product) {
+    const isProductOwner = user.company.toString() === product.owner.toString()
 
     return Boolean(isProductOwner)
   }
@@ -83,12 +82,60 @@ const userIsProductOwner = (payload) => {
 
 const userIsCompanyMember = (payload) => {
   const {
-    authentication: { item },
+    authentication: { item: user },
   } = payload
 
   if (!userIsAuthenticated(payload)) return false
 
-  return Boolean(item.company)
+  return Boolean(user.company)
+}
+
+const userIsCompanyOwner = (payload) => {
+  const {
+    authentication: { item: user },
+    listKey,
+    existingItem: company = null,
+  } = payload
+
+  console.log(payload)
+
+  if (!userIsAuthenticated(payload)) return false
+
+  if (listKey !== 'Company') return false
+
+  if (!userIsCompanyMember(payload)) return false
+
+  if (!company.owner) return false
+
+  if (company) {
+    const isCompanyOwner = user.id.toString() === company.owner.toString()
+
+    return Boolean(isCompanyOwner)
+  }
+
+  return false
+}
+
+const userIsCompanyAgent = (payload) => {
+  const {
+    authentication: { item: user },
+    listKey,
+    existingItem: company = null,
+  } = payload
+
+  if (listKey !== 'Company') return false
+
+  if (!userIsCompanyMember(payload)) return false
+
+  if (!company.owner) return false
+
+  if (company) {
+    const isCompanyAgent = user.company.toString() === company.id.toString()
+
+    return Boolean(isCompanyAgent)
+  }
+
+  return false
 }
 
 module.exports = {
@@ -99,4 +146,6 @@ module.exports = {
   userIsTargetUser,
   userIsProductOwner,
   userIsCompanyMember,
+  userIsCompanyOwner,
+  userIsCompanyAgent,
 }

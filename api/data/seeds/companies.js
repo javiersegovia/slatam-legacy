@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'Slatam Group',
       role: 'SUPPLIER',
-      belongsTo: { where: { firstName: 'admin' } },
+      owner: { where: { firstName: 'admin' } },
       shipsTo: { where: { name: 'Venezuela' } },
       categories: { where: { name: 'Fabric and Textile Raw Material' } },
       subcategories: { where: { name: 'Leather' } },
@@ -11,7 +11,7 @@ module.exports = {
     {
       name: 'Foro Indie',
       role: 'SUPPLIER',
-      belongsTo: { where: { firstName: 'user2' } },
+      owner: { where: { firstName: 'user2' } },
       shipsTo: { where: { name: 'Venezuela' } },
     },
   ],
