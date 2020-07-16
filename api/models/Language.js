@@ -14,7 +14,7 @@ module.exports = {
       type: Url,
       isRequired: true,
     },
-    iso639_1: {
+    code: {
       schemaDoc: 'The acronym of the language',
       type: Text,
       isRequired: true,

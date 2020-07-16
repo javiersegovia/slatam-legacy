@@ -43,7 +43,7 @@ module.exports = {
     products: {
       schemaDoc: 'The products of the company',
       type: Relationship,
-      ref: 'Product.belongsTo',
+      ref: 'Product.owner',
       many: true,
     },
     belongsTo: {
@@ -70,19 +70,6 @@ module.exports = {
       type: Relationship,
       ref: 'User.company',
       many: true,
-    },
-  },
-  hooks: {
-    beforeDelete: async ({ operation, context, existingItem }) => {
-      const payload = {
-        authentication: {
-          item: context.authedItem,
-        },
-        listKey: 'Company',
-        existingItem,
-        operation,
-      }
-      userIsCompanyMember(payload)
     },
   },
   access: {

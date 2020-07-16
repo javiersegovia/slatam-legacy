@@ -17,6 +17,7 @@ module.exports = {
     rating: {
       schemaDoc: 'The rating of the review',
       type: Float,
+      isRequired: true,
     },
     comment: {
       schemaDoc: 'The review itself',

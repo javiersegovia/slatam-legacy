@@ -53,8 +53,6 @@ module.exports = {
   access: {
     create: userIsAuthenticated,
     read: true,
-    // update: userIsModOrOwner,
-    // delete: userIsModOrOwner,
   },
   plugins: [atTracking(), byTracking()],
 }

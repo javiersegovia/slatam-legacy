@@ -1,7 +1,3 @@
-const {
-  throwAccessDenied,
-} = require('@keystonejs/keystone/lib/List/graphqlErrors')
-
 const userIsAuthenticated = ({ authentication: { item: user } }) =>
   Boolean(user)
 
@@ -10,10 +6,11 @@ const userIsAdmin = (payload) => {
     authentication: { item: user },
   } = payload
 
-  const isAuth = userIsAuthenticated(payload)
+  if (!userIsAuthenticated(payload)) return false
+
   const isAdmin = user.permission === 'ADMIN'
 
-  return Boolean(isAuth && isAdmin)
+  return Boolean(isAdmin)
 }
 
 const userIsMod = (payload) => {
@@ -21,10 +18,11 @@ const userIsMod = (payload) => {
     authentication: { item: user },
   } = payload
 
-  const isAuth = userIsAuthenticated(payload)
+  if (!userIsAuthenticated(payload)) return false
+
   const isMod = user.permission === 'MOD'
 
-  return Boolean(isAuth && isMod)
+  return Boolean(isMod)
 }
 
 const userIsAdminOrMod = (payload) =>
@@ -50,43 +48,32 @@ const userIsTargetUser = (payload) => {
   return false
 }
 
-const userCanUpdateProducts = (payload) => {
-  const {
-    authentication: { item },
-    listKey,
-    operation,
-    existingItem = null,
-  } = payload
-
-  if (listKey !== 'Product') return false
-
-  if (operation === 'update') {
-    item.company = item.company ? item.company : ''
-
-    if (existingItem) {
-      const canUpdateProducts =
-        item.company.toString() === existingItem.belongsTo.toString()
-
-      return Boolean(canUpdateProducts)
-    }
-  }
-}
-
 const userIsProductOwner = (payload) => {
   const {
     authentication: { item },
     listKey,
-    operation,
     existingItem = null,
   } = payload
 
-  if (listKey !== 'Product') return false
-  if (item.company === null) return false
-  // item.company = item.company ? item.company : ''
+  if (!userIsAuthenticated(payload)) return false
+
+  if (
+    listKey !== 'Product' &&
+    listKey !== 'ProductPriceRange' &&
+    listKey !== 'ProductLogistic' &&
+    listKey !== 'ProductLocation' &&
+    listKey !== 'ProductLeadTime' &&
+    listKey !== 'ProductQuickDetail'
+  )
+    return false
+
+  if (!userIsCompanyMember(payload)) return false
+
+  if (!existingItem.owner) return false
 
   if (existingItem) {
     const isProductOwner =
-      item.company.toString() === existingItem.belongsTo.toString()
+      item.company.toString() === existingItem.owner.toString()
 
     return Boolean(isProductOwner)
   }
@@ -94,127 +81,14 @@ const userIsProductOwner = (payload) => {
   return false
 }
 
-const userCanDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
-  const {
-    authentication: { item, listKey: authedListKey },
-    listKey,
-    operation,
-    existingItem = null,
-  } = payload
-
-  if (listKey !== 'Product') return false
-
-  if (operation === 'delete') {
-    item.company = item.company ? item.company : ''
-
-    if (existingItem) {
-      const canDeleteProducts =
-        item.company.toString() === existingItem.belongsTo.toString()
-
-      if (!canDeleteProducts && isAuth && !isMod && !isAdmin) {
-        const context = {
-          authedItem: item,
-          authedListKey,
-        }
-        throwAccessDenied(null, context, existingItem)
-      }
-    }
-  }
-}
-
-const userCanUpdateCompany = (payload) => {
+const userIsCompanyMember = (payload) => {
   const {
     authentication: { item },
-    listKey,
-    operation,
-    existingItem = null,
   } = payload
 
-  if (listKey !== 'Company') return false
+  if (!userIsAuthenticated(payload)) return false
 
-  if (operation === 'update') {
-    item.company = item.company ? item.company : ''
-
-    if (existingItem) {
-      const canUpdateCompany =
-        item.company.toString() === existingItem.id.toString()
-      return Boolean(canUpdateCompany)
-    }
-  }
-}
-
-const userCanDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
-  const {
-    authentication: { item, listKey: authedListKey },
-    listKey,
-    operation,
-    existingItem = null,
-  } = payload
-
-  if (listKey !== 'Company') return false
-
-  if (operation === 'delete') {
-    item.company = item.company ? item.company : ''
-
-    if (existingItem) {
-      const canDeleteCompany =
-        item.company.toString() === existingItem.id.toString()
-
-      if (!canDeleteCompany && isAuth && !isMod && !isAdmin) {
-        const context = {
-          authedItem: item,
-          authedListKey,
-        }
-        throwAccessDenied(null, context, existingItem)
-      }
-    }
-  }
-}
-
-const userCanUpdateOrDeleteCompany = (payload, isAuth, isMod, isAdmin) => {
-  const canUpdateCompany = userCanUpdateCompany(payload)
-  const canDeleteCompany = userCanDeleteCompany(payload, isAuth, isMod, isAdmin)
-
-  return Boolean(canUpdateCompany)
-}
-
-const userCanUpdateOrDeleteProducts = (payload, isAuth, isMod, isAdmin) => {
-  const canUpdateProducts = userCanUpdateProducts(payload)
-  const canDeleteProducts = userCanDeleteProducts(
-    payload,
-    isAuth,
-    isMod,
-    isAdmin
-  )
-
-  return Boolean(canUpdateProducts)
-}
-
-const userIsCompanyMember = (payload) => {
-  const isAuth = userIsAuthenticated(payload)
-  const isAdmin = userIsAdmin(payload)
-  const isMod = userIsMod(payload)
-
-  const canUpdateOrDeleteProducts = userCanUpdateOrDeleteProducts(
-    payload,
-    isAuth,
-    isMod,
-    isAdmin
-  )
-
-  const canUpdateOrDeleteCompany = userCanUpdateOrDeleteCompany(
-    payload,
-    isAuth,
-    isMod,
-    isAdmin
-  )
-
-  return Boolean(
-    (isAuth && canUpdateOrDeleteCompany) ||
-      (isAuth && canUpdateOrDeleteProducts) ||
-      isMod ||
-      isAdmin
-  )
+  return Boolean(item.company)
 }
 
 module.exports = {
@@ -224,7 +98,5 @@ module.exports = {
   userIsAdminOrMod,
   userIsTargetUser,
   userIsProductOwner,
-  userCanUpdateProducts,
-  userCanUpdateCompany,
   userIsCompanyMember,
 }

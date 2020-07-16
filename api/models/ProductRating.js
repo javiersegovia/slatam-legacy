@@ -1,4 +1,5 @@
 const { Integer, Float, Relationship } = require('@keystonejs/fields')
+const { userIsAdminOrMod } = require('../lib/access-control')
 
 module.exports = {
   fields: {
@@ -26,5 +27,11 @@ module.exports = {
       type: Relationship,
       ref: 'Product.rating',
     },
+  },
+  access: {
+    read: true,
+    create: userIsAdminOrMod,
+    update: userIsAdminOrMod,
+    delete: userIsAdminOrMod,
   },
 }

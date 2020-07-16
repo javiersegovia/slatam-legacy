@@ -3,7 +3,7 @@ const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
-  userIsAuthenticated,
+  userIsCompanyMember,
 } = require('../lib/access-control')
 const {
   throwAccessDenied,
@@ -39,6 +39,9 @@ module.exports = {
       schemaDoc: 'The rating of the product',
       type: Relationship,
       ref: 'ProductRating.belongsTo',
+      access: {
+        update: userIsAdminOrMod,
+      },
     },
     priceRanges: {
       schemaDoc: 'The price ranges of the product',
@@ -54,12 +57,19 @@ module.exports = {
       schemaDoc: 'The logistics of the product',
       type: Relationship,
       ref: 'ProductLogistic.belongsTo',
+      access: {
+        update: userIsAdminOrMod,
+      },
     },
     quickDetails: {
       schemaDoc: 'The quick details of the product',
       type: Relationship,
       ref: 'ProductQuickDetail.belongsTo',
       many: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     status: {
       schemaDoc: 'The status of the product',
@@ -67,39 +77,77 @@ module.exports = {
       defaultValue: 'VISIBLE',
       options: ['VISIBLE', 'HIDDEN'],
       isRequired: true,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     SKU: {
       schemaDoc:
         'SKU means Stock Keeping unit. Its a field for inventory managment',
       type: Text,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     GTIN: {
       schemaDoc:
         'GTIN means Grobal Trade Item Number. It is used for identifying item globally',
       type: Text,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     MPN: {
       schemaDoc:
         'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
       type: Text,
+      access: {
+        update: (payload) =>
+          userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      },
     },
     questions: {
       schemaDoc: 'The questions of the product',
       type: Relationship,
       ref: 'ProductQuestion.belongsTo',
       many: true,
+      access: {
+        update: userIsAdminOrMod,
+      },
     },
-    belongsTo: {
+    owner: {
       schemaDoc: 'The company who belongs this product',
       type: Relationship,
       ref: 'Company.products',
       access: {
-        update: (payload) => userIsAdminOrMod(payload),
+        update: userIsAdminOrMod,
       },
     },
   },
   hooks: {
-    beforeDelete: async ({ operation, context, existingItem }) => {
+    resolveInput: ({ resolvedData, operation, context }) => {
+      // When a new product is created, this happens
+      if (operation === 'create') {
+        const payload = {
+          authentication: {
+            item: context.authedItem,
+          },
+        }
+        // check if the user has a company or is admin/mod
+        if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
+          throwAccessDenied(null, context)
+        }
+        // add the user's company id to product's owner field
+        resolvedData.owner = context.authedItem.company
+        return resolvedData
+      }
+      // TODO validate if the priceRange and quickDetails to be added corresponds to the product
+      return resolvedData
+    },
+    beforeDelete: ({ operation, context, existingItem }) => {
       const payload = {
         authentication: {
           item: context.authedItem,
@@ -108,7 +156,6 @@ module.exports = {
         existingItem,
         operation,
       }
-
       if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
         throwAccessDenied(null, context, existingItem)
       }
@@ -116,7 +163,6 @@ module.exports = {
   },
   access: {
     read: true,
-    create: userIsAuthenticated,
   },
   plugins: [atTracking(), byTracking()],
 }

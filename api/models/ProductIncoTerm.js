@@ -1,4 +1,4 @@
-const { Text, Relationship } = require('@keystonejs/fields')
+const { Text } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const { userIsAdminOrMod } = require('../lib/access-control')
 
