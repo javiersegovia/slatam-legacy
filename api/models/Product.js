@@ -142,10 +142,11 @@ module.exports = {
         }
         // add the user's company id to product's owner field
         resolvedData.owner = context.authedItem.company
+        // empty the question list before creating a product
+        resolvedData.questions = []
         return resolvedData
       }
       // TODO validate if the priceRange, quickDetails and logistics to be added corresponds to the product
-      // TODO If has questions, throw error
       return resolvedData
     },
     beforeDelete: ({ operation, context, existingItem }) => {

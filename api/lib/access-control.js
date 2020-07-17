@@ -97,11 +97,9 @@ const userIsCompanyOwner = (payload) => {
     existingItem: company = null,
   } = payload
 
-  console.log(payload)
-
   if (!userIsAuthenticated(payload)) return false
 
-  if (listKey !== 'Company') return false
+  if (listKey !== 'Company' && listKey !== 'CompanyInfo') return false
 
   if (!userIsCompanyMember(payload)) return false
 
@@ -123,16 +121,27 @@ const userIsCompanyAgent = (payload) => {
     existingItem: company = null,
   } = payload
 
-  if (listKey !== 'Company') return false
+  if (listKey !== 'Company' && listKey !== 'CompanyInfo') return false
 
   if (!userIsCompanyMember(payload)) return false
 
   if (!company.owner) return false
 
-  if (company) {
-    const isCompanyAgent = user.company.toString() === company.id.toString()
+  if (listKey === 'Company') {
+    if (company) {
+      const isCompanyAgent = user.company.toString() === company.id.toString()
 
-    return Boolean(isCompanyAgent)
+      return Boolean(isCompanyAgent)
+    }
+  }
+
+  if (listKey === 'CompanyInfo') {
+    if (company) {
+      const isCompanyAgent =
+        user.company.toString() === company.belongsTo.toString()
+
+      return Boolean(isCompanyAgent)
+    }
   }
 
   return false

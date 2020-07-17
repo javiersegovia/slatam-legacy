@@ -129,14 +129,17 @@ module.exports = {
         }
         // add the user's id to company's owner field
         resolvedData.owner = context.authedItem.id
-        // create an array for members or reset the array if the owner adds a member
+        // reset the products in case the user adds a product when creating a company
+        resolvedData.products = []
+        // reset the info field in case the user adds a info id when creating a company
+        resolvedData.info = null
+        // create an array for members and reset the array if the owner adds a member
         resolvedData.members = []
         // add the owner in the members array
         resolvedData.members.push(context.authedItem.id)
         return resolvedData
       }
       // TODO validate if the companyInfo and members to be added corresponds to the company
-      // TODO If has products when a company is created, throw error
       return resolvedData
     },
     beforeDelete: ({ operation, context, existingItem }) => {
