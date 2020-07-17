@@ -37,7 +37,7 @@ export const AuthorBlock = styled.div`
 `
 export const MainImage = styled.img`
   height: 100%;
-  width: 100%;
+  width: 82%;
   background-image: url(${props => props.imageUrl});
   background-size: cover;
   background-repeat: no-repeat;
@@ -63,15 +63,6 @@ export const PreviewTextBlock = styled.div`
   p {
     font-size: 1.3em;
     margin: 0;
-  }
-
-  div {
-    height: 25px;
-    width: max-content;
-    padding: 0 10px 0 10px;
-    border: 1px solid ${props => props.theme.palette.primary.main};
-    border-radius: 15px;
-    text-align: center;
   }
 `
 

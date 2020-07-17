@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import UserInfo from '@@components/Users/UserInfo'
 import TagBlock from '@@components/UI/TagBlock/index'
+import ContinueButton from '@@components/UI/BlogButtons/ContinueButton'
 import {
   StyledMainArticle,
   AuthorBlock,
@@ -39,9 +40,8 @@ const MainArticle = () => {
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
           pariatur...
         </p>
-        {/* Camibiar por boton estilizado */}
-        <div>Temporary button -></div>
       </PreviewTextBlock>
+      <ContinueButton />
     </StyledMainArticle>
   )
 }
