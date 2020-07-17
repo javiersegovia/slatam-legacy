@@ -1,14 +1,15 @@
 // Estructura y posicionamiento de los elementos del Home
 
-import React from 'react'
 import styled from 'styled-components'
 
 export const BlogStyledHome = styled.div`
-  margin-top: 2em;
   width: 100%;
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-gap: 10px;
+
+  /* justify-items: center;
+  align-items: center; */
 `
 // Seccion 1
 export const StyledMainSection = styled.section`
@@ -30,35 +31,51 @@ export const StyledMainArticle = styled.main`
 export const AuthorBlock = styled.div`
   height: 100%;
   width: 100%;
+  margin-top: 7px;
   /* border: 1px dashed black; */
-  background-color: lightblue;
+  /* background-color: lightblue; */
 `
-export const MainImage = styled.div`
-  height: 250px;
-  width: 100%;
-  /* border: 1px dashed black; */
-  background-color: lightblue;
-`
-export const MainTitle = styled.div`
+export const MainImage = styled.img`
   height: 100%;
   width: 100%;
+  background-image: url(${props => props.imageUrl});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   /* border: 1px dashed black; */
-  background-color: lightblue;
+  /* background-color: lightblue; */
 `
-export const TagBlock = styled.div`
+export const MainTitle = styled.h1`
   height: 100%;
   width: 100%;
-  /* border: 1px dashed black; */
-  background-color: lightblue;
+  margin: 0;
+  text-align: left;
 `
+
 export const PreviewTextBlock = styled.div`
   height: 100%;
   width: 100%;
-  /* border: 1px dashed black; */
-  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* background-color: #f3f3f3; */
+
+  p {
+    font-size: 1.3em;
+    margin: 0;
+  }
+
+  div {
+    height: 25px;
+    width: max-content;
+    padding: 0 10px 0 10px;
+    border: 1px solid ${props => props.theme.palette.primary.main};
+    border-radius: 15px;
+    text-align: center;
+  }
 `
 
-export const Aside = styled.aside`
+export const StyledAside = styled.aside`
   width: 100%;
   height: 100%;
   display: grid;
@@ -66,15 +83,11 @@ export const Aside = styled.aside`
   grid-template-rows: repeat(3, 1fr);
   /* border: 1px dashed black; */
 `
-export const AsideArticleCard = styled.div`
-  height: 100%;
-  width: 100%;
-  /* border: 1px dashed black; */
-  background-color: lightblue;
-`
+
 // Seccion 2
 export const StyledFirstArticles = styled.section`
   height: 100%;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
@@ -86,7 +99,7 @@ export const FirstArticleCard = styled.div`
   height: 232px;
   width: 100%;
   /* border: 1px dashed black; */
-  background-color: lightblue;
+  background-color: #f3f3f3;
 `
 // Seccion 3
 export const StyledBlogStories = styled.section`
@@ -105,5 +118,5 @@ export const StoryPreview = styled.li`
   height: 100%;
   width: 100%;
   /* border: 1px dashed black; */
-  background-color: lightblue;
+  background-color: #f3f3f3;
 `

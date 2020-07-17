@@ -1,7 +1,6 @@
 import React from 'react'
 import ArticleCard from '@@components/BlogPostPreview/ArticleCard'
-
-import { StyledFirstArticles } from '../styled'
+import { StyledAside } from '../styled'
 
 const previewArticles = [
   {
@@ -21,21 +20,15 @@ const previewArticles = [
   },
 ]
 
-const BlogFirstArticles = () => {
-  const size = 3
+const Aside = () => {
+  const size = 2
   return (
-    <>
-      <StyledFirstArticles>
-        {previewArticles.map(cont => (
-          <ArticleCard
-            title={cont.title}
-            imageUrl={cont.imageUrl}
-            size={size}
-          />
-        ))}
-      </StyledFirstArticles>
-    </>
+    <StyledAside>
+      {previewArticles.map(cont => (
+        <ArticleCard title={cont.title} size={size} />
+      ))}
+    </StyledAside>
   )
 }
 
-export default BlogFirstArticles
+export default Aside
