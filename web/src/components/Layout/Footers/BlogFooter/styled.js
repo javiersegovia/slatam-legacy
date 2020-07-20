@@ -9,9 +9,6 @@ export const StyledBlogFooter = styled.footer`
   grid-template-columns: 1.5fr 1fr;
   grid-auto-rows: 432px;
 `
-const CellContainer = css`
-  margin: 10px;
-`
 
 export const LinkContainer = styled.div`
   margin: 50px 0 0 150px;

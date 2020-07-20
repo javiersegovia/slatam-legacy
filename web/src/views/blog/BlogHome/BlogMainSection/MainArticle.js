@@ -1,15 +1,51 @@
 import React from 'react'
+import styled from 'styled-components'
 import Link from 'next/link'
 import UserInfo from '@@components/Users/UserInfo'
 import TagBlock from '@@components/UI/TagBlock/index'
 import ContinueButton from '@@components/UI/BlogButtons/ContinueButton'
-import {
-  StyledMainArticle,
-  AuthorBlock,
-  MainImage,
-  MainTitle,
-  PreviewTextBlock,
-} from '../styled'
+
+const StyledMainArticle = styled.main`
+  width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: 1fr 5fr 4fr 1fr 2.5fr;
+`
+
+const AuthorBlock = styled.div`
+  height: 100%;
+  width: 100%;
+  margin-top: 7px;
+`
+
+const MainImage = styled.img`
+  height: 100%;
+  width: 82%;
+  background-image: url(${props => props.imageUrl});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+`
+
+const MainTitle = styled.h1`
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+`
+
+const PreviewTextBlock = styled.div`
+  height: 100%;
+  width: 82%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  p {
+    font-size: 1.3em;
+    margin: 0;
+  }
+`
 
 const MainArticle = () => {
   return (

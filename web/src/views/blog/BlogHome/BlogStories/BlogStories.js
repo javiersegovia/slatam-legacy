@@ -1,18 +1,61 @@
 import React from 'react'
-import { StyledBlogStories, StoryPreview } from '../styled'
+import styled from 'styled-components'
+import StoryCard from './StoryPreview'
+import LoadMoreStories from './LoadMoreStories'
 
+const StoryPreviewData = [
+  {
+    title:
+      '4 Unexpected Methods for Becoming an Authority on Nearly Any Subject',
+    id: 1,
+  },
+  {
+    title:
+      '4 Unexpected Methods for Becoming an Authority on Nearly Any Subject',
+    id: 1,
+  },
+  {
+    title:
+      '4 Unexpected Methods for Becoming an Authority on Nearly Any Subject',
+    id: 1,
+  },
+  {
+    title:
+      '4 Unexpected Methods for Becoming an Authority on Nearly Any Subject',
+    id: 1,
+  },
+  {
+    title:
+      '4 Unexpected Methods for Becoming an Authority on Nearly Any Subject',
+    id: 1,
+  },
+]
+
+const WrapperStories = styled.div`
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+`
+
+const StyledBlogStories = styled.section`
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 10px;
+  align-items: center;
+  justify-items: center;
+`
 const BlogStories = () => {
+  const size = 1
   return (
     <>
-      <StyledBlogStories>
-        <h6>Blog Stories</h6>
-        <StoryPreview>Story 1</StoryPreview>
-        <StoryPreview>Story 2</StoryPreview>
-        <StoryPreview>Story 3</StoryPreview>
-        <StoryPreview>Story 4</StoryPreview>
-        <StoryPreview>Story 5</StoryPreview>
-        <button type="button">Load More Stories</button>
-      </StyledBlogStories>
+      <WrapperStories>
+        <h1>All Stories</h1>
+        <StyledBlogStories>
+          {StoryPreviewData.map(cont => (
+            <StoryCard title={cont.title} size={size} />
+          ))}
+        </StyledBlogStories>
+        <LoadMoreStories />
+      </WrapperStories>
     </>
   )
 }

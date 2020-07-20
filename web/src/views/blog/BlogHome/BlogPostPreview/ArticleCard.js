@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import UserInfo from '@@components/Users/UserInfo'
-import TagBlock from '@@components/UI/TagBlock/index'
+import TagBlock from '@@components/UI/TagBlock'
 
 const StyledArticleCard = styled.div`
   height: 100%;
-  width: 416px; /*Existe un bug con el width. Si se pone en 100%, se descontrola*/
+  width: 416px; /*Existe un bug con el width. Si se pone en 100%, se descontrola, aparentemente se debe al componente TagBlock*/
   border: 1px solid #e8ebf7;
   box-sizing: border-box;
 
@@ -16,7 +16,7 @@ const StyledArticleCard = styled.div`
   }
 
   .StyledArticleCard__previewTitle {
-    margin: 1em 0 1em 0;
+    margin: 1em 0;
   }
 
   .StyledArticleCard__previewImage {
@@ -29,7 +29,7 @@ const StyledArticleCard = styled.div`
     background-position: center center;
   }
 
-  /* StyledArticleCard__tagBlock => no pude controlar el margen del elemento desde este componente */
+  /* StyledArticleCard__tagBlock => no pude controlar el margen del componente desde este componente */
 `
 
 const ArticleCard = ({ title, imageUrl = null, size }) => {
