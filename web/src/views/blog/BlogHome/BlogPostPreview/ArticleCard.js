@@ -1,22 +1,24 @@
 import React from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 import UserInfo from '@@components/Users/UserInfo'
 import TagBlock from '@@components/UI/TagBlock'
 
 const StyledArticleCard = styled.div`
   height: 100%;
-  width: 416px; /*Existe un bug con el width. Si se pone en 100%, se descontrola, aparentemente se debe al componente TagBlock*/
+  width: 416px; /* Existe un bug con el width. Si se pone en 100%, se descontrola, aparentemente se debe al componente TagBlock */
   border: 1px solid #e8ebf7;
   box-sizing: border-box;
 
   .StyledArticleCard__wrapper {
     display: flex;
     flex-wrap: wrap;
-    margin: 1em 1em 1em 1em;
+    margin: 1em;
   }
 
   .StyledArticleCard__previewTitle {
     margin: 1em 0;
+    cursor: pointer;
   }
 
   .StyledArticleCard__previewImage {
@@ -43,7 +45,9 @@ const ArticleCard = ({ title, imageUrl = null, size }) => {
           titleRight={new Date()}
           subtitle="CEO, My Home"
         />
-        <h5 className="StyledArticleCard__previewTitle">{title}</h5>
+        <Link href="#">
+          <h5 className="StyledArticleCard__previewTitle">{title}</h5>
+        </Link>
         {imageUrl && <div className="StyledArticleCard__previewImage" />}
         <TagBlock className="StyledArticleCard__tagBlock" size={size} />
       </div>

@@ -32,12 +32,12 @@ const tagList = [
 
 const StyledBlockTag = styled.div`
   height: max-content;
-  width: 100%;
+  /* width: 100%; */
   /* background-color: #f3f3f3; */
 
   display: grid;
-  grid-template-columns: repeat(5, 120px);
-  grid-column-gap: 5px;
+  grid-template-columns: repeat(5, minmax(0, max-content));
+  grid-column-gap: 15px;
   justify-items: start;
   align-items: center;
 `

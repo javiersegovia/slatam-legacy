@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-
 import { StyledFooterLinks, LinkColumnTitle, StyledLink } from './styled'
 
 const columns = [

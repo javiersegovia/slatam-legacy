@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { StyledBlogFooter, LinkContainer, CopyrightText } from './styled'
 import FooterLinks from './FooterLinks'
 
@@ -9,9 +10,11 @@ const BlogFooter = () => {
         <LinkContainer>
           <FooterLinks />
           <div>
-            <a>
-              <img src="/images/slatam-logo.svg" alt="Slatam Logo" />
-            </a>
+            <Link href="/">
+              <a>
+                <img src="/images/slatam-logo.svg" alt="Slatam Logo" />
+              </a>
+            </Link>
           </div>
           <CopyrightText>
             © 2020, Slatam Group. All rights reserved

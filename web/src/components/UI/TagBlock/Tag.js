@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const StyledTag = styled.div`
   height: 22px;
   width: max-content;
+  min-width: 0;
   display: flex;
   align-items: center;
   font-size: 0.9em;

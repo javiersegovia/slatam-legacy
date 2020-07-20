@@ -10,18 +10,26 @@ import { StyledSecundaryLinks } from './styled'
 const NavSecundaryLinks = () => {
   return (
     <StyledSecundaryLinks>
-      <a>
-        <SearchOutlinedIcon style={{ color: '#B2B2B2' }} />
-      </a>
-      <a>
-        <TranslateOutlinedIcon style={{ color: '#B2B2B2' }} />
-      </a>
-      <a>
-        <PersonOutlineOutlinedIcon style={{ color: '#B2B2B2' }} />
-      </a>
-      <a>
-        <MoreVertOutlinedIcon style={{ color: '#B2B2B2' }} />
-      </a>
+      <Link href="#">
+        <a>
+          <SearchOutlinedIcon style={{ color: '#B2B2B2' }} />
+        </a>
+      </Link>
+      <Link href="#">
+        <a>
+          <TranslateOutlinedIcon style={{ color: '#B2B2B2' }} />
+        </a>
+      </Link>
+      <Link href="#">
+        <a>
+          <PersonOutlineOutlinedIcon style={{ color: '#B2B2B2' }} />
+        </a>
+      </Link>
+      <Link href="#">
+        <a>
+          <MoreVertOutlinedIcon style={{ color: '#B2B2B2' }} />
+        </a>
+      </Link>
     </StyledSecundaryLinks>
   )
 }
