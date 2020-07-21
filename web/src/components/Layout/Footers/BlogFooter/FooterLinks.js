@@ -26,7 +26,7 @@ const columns = [
     ],
   },
   {
-    title: 'Poduct',
+    title: 'Product',
     titleHref: '/',
     items: [
       {
