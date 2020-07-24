@@ -32,6 +32,7 @@ const MainTitle = styled.h1`
   width: 100%;
   margin: 0;
   text-align: left;
+  cursor: pointer;
 `
 
 const PreviewTextBlock = styled.div`
@@ -61,9 +62,11 @@ const MainArticle = () => {
         />
       </AuthorBlock>
       <MainImage imageUrl="https://miro.medium.com/max/3052/1*lMeKEkTBKSTja5ZSfFm81w.png" />
-      <MainTitle>
-        4 Unexpected Methods For Becoming An Authority On Nearly Any Subject
-      </MainTitle>
+      <Link href="#">
+        <MainTitle>
+          4 Unexpected Methods For Becoming An Authority On Nearly Any Subject
+        </MainTitle>
+      </Link>
       <TagBlock />
 
       <PreviewTextBlock>

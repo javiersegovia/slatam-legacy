@@ -6,9 +6,10 @@ import TagBlock from '@@components/UI/TagBlock'
 
 const StyledArticleCard = styled.div`
   height: 100%;
-  width: 416px; /* Existe un bug con el width. Si se pone en 100%, se descontrola, aparentemente se debe al componente TagBlock */
+  width: 100%;
   border: 1px solid #e8ebf7;
   box-sizing: border-box;
+  padding: 15px 0 25px;
 
   .StyledArticleCard__wrapper {
     display: flex;
@@ -22,21 +23,15 @@ const StyledArticleCard = styled.div`
   }
 
   .StyledArticleCard__previewImage {
-    height: 230px;
-    width: 450px;
+    width: 100%;
     margin-bottom: 25px;
-    background: url(${props => props.imageUrl});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    cursor: pointer;
   }
-
-  /* StyledArticleCard__tagBlock => no pude controlar el margen del componente desde este componente */
 `
 
 const ArticleCard = ({ title, imageUrl = null, size }) => {
   return (
-    <StyledArticleCard imageUrl={imageUrl}>
+    <StyledArticleCard>
       <div className="StyledArticleCard__wrapper">
         <UserInfo
           title="David Chacon"
@@ -48,7 +43,15 @@ const ArticleCard = ({ title, imageUrl = null, size }) => {
         <Link href="#">
           <h5 className="StyledArticleCard__previewTitle">{title}</h5>
         </Link>
-        {imageUrl && <div className="StyledArticleCard__previewImage" />}
+        {imageUrl && (
+          <Link href="/">
+            <img
+              src={imageUrl}
+              alt="Preview"
+              className="StyledArticleCard__previewImage"
+            />
+          </Link>
+        )}
         <TagBlock className="StyledArticleCard__tagBlock" size={size} />
       </div>
     </StyledArticleCard>

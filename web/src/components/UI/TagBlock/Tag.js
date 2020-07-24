@@ -10,13 +10,14 @@ const StyledTag = styled.div`
   font-size: 0.9em;
   padding: 3px 15px 0 15px;
   color: white;
-  background: ${props => props.color};
+  background: ${props =>
+    props.backgroundColor || props.theme.palette.gray.dark};
   border-radius: 15px;
   cursor: pointer;
 `
-const Tag = ({ category, categoryHref, color }) => {
+const Tag = ({ category, categoryHref, backgroundColor }) => {
   return (
-    <StyledTag color={color}>
+    <StyledTag backgroundColor={backgroundColor}>
       <a href={categoryHref}>{category}</a>
     </StyledTag>
   )

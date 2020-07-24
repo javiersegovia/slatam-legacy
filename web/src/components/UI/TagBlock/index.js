@@ -2,38 +2,36 @@ import React from 'react'
 import styled from 'styled-components'
 import Tag from './Tag'
 
-const tagList = [
+const defaultTagList = [
   {
     category: 'World',
-    color: '#00916F',
+    backgroundColor: '#00916F',
     categoryHref: '/',
   },
   {
     category: 'B2B',
-    color: '#FE4E00',
+    backgroundColor: '#FE4E00',
     categoryHref: '/',
   },
   {
     category: 'Technology',
-    color: '#012D78',
+    backgroundColor: '#012D78',
     categoryHref: '/',
   },
   {
     category: 'Outsourcing',
-    color: '#7A08C9',
+    backgroundColor: '#7A08C9',
     categoryHref: '/',
   },
   {
     category: 'Shipping',
-    color: '#D72638',
+    backgroundColor: '#D72638',
     categoryHref: '/',
   },
 ]
 
 const StyledBlockTag = styled.div`
   height: max-content;
-  /* width: 100%; */
-  /* background-color: #f3f3f3; */
 
   display: grid;
   grid-template-columns: repeat(5, minmax(0, max-content));
@@ -42,14 +40,14 @@ const StyledBlockTag = styled.div`
   align-items: center;
 `
 
-const TagBlock = ({ size }) => {
+const TagBlock = ({ size, className = '', tagList = defaultTagList }) => {
   return (
-    <StyledBlockTag>
+    <StyledBlockTag className={className}>
       {tagList.slice(0, size).map(cont => (
         <Tag
           category={cont.category}
           categoryHref={cont.categoryHref}
-          color={cont.color}
+          backgroundColor={cont.backgroundColor}
         />
       ))}
     </StyledBlockTag>

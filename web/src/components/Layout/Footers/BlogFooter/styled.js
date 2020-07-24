@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 // eslint-disable-next-line import/prefer-default-export
 export const StyledBlogFooter = styled.footer`
   width: 100%;
-  background-color: #f2f2f2;
+  background-color: ${props => props.theme.palette.gray.footergray};
 
   display: grid;
   grid-template-columns: 1.5fr 1fr;

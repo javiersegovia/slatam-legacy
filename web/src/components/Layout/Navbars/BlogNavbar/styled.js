@@ -5,9 +5,6 @@ import { rgba } from 'polished'
 export const BlogStyledNavBar = styled.div`
   width: 100%;
   background: ${props => props.theme.palette.gray.extralight};
-  /*position: absolute;*/
-  /* margin: 0;
-  padding: 0; */
   box-shadow: 0px 6px 6px ${props => props.theme.palette.gray.light};
   z-index: ${props => props.theme.zIndex.appBar};
   text-align: center;
@@ -18,9 +15,6 @@ export const BlogStyledNavBar = styled.div`
 `
 
 const CellContainer = css`
-  ${'' /* border: 1px dashed black; */}
-  ${'' /* width: 100%;
-  height: 100%; */}
   align-self: center;
   justify-self: center;
 `
@@ -52,7 +46,7 @@ export const StyledPrimaryLinks = styled.div`
   }
 
   & a:hover {
-    border-bottom: 2px solid #012d78;
+    border-bottom: 2px solid ${props => props.theme.palette.primary.light};
   }
 `
 
@@ -69,5 +63,8 @@ export const StyledSecundaryLinks = styled.div`
   grid-gap: 20px;
   align-items: center;
   justify-items: center;
-  1.33333px solid #B2B2B2;
+
+  .StyledSecundaryLinks__linkColor {
+    color: ${props => props.theme.palette.gray.lessdark};
+  }
 `

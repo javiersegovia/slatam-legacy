@@ -11,23 +11,23 @@ const NavSecundaryLinks = () => {
   return (
     <StyledSecundaryLinks>
       <Link href="#">
-        <a>
-          <SearchOutlinedIcon style={{ color: '#B2B2B2' }} />
+        <a className="StyledSecundaryLinks__linkColor">
+          <SearchOutlinedIcon />
         </a>
       </Link>
       <Link href="#">
-        <a>
-          <TranslateOutlinedIcon style={{ color: '#B2B2B2' }} />
+        <a className="StyledSecundaryLinks__linkColor">
+          <TranslateOutlinedIcon />
         </a>
       </Link>
       <Link href="#">
-        <a>
-          <PersonOutlineOutlinedIcon style={{ color: '#B2B2B2' }} />
+        <a className="StyledSecundaryLinks__linkColor">
+          <PersonOutlineOutlinedIcon />
         </a>
       </Link>
       <Link href="#">
-        <a>
-          <MoreVertOutlinedIcon style={{ color: '#B2B2B2' }} />
+        <a className="StyledSecundaryLinks__linkColor">
+          <MoreVertOutlinedIcon />
         </a>
       </Link>
     </StyledSecundaryLinks>

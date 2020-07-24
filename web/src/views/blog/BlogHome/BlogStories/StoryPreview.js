@@ -19,8 +19,8 @@ const IdWrapper = styled.div`
   justify-content: start;
   width: 100%;
 
-  .TagBlock {
-    width: max-content;
+  .IdWrapper__tagBlock {
+    margin-left: 20px;
   }
 `
 
@@ -35,7 +35,7 @@ const StoryCard = ({ title, size }) => {
           titleRight={new Date()}
           subtitle="CEO, My Home"
         />
-        {/* <TagBlock size={size} className="IdRapper__tagBlock" /> */}
+        <TagBlock size={size} className="IdWrapper__tagBlock" />
       </IdWrapper>
       <h4 className="IdRapper__previewTitle">{title}</h4>
     </StyledStoryPreview>

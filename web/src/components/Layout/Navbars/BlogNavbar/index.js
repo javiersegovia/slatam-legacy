@@ -9,7 +9,6 @@ import { BlogStyledNavBar, Logo, SearchBar } from './styled'
 const data = 'slatam.com'
 
 const BlogNavbar = ({ children }) => {
-  // return <div>{children({ data })}</div>
   return (
     <>
       <BlogStyledNavBar>

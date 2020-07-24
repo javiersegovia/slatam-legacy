@@ -51,9 +51,11 @@ export default createMuiTheme({
     },
     gray: {
       dark: '#82878b',
+      lessdark: '#B2B2B2',
       main: '#e8ebee',
       light: '#eeeeee',
       extralight: '#FAFBFC',
+      footergray: '#f2f2f2',
     },
     slategray: {
       dark: '#374456',
