@@ -299,7 +299,7 @@ const supplier = {
   name: 'Alimentos Polar LLC',
   country: 'VE',
   languages: ['1', '2'],
-  images: {
+  image: {
     thumbnail: '',
   },
   shipsTo: [

@@ -1,8 +1,8 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import Container from '@@components/UI/Container'
 import styled from 'styled-components'
 import faker from 'faker'
+import Container from '@@components/UI/Container'
 import ProductsGrid from '@@components/Products/ProductsGrid'
 import SectionTitle from './SectionTitle'
 
