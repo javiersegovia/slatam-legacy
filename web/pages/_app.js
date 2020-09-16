@@ -7,7 +7,6 @@ import withApollo from '@@graphql/apollo'
 import '../public/scss/application.scss'
 
 class MyApp extends App {
-
   componentDidMount() {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
