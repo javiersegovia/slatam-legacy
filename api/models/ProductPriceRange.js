@@ -1,12 +1,12 @@
 const { Integer, Relationship, Float } = require('@keystonejs/fields')
+// const {
+//   throwAccessDenied,
+// } = require('@keystonejs/keystone/lib/List/graphqlErrors')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
   userIsCompanyMember,
 } = require('../lib/access-control')
-const {
-  throwAccessDenied,
-} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
@@ -66,7 +66,7 @@ module.exports = {
         }
         // check if the user has a company or is admin/mod
         if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
-          throwAccessDenied(null, context)
+          // throwAccessDenied(null, context)
         }
         // add the user's company id to product princeRange's owner
         resolvedData.owner = context.authedItem.company
@@ -87,7 +87,7 @@ module.exports = {
       }
 
       if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
-        throwAccessDenied(null, context, existingItem)
+        // throwAccessDenied(null, context, existingItem)
       }
     },
   },

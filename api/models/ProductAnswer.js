@@ -28,10 +28,10 @@ module.exports = {
       schemaDoc: 'The answer itself',
       type: Markdown,
       isRequired: true,
-      access: {
-        update: (payload) =>
-          userIsProductOwner(payload) || userIsAdminOrMod(payload),
-      },
+      // access: {
+      //   update: (payload) =>
+      //     userIsProductOwner(payload) || userIsAdminOrMod(payload),
+      // },
     },
     belongsTo: {
       schemaDoc: 'The question of the answer',
@@ -61,7 +61,8 @@ module.exports = {
       }
       // check if the user has a company or is admin/mod
       if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
-        throwAccessDenied(null, context)
+        // TODO: fix throwAccessDenied
+        // throwAccessDenied(null, context)
       }
       // add the user's company id to product answer owner
       resolvedData.owner = context.authedItem.company

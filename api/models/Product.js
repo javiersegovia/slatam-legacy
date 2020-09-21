@@ -1,13 +1,13 @@
 const { Text, Relationship, Select, Checkbox } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
+// const {
+//   throwAccessDenied,
+// } = require('@keystonejs/keystone/lib/List/graphqlErrors')
 const {
   userIsProductOwner,
   userIsAdminOrMod,
   userIsCompanyMember,
 } = require('../lib/access-control')
-const {
-  throwAccessDenied,
-} = require('@keystonejs/keystone/lib/List/graphqlErrors')
 
 module.exports = {
   fields: {
@@ -138,7 +138,9 @@ module.exports = {
         }
         // check if the user has a company or is admin/mod
         if (!userIsCompanyMember(payload) && !userIsAdminOrMod(payload)) {
-          throwAccessDenied(null, context)
+          // TODO: fix throwAccessDenied
+          // throwAccessDenied(null, context)
+          return
         }
         // add the user's company id to product's owner field
         resolvedData.owner = context.authedItem.company
@@ -157,8 +159,14 @@ module.exports = {
         operation,
       }
       if (!userIsProductOwner(payload) && !userIsAdminOrMod(payload)) {
-        throwAccessDenied(null, context, existingItem)
+        // throwAccessDenied(null, context, existingItem)
+        // TODO: add custom throwAccessDenied
       }
+    },
+    MPN: {
+      schemaDocs:
+        'MPN means Manufacturer Part Number. It is used for identifying a specific product among all products from the same manufacturer',
+      type: Text,
     },
   },
   access: {

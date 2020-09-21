@@ -119,8 +119,10 @@ module.exports = function(report) {
   )}`
 
   console.log(`${output} \n
-  See the complete report at ${path.join(__dirname, 'eslint_web_results.txt')}
-  `)
+  See the complete report at ${path.join(
+    __dirname,
+    'tmp/eslint_web_results.txt'
+  )}`)
 
   output += result
 

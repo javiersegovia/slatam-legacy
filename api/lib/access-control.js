@@ -48,6 +48,16 @@ const userIsTargetUser = (payload) => {
   return false
 }
 
+const userIsCompanyMember = (payload) => {
+  const {
+    authentication: { item },
+  } = payload
+
+  if (!userIsAuthenticated(payload)) return false
+
+  return Boolean(item.company)
+}
+
 const userIsProductOwner = (payload) => {
   const {
     authentication: { item },
@@ -79,16 +89,6 @@ const userIsProductOwner = (payload) => {
   }
 
   return false
-}
-
-const userIsCompanyMember = (payload) => {
-  const {
-    authentication: { item },
-  } = payload
-
-  if (!userIsAuthenticated(payload)) return false
-
-  return Boolean(item.company)
 }
 
 module.exports = {

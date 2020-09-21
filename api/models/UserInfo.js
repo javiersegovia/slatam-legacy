@@ -1,5 +1,4 @@
-const { Text, Relationship } = require('@keystonejs/fields')
-const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
+const { Text, Relationship, DateTimeUtc } = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 
 module.exports = {

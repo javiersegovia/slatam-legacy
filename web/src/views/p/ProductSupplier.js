@@ -151,7 +151,7 @@ const ProductSupplier = ({ supplier }) => {
     name,
     country,
     languages,
-    images,
+    image,
     shipsTo,
     membership,
     acceptedPayment,
@@ -172,7 +172,7 @@ const ProductSupplier = ({ supplier }) => {
     <StyledProductSupplier>
       <div className="ProductSupplier__primaryInfo">
         <img
-          src={images.thumbnail || defaultImages.company}
+          src={image.thumbnail || defaultImages.company}
           alt="Company Logo"
           className="ProductSupplier__companyLogo"
         />
@@ -247,16 +247,16 @@ const ProductSupplier = ({ supplier }) => {
 }
 
 ProductSupplier.propTypes = {
-  supplier: {
+  supplier: PropTypes.shape({
     name: PropTypes.string.isRequired,
     country: PropTypes.string.isRequired,
     languages: PropTypes.array,
-    images: PropTypes.array,
+    image: PropTypes.object,
     shipsTo: PropTypes.array,
     membership: PropTypes.object,
-    acceptedPayment: PropTypes.object,
+    acceptedPayment: PropTypes.array,
     rating: PropTypes.object,
-  },
+  }),
 }
 
 export default ProductSupplier

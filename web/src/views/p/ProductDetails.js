@@ -108,7 +108,7 @@ const ProductDetails = ({ product }) => {
           <div className="ProductDetails__detailsWrapper">
             <div className="ProductDetails__subtitle">Packaging & Delivery</div>
             <div className="ProductDetails__detailsGrid">
-              {leadTimes?.length > 0 && (
+              {leadTimes?.length && (
                 <div className="ProductDetails__singleDetail fullRow">
                   <div className="detail__title">Lead time:</div>
                   <div className="detail__content withIcon">
@@ -174,7 +174,7 @@ ProductDetails.propTypes = {
     ),
     logisticDetails: PropTypes.shape({
       shippingType: PropTypes.string,
-      shippingFrom: PropTypes.string,
+      shippingFrom: PropTypes.object,
       itemDimension: PropTypes.string,
       itemWeight: PropTypes.string,
       shippingDimension: PropTypes.string,

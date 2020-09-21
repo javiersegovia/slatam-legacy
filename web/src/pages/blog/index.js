@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import BlogHome from '@@views/blog/BlogHome/index'
 import BlogNavbar from '@@components/Layout/Navbars/BlogNavbar'
-import BlogHome from '../../src/views/blog/BlogHome/index'
-import BlogFooter from '../../src/components/Layout/Footers/BlogFooter/index'
+import BlogFooter from '@@components/Layout/Footers/BlogFooter/index'
 
 const BlogPage = () => {
   return (

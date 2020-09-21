@@ -133,23 +133,24 @@ const NavLinks = ({ isLoggedIn = false }) => {
           <TransparentOverlay onMouseEnter={handleClose} />
         </Portal>
       )}
-      <Popper
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={handleClose}
-        className="PrimaryLinks__popper"
-        disablePortal
-        keepMounted
-        placement="bottom-end"
-        modifiers={{
-          computeStyle: {
-            gpuAcceleration: false,
-          },
-        }}
-      >
-        {dropdownOptions[openDropdown] &&
-          dropdownOptions[openDropdown]({ isLoggedIn })}
-      </Popper>
+      {dropdownOptions[openDropdown] && (
+        <Popper
+          anchorEl={anchorEl}
+          open={!!anchorEl}
+          onClose={handleClose}
+          className="PrimaryLinks__popper"
+          disablePortal
+          keepMounted
+          placement="bottom-end"
+          modifiers={{
+            computeStyle: {
+              gpuAcceleration: false,
+            },
+          }}
+        >
+          {dropdownOptions[openDropdown]({ isLoggedIn })}
+        </Popper>
+      )}
     </StyledPrimaryLinks>
   )
 }

@@ -12,7 +12,7 @@ const { AdminUIApp } = require('@keystonejs/app-admin-ui')
 const { KnexAdapter } = require('@keystonejs/adapter-knex')
 
 const models = require('./models')
-const seeds = require('./data/seeds')
+const seedItems = require('./data/seeds')
 const { userIsAdmin } = require('./lib/access-control')
 
 function normalizePort(val) {
@@ -24,6 +24,7 @@ function normalizePort(val) {
 
 const app = express()
 const port = normalizePort(process.env.PORT || '4300')
+const isDev = process.env.NODE_ENV !== 'production'
 
 let dbConnected = false
 let server
@@ -33,8 +34,10 @@ const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
-  onConnect: async (keystone) => {
-    await keystone.createItems(seeds)
+  onConnect: async (ks) => {
+    if (isDev) {
+      seedItems(ks)
+    }
   },
 })
 
@@ -67,10 +70,10 @@ keystone
         enableDefaultRoute: true,
         authStrategy,
         // Only allow admin to access the UI:
-        // isAccessAllowed: userIsAdmin,
+        isAccessAllowed: userIsAdmin,
       }),
     ],
-    dev: process.env.NODE_ENV !== 'production',
+    dev: isDev,
     onConnect: () => {
       // executed when the connection to the DB is successful
       console.info('Connected to the database.')
@@ -88,7 +91,17 @@ keystone
       const address = server.address()
       const bind =
         typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`
-      console.log(`Slatam API listening on ${bind}`)
+      console.log(
+        `
+=======================================================
+    Slatam API listening on ${bind}.                        
+                                                            
+    Admin UI:           http://api.vcap.me                     
+    GraphQL Playground: http://api.vcap.me/admin/graphiql       
+=======================================================
+
+`
+      )
     })
 
     httpTerminator = createHttpTerminator({

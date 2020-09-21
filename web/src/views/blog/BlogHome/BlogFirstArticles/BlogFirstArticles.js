@@ -6,17 +6,17 @@ const previewArticles = [
   {
     title: 'How to grow your personal brand on youtube',
     imageUrl:
-      'https://www.iebschool.com/blog/wp-content/uploads/2019/09/IT-BUSINESS-PARTNER-1280x720.jpg',
+      'https://cdn.editage.com/insights/editagecom/production/styles/detail_page_image/public/greennnnnn_0.jpg?itok=W0-K23gy',
   },
   {
     title: 'How to grow your personal brand on youtube',
     imageUrl:
-      'https://www.iebschool.com/blog/wp-content/uploads/2019/09/IT-BUSINESS-PARTNER-1280x720.jpg',
+      'https://cdn.editage.com/insights/editagecom/production/styles/detail_page_image/public/greennnnnn_0.jpg?itok=W0-K23gy',
   },
   {
     title: 'How to grow your personal brand on youtube',
     imageUrl:
-      'https://www.iebschool.com/blog/wp-content/uploads/2019/09/IT-BUSINESS-PARTNER-1280x720.jpg',
+      'https://cdn.editage.com/insights/editagecom/production/styles/detail_page_image/public/greennnnnn_0.jpg?itok=W0-K23gy',
   },
 ]
 

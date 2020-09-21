@@ -1,7 +1,7 @@
-module.exports = {
-  Region: [
-    {
+module.exports = () => [
+  {
+    data: {
       name: 'America',
     },
-  ],
-}
+  },
+]

@@ -1,8 +1,12 @@
-module.exports = {
-  State: [
-    {
+module.exports = ({ countries }) => [
+  {
+    data: {
       name: 'Barinas',
-      country: { where: { name: 'Venezuela' } },
+      country: {
+        connect: {
+          id: countries.find((country) => country.name === 'Venezuela').id,
+        },
+      },
     },
-  ],
-}
+  },
+]

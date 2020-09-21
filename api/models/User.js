@@ -1,5 +1,10 @@
-const { Text, Select, Password, Relationship } = require('@keystonejs/fields')
-const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc')
+const {
+  Text,
+  Select,
+  Password,
+  Relationship,
+  DateTimeUtc,
+} = require('@keystonejs/fields')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsAdmin,
@@ -12,34 +17,34 @@ module.exports = {
     firstName: {
       schemaDoc: 'The firstname of the user',
       type: Text,
-      access: {
-        update: userIsTargetUser,
-      },
+      // access: {
+      //   update: userIsTargetUser,
+      // },
     },
     lastName: {
       schemaDoc: 'The lastname of the user',
       type: Text,
-      access: {
-        update: userIsTargetUser,
-      },
+      // access: {
+      //   update: userIsTargetUser,
+      // },
     },
     email: {
       schemaDoc: 'The email of the user',
       type: Text,
       isUnique: true,
       isRequired: true,
-      access: {
-        update: userIsTargetUser,
-      },
+      // access: {
+      //   update: userIsTargetUser,
+      // },
     },
     password: {
       schemaDoc: 'The password of the user',
       type: Password,
       isRequired: true,
-      access: {
-        read: userIsAdmin,
-        update: userIsTargetUser,
-      },
+      // access: {
+      //   read: userIsAdmin,
+      //   update: userIsTargetUser,
+      // },
     },
     permission: {
       schemaDoc: 'The level of permission the user has',
@@ -47,10 +52,10 @@ module.exports = {
       defaultValue: 'USER',
       options: ['ADMIN', 'MOD', 'USER'],
       isRequired: true,
-      access: {
-        read: userIsAdmin,
-        update: userIsAdmin,
-      },
+      // access: {
+      //   read: userIsAdmin,
+      //   update: userIsAdmin,
+      // },
     },
     company: {
       // [TODO]
@@ -68,9 +73,9 @@ module.exports = {
       defaultValue: 'BUYER',
       options: ['BUYER', 'SELLER', 'MIXED'],
       isRequired: true,
-      access: {
-        update: userIsTargetUser,
-      },
+      // access: {
+      //   update: userIsTargetUser,
+      // },
     },
     shoppingCart: {
       schemaDoc: 'The shopping cart of the user',
