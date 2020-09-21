@@ -37,9 +37,6 @@ const keystone = new Keystone({
   onConnect: async (ks) => {
     if (isDev) {
       seedItems(ks)
-      // seeds.forEach(async ({ listKey, items }) => {
-      //   await createItems({ keystone: keystonejs, listKey, items })
-      // })
     }
   },
 })
@@ -94,8 +91,17 @@ keystone
       const address = server.address()
       const bind =
         typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`
-      console.log(`Slatam API listening on ${bind}.
-      To access the Admin UI, visit http://api.vcap.me`)
+      console.log(
+        `
+=======================================================
+    Slatam API listening on ${bind}.                        
+                                                            
+    Admin UI:           http://api.vcap.me                     
+    GraphQL Playground: http://api.vcap.me/admin/graphiql       
+=======================================================
+
+`
+      )
     })
 
     httpTerminator = createHttpTerminator({

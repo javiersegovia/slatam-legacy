@@ -81,51 +81,21 @@ module.exports = async (keystone) => {
     returnFields: 'id, name',
   })
 
-  const userInfos = await createItems({
+  await createItems({
     keystone,
     listKey: 'UserInfo',
     items: userInfoSeeds({ users, languages }),
-    returnFields: 'id, name',
-  })
-
-  const userLocations = await createItems({
-    keystone,
-    listKey: 'UserLocation',
-    items: userInfoSeeds({ users, states }),
     // returnFields: 'id, name',
   })
+
+  await createItems({
+    keystone,
+    listKey: 'UserLocation',
+    items: userLocationSeeds({ users, states }),
+    // returnFields: 'id, name',
+  })
+
+  // NOTA: Si no se necesita utilizar la data de la seed (para ser usada en otra seed, por ejemplo) entonces
+  // no es necesario agregar el field de "returnFields", y tampoco es necesario asignar una variable a la función,
+  // sino sencillamente llamarla con un await por delante.
 }
-// { listKey: 'User', items: users },
-// userInfoSeeds,
-// userLocationSeeds,
-// userRatingSeeds,
-// userVerificationSeeds,
-// companySeeds,
-// companyRatingSeeds,
-// companyInfoSeeds,
-// companyLocationSeeds,
-// categorySeeds,
-// subcategorySeeds,
-// sellerReviewSeeds,
-// buyerReviewSeeds,
-// productSeeds,
-// productRatingSeeds,
-// productReviewSeeds,
-// productPriceRangeSeeds,
-// productQuickDetailsSeeds,
-// productUnitTypeSeeds,
-// productLogisticsSeeds,
-// productIncoTermSeeds,
-// productLeadTimeSeeds,
-// productLocationSeeds,
-// productQuestionSeeds,
-// productAnswerSeeds,
-// shoppingCartSeeds,
-// shoppingCartProductSeeds,
-// orderSeeds,
-// orderProductSeeds,
-// regionSeeds,
-// subregionSeeds,
-// countrySeeds,
-// stateSeeds,
-// languageSeeds

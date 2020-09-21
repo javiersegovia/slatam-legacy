@@ -1,4 +1,5 @@
 const utcDate = new Date(Date.now())
+// TODO Aisar: revisar el utcDate, que por alguna razón no se guarda bien al sedeear.
 
 module.exports = ({ languages, users }) => [
   {
@@ -9,7 +10,11 @@ module.exports = ({ languages, users }) => [
       languages: {
         connect: { id: languages.find((lang) => lang.name === 'English').id },
       },
-      belongsTo: { id: users.find((user) => user.firstName === 'admin').id },
+      belongsTo: {
+        connect: {
+          id: users.find((user) => user.firstName === 'admin').id,
+        },
+      },
     },
   },
 ]
