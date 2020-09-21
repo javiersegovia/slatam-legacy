@@ -1,13 +1,13 @@
 const striptags = require('striptags')
-const { Text, Checkbox, Integer, Relationship } = require('@keystonejs/fields')
+const { Checkbox, Integer, Relationship } = require('@keystonejs/fields')
+const { Markdown } = require('@keystonejs/fields-markdown')
 const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const { userIsAdmin } = require('../lib/access-control')
 
 module.exports = {
   fields: {
     body: {
-      // TODO: replace with Markdown field
-      type: Text,
+      type: Markdown,
       schemaDoc: 'The commentary',
       isRequired: true,
     },
