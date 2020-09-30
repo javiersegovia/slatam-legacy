@@ -14,8 +14,9 @@ NAME_AND_TAG_API       :=${PROJECT_ID}:api_${TAG}# Docker Image Name
 IMG_WEB_LATEST		 		 :=${PROJECT_ID}:web_prod
 IMG_API_LATEST		 		 :=${PROJECT_ID}:api_prod
 
-# eco:
-# 	@echo "Creating docker image... ${G_NAME_WEB} ${G_NAME_API}"
+eco:
+	@echo ${IMG_NAME_API} ${IMG_API_LATEST}
+
 
 install:
 	@docker-compose build --no-cache web
@@ -35,11 +36,9 @@ run-all:
 	@sudo docker-compose up
 
 build-web:
-	@cd web
 	@echo "Creating docker image for WEB... ${NAME_AND_TAG_WEB}"
-	@docker build -t ${NAME_AND_TAG_WEB} --target=prod -f web/Dockerfile .
-	@docker tag ${IMG_NAME_WEB} ${IMG_WEB_LATEST}
-	@cd ..
+	@docker build -t ${NAME_AND_TAG_WEB} --target=prod .
+	@docker tag ${NAME_AND_TAG_WEB} ${IMG_WEB_LATEST}
 
 build-api:
 	@echo "Creating docker image for API... ${NAME_AND_TAG_API}"
@@ -56,6 +55,7 @@ build-all:
 
 push:
 	@echo "Pushing docker images to container registry on ${PROJECT_ID} (???)"
+	@docker tag ${NAME_AND_TAG_WEB} ${IMG_WEB_LATEST}
 	@docker push ${PROJECT_ID}
 
 push-web:
