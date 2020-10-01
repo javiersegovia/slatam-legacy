@@ -62,19 +62,22 @@ const authStrategy = keystone.createAuthStrategy({
   list: 'User',
 })
 
-const admin = new AdminUIApp({
+const adminApp = new AdminUIApp({
+  authStrategy,
   name: 'Slatam API',
   enableDefaultRoute: true,
-  authStrategy,
   isAccessAllowed: userIsAdmin,
 })
 
+const gqlApp = new GraphQLApp()
+
+const apps = [adminApp, gqlApp]
+
 keystone
   .prepare({
-    apps: [admin, new GraphQLApp()],
+    apps,
     dev: isDev,
     onConnect: () => {
-      // executed when the connection to the DB is successful
       console.info('Connected to the database.')
       dbConnected = true
     },
@@ -87,7 +90,8 @@ keystone
     app.set('trust proxy', true)
   })
   .then(() => {
-    server = app.listen(port, () => {
+    server = app.listen(port, (error) => {
+      if (error) throw error
       if (isDev) {
         const address = server.address()
         const bind =
@@ -112,6 +116,10 @@ keystone
     httpTerminator = createHttpTerminator({
       server,
     })
+  })
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
   })
 
 /* #################################################### */
@@ -153,5 +161,5 @@ process.on('SIGTERM', function onSigterm() {
 
 module.exports = {
   keystone,
-  admin,
+  apps,
 }
