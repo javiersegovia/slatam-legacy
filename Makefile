@@ -37,13 +37,13 @@ run-all:
 build-web:
 	@cd web
 	@echo "Creating docker image for WEB... ${NAME_AND_TAG_WEB}"
-	@docker build -t ${NAME_AND_TAG_WEB} --target=prod -f web/Dockerfile .
+	@docker build -t ${NAME_AND_TAG_WEB} --target=prod web
 	@docker tag ${IMG_NAME_WEB} ${IMG_WEB_LATEST}
 	@cd ..
 
 build-api:
 	@echo "Creating docker image for API... ${NAME_AND_TAG_API}"
-	@docker build -t ${NAME_AND_TAG_API} --target=prod .
+	@docker build -t ${NAME_AND_TAG_API} --target=prod api
 	@docker tag ${IMG_NAME_API} ${IMG_API_LATEST}
 
 

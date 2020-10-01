@@ -104,7 +104,7 @@ FROM test as audit
 
 FROM source as prod
 
-RUN /slatam/node_modules/.bin/keystone --entry=server.js build
+RUN /slatam/node_modules/.bin/keystone build
 EXPOSE 4000
 
 CMD ["node", "server.js"]
