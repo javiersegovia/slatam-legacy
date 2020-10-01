@@ -52,8 +52,8 @@ if (models && models.length) {
 }
 
 // [TODO]
-// 1. add auth system and sessions to express
-// 2. add logger
+// 1. add auth system and sessions to express (Redis?)
+// 2. add logger (Pino? Errors to Sentry?)
 // 3. healthchecks
 // 4. add simple seeding for the first admin user
 
@@ -62,17 +62,16 @@ const authStrategy = keystone.createAuthStrategy({
   list: 'User',
 })
 
+const admin = new AdminUIApp({
+  name: 'Slatam API',
+  enableDefaultRoute: true,
+  authStrategy,
+  isAccessAllowed: userIsAdmin,
+})
+
 keystone
   .prepare({
-    apps: [
-      new GraphQLApp(),
-      new AdminUIApp({
-        enableDefaultRoute: true,
-        authStrategy,
-        // Only allow admin to access the UI:
-        isAccessAllowed: userIsAdmin,
-      }),
-    ],
+    apps: [admin, new GraphQLApp()],
     dev: isDev,
     onConnect: () => {
       // executed when the connection to the DB is successful
@@ -85,23 +84,29 @@ keystone
     // add keystone app middlewares to the express server
     await keystone.connect()
     app.use(middlewares)
+    app.set('trust proxy', true)
   })
   .then(() => {
     server = app.listen(port, () => {
-      const address = server.address()
-      const bind =
-        typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`
-      console.log(
-        `
-=======================================================
-    Slatam API listening on ${bind}.                        
-                                                            
-    Admin UI:           http://api.vcap.me                     
-    GraphQL Playground: http://api.vcap.me/admin/graphiql       
-=======================================================
+      if (isDev) {
+        const address = server.address()
+        const bind =
+          typeof address === 'string'
+            ? `pipe ${address}`
+            : `port ${address.port}`
 
-`
-      )
+        console.log(
+          `
+  =======================================================
+      Slatam API listening on ${bind}.                        
+                                                              
+      Admin UI:           http://api.vcap.me                     
+      GraphQL Playground: http://api.vcap.me/admin/graphiql       
+  =======================================================
+  
+  `
+        )
+      }
     })
 
     httpTerminator = createHttpTerminator({
@@ -148,4 +153,5 @@ process.on('SIGTERM', function onSigterm() {
 
 module.exports = {
   keystone,
+  admin,
 }
