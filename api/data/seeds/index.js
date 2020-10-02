@@ -1,4 +1,8 @@
-const { getItems, createItem, createItems } = require('@keystonejs/server-side-graphql-client')
+const {
+  getItems,
+  createItem,
+  createItems,
+} = require('@keystonejs/server-side-graphql-client')
 
 const usersSeeds = require('./users')
 const userInfoSeeds = require('./usersInfo')
@@ -38,58 +42,57 @@ const countrySeeds = require('./countries')
 const stateSeeds = require('./states')
 const languageSeeds = require('./languages')
 
-module.exports = async (keystone, isDev) => {
-
-  if (isDev) {
+module.exports = async (keystone) => {
+  if (process.env.NODE_ENV !== 'production') {
     const users = await createItems({
       keystone,
       listKey: 'User',
       items: usersSeeds(),
       returnFields: 'id, firstName',
     })
-  
+
     const languages = await createItems({
       keystone,
       listKey: 'Language',
       items: languageSeeds(),
       returnFields: 'id, name',
     })
-  
+
     const regions = await createItems({
       keystone,
       listKey: 'Region',
       items: regionSeeds(),
       returnFields: 'id, name',
     })
-  
+
     const subregions = await createItems({
       keystone,
       listKey: 'Subregion',
       items: subregionSeeds({ regions }),
       returnFields: 'id, name',
     })
-  
+
     const countries = await createItems({
       keystone,
       listKey: 'Country',
       items: countrySeeds({ subregions }),
       returnFields: 'id, name',
     })
-  
+
     const states = await createItems({
       keystone,
       listKey: 'State',
       items: stateSeeds({ countries }),
       returnFields: 'id, name',
     })
-  
+
     await createItems({
       keystone,
       listKey: 'UserInfo',
       items: userInfoSeeds({ users, languages }),
       // returnFields: 'id, name',
     })
-  
+
     await createItems({
       keystone,
       listKey: 'UserLocation',
@@ -102,8 +105,8 @@ module.exports = async (keystone, isDev) => {
       listKey: 'User',
       returnFields: 'name',
       where: {
-        email: process.env.ADMIN_EMAIL
-      }
+        email: process.env.ADMIN_EMAIL,
+      },
     })
 
     if (!adminUser) {
@@ -115,10 +118,8 @@ module.exports = async (keystone, isDev) => {
           email: process.env.ADMIN_EMAIL,
           password: process.env.ADMIN_PASSWORD,
         },
-        // returnFields: 'id',
       })
     }
-
   }
 
   // NOTA: Si no se necesita utilizar la data de la seed (para ser usada en otra seed, por ejemplo) entonces

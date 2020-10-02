@@ -49,7 +49,7 @@ keystone
     console.info('Connected to the database.')
     isDBConnected = true
 
-    seedItems(keystone)
+    await seedItems(keystone)
 
     app.use(middlewares)
     app.set('trust proxy', true)
