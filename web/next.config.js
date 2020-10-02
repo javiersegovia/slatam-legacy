@@ -15,7 +15,4 @@ module.exports = withImages({
     DEV_GRAPHQL_WS: process.env.DEV_GRAPHQL_WS,
     CONTACT_PHONE: process.env.CONTACT_PHONE,
   },
-  experimental: {
-    scss: true,
-  },
 })
