@@ -5,15 +5,9 @@ require('dotenv').config()
 
 const express = require('express')
 const { createHttpTerminator } = require('http-terminator')
-const { Keystone } = require('@keystonejs/keystone')
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password')
-const { GraphQLApp } = require('@keystonejs/app-graphql')
-const { AdminUIApp } = require('@keystonejs/app-admin-ui')
-const { KnexAdapter } = require('@keystonejs/adapter-knex')
 
-const models = require('./models')
+const { keystone, apps } = require('./index.js')
 const seedItems = require('./data/seeds')
-const { userIsAdmin } = require('./lib/access-control')
 
 function normalizePort(val) {
   const port = parseInt(val, 10)
@@ -22,72 +16,44 @@ function normalizePort(val) {
   return false
 }
 
-const app = express()
+function logSucessMessage(port) {
+  console.info(
+    `
+  =======================================================
+  Slatam API listening on ${port}.                        
+                                                          
+  Admin UI:           http://api.vcap.me                     
+  GraphQL Playground: http://api.vcap.me/admin/graphiql       
+  =======================================================
+
+  `
+  )
+}
+
 const port = normalizePort(process.env.PORT || '4300')
 const isDev = process.env.NODE_ENV !== 'production'
 
-let dbConnected = false
+let isDBConnected = false
 let server
 let httpTerminator
-
-const keystone = new Keystone({
-  name: 'Slatam API',
-  adapter: new KnexAdapter({ dropDatabase: true }),
-  cookieSecret: process.env.API_COOKIE_SECRET || 'default',
-  onConnect: async (ks) => {
-    seedItems(ks)
-  },
-})
-
-/**
- * Create the database models
- */
-
-if (models && models.length) {
-  models.forEach(([modelName, modelContent]) => {
-    keystone.createList(modelName, modelContent)
-  })
-}
-
-// [TODO]
-// 1. add auth system and sessions to express (Redis?)
-// 2. add logger (Pino? Errors to Sentry?)
-// 3. healthchecks
-// 4. add simple seeding for the first admin user
-
-const authStrategy = keystone.createAuthStrategy({
-  type: PasswordAuthStrategy,
-  list: 'User',
-})
-
-const adminApp = new AdminUIApp({
-  authStrategy,
-  name: 'Slatam API',
-  enableDefaultRoute: true,
-  isAccessAllowed: userIsAdmin,
-})
-
-const gqlApp = new GraphQLApp()
-
-const apps = [adminApp, gqlApp]
 
 keystone
   .prepare({
     apps,
     dev: isDev,
-    onConnect: () => {
-      console.info('Connected to the database.')
-      dbConnected = true
-    },
   })
   .then(async ({ middlewares }) => {
-    // Connect keystone to the database and
-    // add keystone app middlewares to the express server
     await keystone.connect()
+    const app = express()
+
+    console.info('Connected to the database.')
+    isDBConnected = true
+
+    seedItems(keystone)
+
     app.use(middlewares)
     app.set('trust proxy', true)
-  })
-  .then(() => {
+
     server = app.listen(port, (error) => {
       if (error) throw error
       if (isDev) {
@@ -97,17 +63,7 @@ keystone
             ? `pipe ${address}`
             : `port ${address.port}`
 
-        console.log(
-          `
-  =======================================================
-      Slatam API listening on ${bind}.                        
-                                                              
-      Admin UI:           http://api.vcap.me                     
-      GraphQL Playground: http://api.vcap.me/admin/graphiql       
-  =======================================================
-  
-  `
-        )
+        logSucessMessage(bind)
       }
     })
 
@@ -116,6 +72,7 @@ keystone
     })
   })
   .catch((error) => {
+    console.error('Found errors trying to start the web server')
     console.error(error)
     process.exit(1)
   })
@@ -128,13 +85,18 @@ keystone
 
 async function shutdown() {
   console.info('Starting graceful shutdown...')
+
   console.info('Closing connections on server...')
-  await httpTerminator.terminate() // This will close all the current connections
+  await httpTerminator.terminate()
   console.info('Connections closed!')
+
   console.info('Disconnecting from database...')
-  dbConnected = false
+
+  isDBConnected = false
   keystone.disconnect()
+
   console.info('Database connection closed.')
+
   console.info('Successful graceful shutdown.')
   process.exit()
 }
@@ -156,8 +118,3 @@ process.on('SIGTERM', function onSigterm() {
   )
   shutdown()
 })
-
-module.exports = {
-  keystone,
-  apps,
-}
