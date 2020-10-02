@@ -1,0 +1,12 @@
+.cache
+.git
+.env
+.env.secret
+.dockerignore
+coverage
+dist/
+docs/
+node_modules/
+npm-debug.log
+Dockerfile*
+docker-*.yml

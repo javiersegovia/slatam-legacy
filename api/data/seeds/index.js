@@ -1,4 +1,4 @@
-const { createItems } = require('@keystonejs/server-side-graphql-client')
+const { getItems, createItem, createItems } = require('@keystonejs/server-side-graphql-client')
 
 const usersSeeds = require('./users')
 const userInfoSeeds = require('./usersInfo')
@@ -38,62 +38,88 @@ const countrySeeds = require('./countries')
 const stateSeeds = require('./states')
 const languageSeeds = require('./languages')
 
-module.exports = async (keystone) => {
-  const users = await createItems({
-    keystone,
-    listKey: 'User',
-    items: usersSeeds(),
-    returnFields: 'id, firstName',
-  })
+module.exports = async (keystone, isDev) => {
 
-  const languages = await createItems({
-    keystone,
-    listKey: 'Language',
-    items: languageSeeds(),
-    returnFields: 'id, name',
-  })
+  if (isDev) {
+    const users = await createItems({
+      keystone,
+      listKey: 'User',
+      items: usersSeeds(),
+      returnFields: 'id, firstName',
+    })
+  
+    const languages = await createItems({
+      keystone,
+      listKey: 'Language',
+      items: languageSeeds(),
+      returnFields: 'id, name',
+    })
+  
+    const regions = await createItems({
+      keystone,
+      listKey: 'Region',
+      items: regionSeeds(),
+      returnFields: 'id, name',
+    })
+  
+    const subregions = await createItems({
+      keystone,
+      listKey: 'Subregion',
+      items: subregionSeeds({ regions }),
+      returnFields: 'id, name',
+    })
+  
+    const countries = await createItems({
+      keystone,
+      listKey: 'Country',
+      items: countrySeeds({ subregions }),
+      returnFields: 'id, name',
+    })
+  
+    const states = await createItems({
+      keystone,
+      listKey: 'State',
+      items: stateSeeds({ countries }),
+      returnFields: 'id, name',
+    })
+  
+    await createItems({
+      keystone,
+      listKey: 'UserInfo',
+      items: userInfoSeeds({ users, languages }),
+      // returnFields: 'id, name',
+    })
+  
+    await createItems({
+      keystone,
+      listKey: 'UserLocation',
+      items: userLocationSeeds({ users, states }),
+      // returnFields: 'id, name',
+    })
+  } else {
+    const [adminUser] = await getItems({
+      keystone,
+      listKey: 'User',
+      returnFields: 'name',
+      where: {
+        email: process.env.ADMIN_EMAIL
+      }
+    })
 
-  const regions = await createItems({
-    keystone,
-    listKey: 'Region',
-    items: regionSeeds(),
-    returnFields: 'id, name',
-  })
+    if (!adminUser) {
+      await createItem({
+        keystone,
+        listKey: 'User',
+        item: {
+          name: 'Admin',
+          email: process.env.ADMIN_EMAIL,
+          password: process.env.ADMIN_PASSWORD,
+        },
+        // returnFields: 'id',
+      })
+    }
 
-  const subregions = await createItems({
-    keystone,
-    listKey: 'Subregion',
-    items: subregionSeeds({ regions }),
-    returnFields: 'id, name',
-  })
-
-  const countries = await createItems({
-    keystone,
-    listKey: 'Country',
-    items: countrySeeds({ subregions }),
-    returnFields: 'id, name',
-  })
-
-  const states = await createItems({
-    keystone,
-    listKey: 'State',
-    items: stateSeeds({ countries }),
-    returnFields: 'id, name',
-  })
-
-  await createItems({
-    keystone,
-    listKey: 'UserInfo',
-    items: userInfoSeeds({ users, languages }),
-    // returnFields: 'id, name',
-  })
-
-  await createItems({
-    keystone,
-    listKey: 'UserLocation',
-    items: userLocationSeeds({ users, states }),
-    // returnFields: 'id, name',
-  })
+  }
 
   // NOTA: Si no se necesita utilizar la data de la seed (para ser usada en otra seed, por ejemplo) entonces
   // no es necesario agregar el field de "returnFields", y tampoco es necesario asignar una variable a la función,

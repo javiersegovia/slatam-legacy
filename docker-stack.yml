@@ -19,7 +19,7 @@ services:
     env_file: .env
     command: bash -c "../node_modules/.bin/next start"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=3000
     deploy:
       mode: replicated
@@ -45,7 +45,7 @@ services:
     env_file: .env
     command: bash -c "node server.js"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DISABLE_LOGGING=true
       - PORT=4000
     deploy:
@@ -111,11 +111,15 @@ services:
     image: postgres:12.2
     networks:
       - server
-    env_file: .env
+    # env_file: .env
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER_FILE: /run/secrets/db-user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      POSTGRES_DB_FILE: /run/secrets/db-name
+    secrets:
+      - db-user
+      - db-password
+      - db-name
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
@@ -169,6 +173,17 @@ services:
 #   rexray_do_token:
 #     external: true
 #     name: rexray_do_token
+
+secrets:
+  db-name:
+    file: ./.secrets/db-name
+    # name: db-name
+  db-user:
+    file: ./.secrets/db-user
+    # name: db-user
+  db-password:
+    file: ./.secrets/db-password
+    # name: db-password
 
 volumes:
   db-data:

@@ -35,9 +35,7 @@ const keystone = new Keystone({
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
   onConnect: async (ks) => {
-    if (isDev) {
-      seedItems(ks)
-    }
+    seedItems(ks)
   },
 })
 
