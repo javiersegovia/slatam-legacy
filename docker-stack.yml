@@ -42,6 +42,7 @@ services:
     volumes:
       - ./api:/slatam/api
       - /slatam/api/node_modules
+      - /slatam/api/dist
     env_file: .env
     command: bash -c "node server.js"
     environment:
@@ -54,7 +55,7 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: proxy
-        traefik.http.routers.api.rule: Host(`api.slatam.com`)
+        traefik.http.routers.api.rule: Host(`www.api.slatam.com`) || Host(`api.slatam.com`)
         # this will open service to :80, 'web' here is the entrypoint, not the service name
         traefik.http.routers.api.entryPoints: web
         traefik.http.routers.api.service: api
@@ -96,6 +97,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints: [node.role == manager]
       labels:
         traefik.enable: "true"
         traefik.docker.network: proxy

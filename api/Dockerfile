@@ -105,14 +105,7 @@ FROM test as audit
 FROM source as prod
 
 ENV NODE_ENV=production
-# RUN /slatam/node_modules/.bin/keystone --entry=server.js build
-
-# RUN ls
-# RUN cat package.json
-# RUN ls node_modules
-# RUN ls /slatam/node_modules/.bin
-
-# RUN yarn build
+RUN /slatam/node_modules/.bin/keystone build
 
 EXPOSE 4000
 
