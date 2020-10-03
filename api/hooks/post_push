@@ -1,7 +1,12 @@
 #!/bin/bash
 SHORTHASH="$(git log -1 --pretty=%H)"
-echo $SHORTHASH
-echo $DOCKER_REPO:api_prod_$SHORTHASH
+TAG="api_prod_${SHORTHASH}"
 
+echo $SHORTHASH
+echo $DOCKER_REPO:$TAG
+echo $IMAGE_NAME
+
+docker tag $IMAGE_NAME $DOCKER_REPO:$TAG
+docker push $DOCKER_REPO:$TAG
 # docker build -t ${DOCKER_IMAGE_REPO}:web_prod_${COMMIT_ID} web --target=prod
 # echo "Web built!"
