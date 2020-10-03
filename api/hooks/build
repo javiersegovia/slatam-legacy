@@ -1,2 +1,7 @@
 #!/bin/bash
-docker build -f $DOCKERFILE_PATH -t $DOCKER_REPO:api_prod_$SOURCE_COMMIT . --target=prod
+SHORTHASH="$(git log -1 --pretty=%H)"
+echo $SHORTHASH
+echo $DOCKER_REPO:api_prod_$SHORTHASH
+
+# docker build -t ${DOCKER_IMAGE_REPO}:web_prod_${COMMIT_ID} web --target=prod
+# echo "Web built!"
