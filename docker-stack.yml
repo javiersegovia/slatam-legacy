@@ -8,7 +8,7 @@ x-default-opts: &default-opts
 services:
   web:
     <<: *default-opts
-    image: javiersegovia/slatam:web_prod
+    image: ${DOCKER_IMAGE_REPO}:web_prod_${COMMIT_ID}
     networks:
       - proxy
       - client
@@ -25,17 +25,25 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: proxy
-        traefik.http.routers.web.rule: Host(`www.slatam.com`) || Host(`slatam.com`)
-        # this will open service to :80, 'web' here is the entrypoint, not the service name
-        traefik.http.routers.web.entryPoints: web
-        traefik.http.routers.web.service: web
-        traefik.http.services.web.loadbalancer.server.port: 3000
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+
+        - traefik.http.routers.web-http.rule=Host(`www.slatam.com`) || Host(`slatam.com`)
+        - traefik.http.routers.web-http.entrypoints=http
+
+        - traefik.http.routers.web-http.middlewares=https-redirect
+
+        - traefik.http.routers.web-https.rule=Host(`www.slatam.com`) || Host(`slatam.com`)
+        - traefik.http.routers.web-https.entrypoints=https
+
+        - traefik.http.routers.web-https.tls=true
+        - traefik.http.routers.web-https.tls.certresolver=le
+
+        - traefik.http.services.web-https-service.loadbalancer.server.port=3000
 
   api:
     <<: *default-opts
-    image: javiersegovia/slatam:api_prod
+    image: ${DOCKER_IMAGE_REPO}:api_prod_${COMMIT_ID}
     networks:
       - proxy
       - server
@@ -53,14 +61,22 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: proxy
-        traefik.http.routers.api.rule: Host(`www.api.slatam.com`) || Host(`api.slatam.com`)
-        # this will open service to :80, 'web' here is the entrypoint, not the service name
-        traefik.http.routers.api.entryPoints: web
-        traefik.http.routers.api.service: api
-        traefik.http.services.api.loadbalancer.server.port: 4000
-        traefik.http.services.api.loadbalancer.sticky: "true"
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+
+        - traefik.http.routers.api-http.rule=Host(`api.slatam.com`)
+        - traefik.http.routers.api-http.entrypoints=http
+
+        - traefik.http.routers.api-http.middlewares=https-redirect
+
+        - traefik.http.routers.api-https.rule=Host(`api.slatam.com`)
+        - traefik.http.routers.api-https.entrypoints=https
+
+        - traefik.http.routers.api-https.tls=true
+        - traefik.http.routers.api-https.tls.certresolver=le
+
+        - traefik.http.services.api-https-service.loadbalancer.server.port=4000
+        - traefik.http.services.api-https-service.loadbalancer.sticky=true
 
   traefik:
     <<: *default-opts
@@ -69,52 +85,68 @@ services:
       - proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - acme:/certificates
     ports:
       - 80:80
       - 443:443
     command:
       - --providers.docker
       - --providers.docker.network=proxy
-      - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.exposedByDefault=false
       - --providers.docker.watch
       - --providers.docker.swarmMode=true
+      - --entryPoints.http.address=:80
+      - --entryPoints.https.address=:443
+      - --certificatesResolvers.le.acme.email=${TRAEFIK_ACME_EMAIL}
+      - --certificatesResolvers.le.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.le.acme.tlsChallenge=true
       - --api
       - --api.debug=true
       - --api.dashboard=true
-      - --api.insecure=true
-      - --entryPoints.web.address=:80
-      - --entryPoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls=true
-      # - --entrypoints.web.http.redirections.entryPoint.to=websecure # force HTTPS
-      # - --entrypoints.web.http.tls.certresolver=default
-      ## optional LetsEncrypt settings
-      # - --certificatesResolvers.default.acme.email=${TRAEFIK_ACME_EMAIL}
-      # - --certificatesResolvers.default.acme.storage=/etc/traefik/acme/acme.json
-      # - --certificatesResolvers.default.acme.tlsChallenge=true
-      # - --certificatesResolvers.default.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
-      # - --certificatesResolvers.default.acme.caServer=https://acme-v02.api.letsencrypt.org/directory
+
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints: [node.role == manager]
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: proxy
-        traefik.http.routers.traefik.rule: Host(`traefik.slatam.com`)
-        traefik.http.routers.traefik.entryPoints: web
-        traefik.http.routers.traefik.service: api@internal
-        traefik.http.services.traefik.loadbalancer.server.port: 8080
-        # traefik.http.routers.traefik.middlewares: auth
-        # traefik.http.middlewares.auth.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_HASHED_PASSWORD}
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+
+        - traefik.http.middlewares.admin-auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_HASHED_PASSWORD}
+
+        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+
+        - traefik.http.routers.traefik-public-http.rule=Host(`traefik.slatam.com`)
+        - traefik.http.routers.traefik-public-http.entrypoints=http
+        - traefik.http.routers.traefik-public-http.middlewares=https-redirect
+
+        # traefik-https the actual router using HTTPS
+        - traefik.http.routers.traefik-public-https.rule=Host(`traefik.slatam.com`)
+        - traefik.http.routers.traefik-public-https.entrypoints=https
+        - traefik.http.routers.traefik-public-https.tls=true
+
+        # Use the "le" (Let's Encrypt) resolver created below
+        - traefik.http.routers.traefik-public-https.tls.certresolver=le
+
+        # Use the special Traefik service api@internal with the web UI/Dashboard
+        - traefik.http.routers.traefik-public-https.service=api@internal
+
+        # Enable HTTP Basic auth, using the middleware created above
+        - traefik.http.routers.traefik-public-https.middlewares=admin-auth
+        
+        # Define the port inside of the Docker service to use
+        - traefik.http.services.traefik-public-https-service.loadbalancer.server.port=8080
+  
+        # traefik.http.routers.traefik.middlewares: auth"
+        # traefik.http.middlewares.auth.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_HASHED_PASSWORD}"
 
   db:
     <<: *default-opts
     image: postgres:12.2
     networks:
       - server
-    # env_file: .env
     environment:
       POSTGRES_USER_FILE: /run/secrets/db-user
       POSTGRES_PASSWORD_FILE: /run/secrets/db-password
@@ -150,12 +182,17 @@ services:
         # place on managers when not using agent, place on workers if using agent
         constraints: [node.role == manager]
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: proxy
-        traefik.http.routers.portainer.rule: Host(`portainer.slatam.com`)
-        traefik.http.routers.portainer.entryPoints: web
-        traefik.http.routers.portainer.service: portainer
-        traefik.http.services.portainer.loadbalancer.server.port: 9000
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+        - traefik.http.routers.portainer-http.rule=Host(`portainer.slatam.com`)
+        - traefik.http.routers.portainer-http.entrypoints=http
+        - traefik.http.routers.portainer-http.middlewares=https-redirect
+        - traefik.http.routers.portainer-https.rule=Host(`portainer.slatam.com`)
+        - traefik.http.routers.portainer-https.entrypoints=https
+        - traefik.http.routers.portainer-https.tls=true
+        - traefik.http.routers.portainer-https.tls.certresolver=le
+        - traefik.http.services.portainer-https-service.loadbalancer.server.port=9000
+
 
 #   plugin-rexray:
 #     <<: *default-opts
@@ -180,15 +217,13 @@ services:
 secrets:
   db-name:
     file: ./.secrets/db-name
-    # name: db-name
   db-user:
     file: ./.secrets/db-user
-    # name: db-user
   db-password:
     file: ./.secrets/db-password
-    # name: db-password
 
 volumes:
+  acme:
   db-data:
   portainer:
 
