@@ -25,7 +25,6 @@ function logSucessMessage(port) {
   Admin UI:           http://api.vcap.me                     
   GraphQL Playground: http://api.vcap.me/admin/graphiql       
   =======================================================
-
   `
   )
 }

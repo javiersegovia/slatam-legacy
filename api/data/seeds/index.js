@@ -51,75 +51,75 @@ module.exports = async (keystone) => {
       returnFields: 'id, firstName',
     })
 
-    const languages = await createItems({
-      keystone,
-      listKey: 'Language',
-      items: languageSeeds(),
-      returnFields: 'id, name',
-    })
+    //   const languages = await createItems({
+    //     keystone,
+    //     listKey: 'Language',
+    //     items: languageSeeds(),
+    //     returnFields: 'id, name',
+    //   })
 
-    const regions = await createItems({
-      keystone,
-      listKey: 'Region',
-      items: regionSeeds(),
-      returnFields: 'id, name',
-    })
+    //   const regions = await createItems({
+    //     keystone,
+    //     listKey: 'Region',
+    //     items: regionSeeds(),
+    //     returnFields: 'id, name',
+    //   })
 
-    const subregions = await createItems({
-      keystone,
-      listKey: 'Subregion',
-      items: subregionSeeds({ regions }),
-      returnFields: 'id, name',
-    })
+    //   const subregions = await createItems({
+    //     keystone,
+    //     listKey: 'Subregion',
+    //     items: subregionSeeds({ regions }),
+    //     returnFields: 'id, name',
+    //   })
 
-    const countries = await createItems({
-      keystone,
-      listKey: 'Country',
-      items: countrySeeds({ subregions }),
-      returnFields: 'id, name',
-    })
+    //   const countries = await createItems({
+    //     keystone,
+    //     listKey: 'Country',
+    //     items: countrySeeds({ subregions }),
+    //     returnFields: 'id, name',
+    //   })
 
-    const states = await createItems({
-      keystone,
-      listKey: 'State',
-      items: stateSeeds({ countries }),
-      returnFields: 'id, name',
-    })
+    //   const states = await createItems({
+    //     keystone,
+    //     listKey: 'State',
+    //     items: stateSeeds({ countries }),
+    //     returnFields: 'id, name',
+    //   })
 
-    await createItems({
-      keystone,
-      listKey: 'UserInfo',
-      items: userInfoSeeds({ users, languages }),
-      // returnFields: 'id, name',
-    })
+    //   await createItems({
+    //     keystone,
+    //     listKey: 'UserInfo',
+    //     items: userInfoSeeds({ users, languages }),
+    //     // returnFields: 'id, name',
+    //   })
 
-    await createItems({
-      keystone,
-      listKey: 'UserLocation',
-      items: userLocationSeeds({ users, states }),
-      // returnFields: 'id, name',
-    })
-  } else {
-    const [adminUser] = await getItems({
-      keystone,
-      listKey: 'User',
-      returnFields: 'name',
-      where: {
-        email: process.env.ADMIN_EMAIL,
-      },
-    })
+    //   await createItems({
+    //     keystone,
+    //     listKey: 'UserLocation',
+    //     items: userLocationSeeds({ users, states }),
+    //     // returnFields: 'id, name',
+    //   })
+    // } else {
+    //   const [adminUser] = await getItems({
+    //     keystone,
+    //     listKey: 'User',
+    //     returnFields: 'name',
+    //     where: {
+    //       email: process.env.ADMIN_EMAIL,
+    //     },
+    //   })
 
-    if (!adminUser) {
-      await createItem({
-        keystone,
-        listKey: 'User',
-        item: {
-          name: 'Admin',
-          email: process.env.ADMIN_EMAIL,
-          password: process.env.ADMIN_PASSWORD,
-        },
-      })
-    }
+    //   if (!adminUser) {
+    //     await createItem({
+    //       keystone,
+    //       listKey: 'User',
+    //       item: {
+    //         name: 'Admin',
+    //         email: process.env.ADMIN_EMAIL,
+    //         password: process.env.ADMIN_PASSWORD,
+    //       },
+    //     })
+    //   }
   }
 
   // NOTA: Si no se necesita utilizar la data de la seed (para ser usada en otra seed, por ejemplo) entonces
