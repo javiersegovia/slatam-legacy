@@ -56,6 +56,8 @@ const authStrategy = keystone.createAuthStrategy({
   list: 'User',
 })
 
+const graphQlApp = new GraphQLApp()
+
 const adminApp = new AdminUIApp({
   name: 'Slatam API',
   enableDefaultRoute: true,
@@ -63,7 +65,7 @@ const adminApp = new AdminUIApp({
   // isAccessAllowed: userIsAdmin,
 })
 
-const apps = [adminApp, new GraphQLApp()]
+const apps = [graphQlApp, adminApp]
 
 module.exports = {
   keystone,
