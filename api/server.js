@@ -7,7 +7,6 @@ const express = require('express')
 const { createHttpTerminator } = require('http-terminator')
 
 const { keystone, apps } = require('./index.js')
-const seedItems = require('./data/seeds')
 
 function normalizePort(val) {
   const port = parseInt(val, 10)
@@ -48,8 +47,6 @@ keystone
 
     console.info('Connected to the database.')
     isDBConnected = true
-
-    await seedItems(keystone)
 
     app.use(middlewares)
     app.set('trust proxy', true)
