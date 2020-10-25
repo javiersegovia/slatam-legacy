@@ -7,12 +7,17 @@ const { KnexAdapter } = require('@keystonejs/adapter-knex')
 const { PasswordAuthStrategy } = require('@keystonejs/auth-password')
 
 const models = require('./models')
+const seedItems = require('./data/seeds')
 const { userIsAdmin } = require('./lib/access-control')
 
 const keystone = new Keystone({
   name: 'Slatam API',
   adapter: new KnexAdapter({ dropDatabase: true }),
   cookieSecret: process.env.API_COOKIE_SECRET || 'default',
+  onConnect: async (ks) => {
+    // Seed the DB
+    await seedItems(ks)
+  },
 })
 
 if (models && models.length) {
@@ -25,23 +30,22 @@ if (models && models.length) {
 // 1. add auth system and sessions to express (Redis?)
 // 2. add logger (Pino? Errors to Sentry?)
 // 3. healthchecks
-// 4. add simple seeding for the first admin user
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
   list: 'User',
 })
 
+const gqlApp = new GraphQLApp()
+
 const adminApp = new AdminUIApp({
   authStrategy,
   name: 'Slatam API',
   enableDefaultRoute: true,
-  isAccessAllowed: userIsAdmin,
+  // isAccessAllowed: userIsAdmin,
 })
 
-const gqlApp = new GraphQLApp()
-
-const apps = [adminApp, gqlApp]
+const apps = [gqlApp, adminApp]
 
 module.exports = {
   keystone,
