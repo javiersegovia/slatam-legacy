@@ -9,54 +9,72 @@ const { byTracking, atTracking } = require('@keystonejs/list-plugins')
 const {
   userIsAdmin,
   userIsMod,
+  userIsAdminOrMod,
   userIsTargetUser,
 } = require('../lib/access-control')
+
+const { validation } = require('../lib/validators')
 
 module.exports = {
   fields: {
     firstName: {
       schemaDoc: 'The firstname of the user',
       type: Text,
-      // access: {
-      //   update: userIsTargetUser,
-      // },
+      access: {
+        update: (payload) =>
+          userIsTargetUser(payload) || userIsAdminOrMod(payload),
+      },
+      hooks: {
+        validateInput: async ({ resolvedData, addFieldValidationError }) => {
+          resolvedData.email = validation
+            .validate(resolvedData.email)
+            .trim()
+            .normalizeEmail()
+            .isEmail()
+
+          return resolvedData
+        },
+      },
     },
     lastName: {
       schemaDoc: 'The lastname of the user',
       type: Text,
-      // access: {
-      //   update: userIsTargetUser,
-      // },
+      access: {
+        update: (payload) =>
+          userIsTargetUser(payload) || userIsAdminOrMod(payload),
+      },
     },
     email: {
       schemaDoc: 'The email of the user',
       type: Text,
       isUnique: true,
       isRequired: true,
-      // access: {
-      //   update: userIsTargetUser,
-      // },
+      access: {
+        update: (payload) =>
+          userIsTargetUser(payload) || userIsAdminOrMod(payload),
+      },
     },
     password: {
       schemaDoc: 'The password of the user',
       type: Password,
       isRequired: true,
-      // access: {
-      //   read: userIsAdmin,
-      //   update: userIsTargetUser,
-      // },
+      access: {
+        read: userIsAdmin,
+        update: (payload) =>
+          userIsTargetUser(payload) || userIsAdminOrMod(payload),
+      },
     },
-    // permission: {
-    //   schemaDoc: 'The level of permission the user has',
-    //   type: Select,
-    //   defaultValue: 'USER',
-    //   options: ['ADMIN', 'MOD', 'USER'],
-    //   isRequired: true,
-    // access: {
-    //   read: userIsAdmin,
-    //   update: userIsAdmin,
-    // },
-    // },
+    permission: {
+      schemaDoc: 'The level of permission the user has',
+      type: Select,
+      defaultValue: 'USER',
+      options: ['ADMIN', 'MOD', 'USER'],
+      isRequired: true,
+      access: {
+        read: userIsAdminOrMod,
+        update: userIsAdmin,
+      },
+    },
     // company: {
     //   // [TODO]
     //   // 1. put his company as a default member
@@ -116,9 +134,10 @@ module.exports = {
     // },
   },
   access: {
+    // TODO add if the user is login, cant create an user
     read: true,
     create: true,
-    delete: userIsMod,
+    delete: userIsAdmin,
     auth: true,
   },
   plugins: [atTracking(), byTracking()],
